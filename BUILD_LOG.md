@@ -95,3 +95,20 @@ scripts/       asset fetch/optimize scripts (build-time only)
 - Network probe: kenney.nl ✅, opengameart.org ✅, incompetech.com ✅, freesound.org ✅, registry.npmjs.org ✅, fonts.googleapis.com ❌ (proxy 404 — will fetch OFL fonts from the google/fonts GitHub mirror instead).
 - No ffmpeg/sox/imagemagick in container → bundle ready-made OGG/MP3; no transcoding pipeline.
 - Decision: art direction = "illustrated dark-fantasy gameboard": procedurally painted terrain (seeded, runtime-generated → deterministic), standee tokens with game-icons.net silhouettes, ornate journal-style DOM UI with OFL serif faces.
+
+### Build chronology (2026-07-14, continued)
+
+1. **Scaffold** — Vite/TS/Phaser project, strict tsconfig (`noUncheckedIndexedAccess`), ESLint, Vitest, Playwright; `start-game.sh`/`.bat` launchers. Core engine: seeded RNG (sfc32 + xmur3, named streams serialized into saves), grid geometry (5-10-5 diagonals, A*, Dijkstra reach, Amanatides–Woo LOS + corner-rule cover).
+2. **Rules engine** — dice/checks/damage/conditions/rests/point-buy/derivation as pure functions over typed data; 141 unit tests green before any UI existed.
+3. **Combat engine** — the hard part: an interruptible reaction *stack* (pending-prompt frames) so player reactions pause attack/movement pipelines at correct rule timing; weapon masteries, maneuvers, zones, Channel Divinity; `aiStep()` one-atomic-action design so reactions interrupt enemy turns; 18 AI archetypes with morale (flee/surrender).
+4. **Narrative systems** — dialogue runner (conditions/checks/interjections/effects), quests/clues/factions/approval, effect interpreter, persistence (IndexedDB versioned envelope + migrations).
+5. **Renderer** — procedural painted textures (tiles/walls/trees/props/tokens) generated at boot from the world seed; iso scene with fog, lighting, overlays, camera.
+6. **Assets** — OFL fonts via google/fonts mirror; 175 game-icons SVGs with per-author manifest; Kenney CC0 SFX; MacLeod CC-BY music re-encoded MP3→OGG (103 MB → 28 MB) with a pip-installed `imageio-ffmpeg` binary.
+7. **UI shell** — HUD, party rail, combat HUD (action bar, initiative rail, expandable honest log, reaction prompts), dialogue UI, 11 DOM panels, char creation (8 steps), main menu, ending screen, onboarding tips, glossary (78 entries).
+8. **Campaign content** — first attempt: a 7-agent parallel workflow; **it failed wholesale** (all subagents hit the session usage limit). Recovery: authored all areas in the main loop instead — Greyfen hub, Gloamwood, Drowned Causeway, Oath-Temple, Pact Chamber, camp; ~40 dialogue trees, ~60 interaction scripts, 6 puzzles, 20 encounters, companion arcs, reactive finale.
+9. **Mid-build incident** — the remote container's filesystem partially rolled back mid-session (three content files vanished, directories reverted to an earlier snapshot). Recovered all three files byte-identical by replaying `Write` operations from the session transcript; committed and pushed immediately after, and after every area thereafter.
+10. **Integration fixes discovered by tests/screenshots** — spawn prune/materialize on flag changes (parleys and scripted fights), entry points standing on walls, a dialogue dead-end, and the big visual one: game-icons SVGs ship with a solid background rect, which made every CSS mask/canvas silhouette render as a filled square — stripped the rects from all 173 files.
+11. **QA** — 183 unit tests (rules + content integrity + persistence + audio manifest), 8 Playwright flows at 1920×1080 (menu, creation, town, combat, dialogue, finale gating, endings, save/load round-trip), screenshot review of every showcase state.
+
+### Final state
+- `npm run typecheck` clean · `npm test` 183/183 · `npm run e2e` 8/8 · production build ~2.4 MB JS + 30 KB CSS + bundled assets.
