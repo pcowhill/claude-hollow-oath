@@ -1,0 +1,43 @@
+AUDIO LICENSES
+==============
+
+Sound effects
+-------------
+All sound effects in sfx/ are from Kenney.nl asset packs
+(RPG Audio, Impact Sounds, Interface Sounds, UI Audio),
+licensed under Creative Commons Zero (CC0): https://creativecommons.org/publicdomain/zero/1.0/
+https://kenney.nl
+
+Music
+-----
+All music tracks in music/ require the following attribution (CC BY 4.0):
+
+music-title.ogg:
+Music: "Long Note Two" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-town.ogg:
+Music: "Virtutes Instrumenti" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-forest.ogg:
+Music: "Ghost Story" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-marsh.ogg:
+Music: "Lightless Dawn" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-dungeon.ogg:
+Music: "Ossuary 5 - Rest" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-camp.ogg:
+Music: "Darkling" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-combat.ogg:
+Music: "Stormfront" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-boss.ogg:
+Music: "Killers" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-finale.ogg:
+Music: "Five Armies" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/
+
+music-somber.ogg:
+Music: "Anguish" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/

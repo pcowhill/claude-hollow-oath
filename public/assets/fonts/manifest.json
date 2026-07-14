@@ -1,0 +1,30 @@
+[
+  {
+    "family": "IM Fell English",
+    "files": ["imfellenglish/IMFeENrm28P.ttf", "imfellenglish/IMFeENit28P.ttf", "imfellenglish/OFL.txt"],
+    "license": "OFL-1.1",
+    "source": "https://github.com/google/fonts/tree/main/ofl/imfellenglish",
+    "author": "Igino Marini (iginomarini.com)"
+  },
+  {
+    "family": "IM Fell English SC",
+    "files": ["imfellenglishsc/IMFeENsc28P.ttf", "imfellenglishsc/OFL.txt"],
+    "license": "OFL-1.1",
+    "source": "https://github.com/google/fonts/tree/main/ofl/imfellenglishsc",
+    "author": "Igino Marini (iginomarini.com)"
+  },
+  {
+    "family": "Cinzel",
+    "files": ["cinzel/Cinzel[wght].ttf", "cinzel/OFL.txt"],
+    "license": "OFL-1.1",
+    "source": "https://github.com/google/fonts/tree/main/ofl/cinzel",
+    "author": "The Cinzel Project Authors / Natanael Gama (https://github.com/NDISCOVER/Cinzel)"
+  },
+  {
+    "family": "Alegreya",
+    "files": ["alegreya/Alegreya[wght].ttf", "alegreya/Alegreya-Italic[wght].ttf", "alegreya/OFL.txt"],
+    "license": "OFL-1.1",
+    "source": "https://github.com/google/fonts/tree/main/ofl/alegreya",
+    "author": "The Alegreya Project Authors / Juan Pablo del Peral, Huerta Tipografica (https://github.com/huertatipografica/Alegreya)"
+  }
+]

@@ -1,0 +1,867 @@
+{
+  "abjuration-shield": {
+    "author": "lorc",
+    "file": "shield-reflect.svg",
+    "sourcePath": "lorc/shield-reflect.svg"
+  },
+  "amulet": {
+    "author": "lorc",
+    "file": "gem-pendant.svg",
+    "sourcePath": "lorc/gem-pendant.svg"
+  },
+  "animated-armor": {
+    "author": "delapouite",
+    "file": "abdominal-armor.svg",
+    "sourcePath": "delapouite/abdominal-armor.svg"
+  },
+  "anvil": {
+    "author": "lorc",
+    "file": "anvil.svg",
+    "sourcePath": "lorc/anvil.svg"
+  },
+  "armor-upgrade": {
+    "author": "delapouite",
+    "file": "armor-upgrade.svg",
+    "sourcePath": "delapouite/armor-upgrade.svg"
+  },
+  "arrow": {
+    "author": "lorc",
+    "file": "broadhead-arrow.svg",
+    "sourcePath": "lorc/broadhead-arrow.svg"
+  },
+  "aura": {
+    "author": "lorc",
+    "file": "aura.svg",
+    "sourcePath": "lorc/aura.svg"
+  },
+  "backpack": {
+    "author": "lorc",
+    "file": "knapsack.svg",
+    "sourcePath": "lorc/knapsack.svg"
+  },
+  "bandit": {
+    "author": "darkzaitzev",
+    "file": "hooded-assassin.svg",
+    "sourcePath": "darkzaitzev/hooded-assassin.svg"
+  },
+  "barbarian": {
+    "author": "delapouite",
+    "file": "barbarian.svg",
+    "sourcePath": "delapouite/barbarian.svg"
+  },
+  "bard": {
+    "author": "delapouite",
+    "file": "harp.svg",
+    "sourcePath": "delapouite/harp.svg"
+  },
+  "bat": {
+    "author": "lorc",
+    "file": "evil-bat.svg",
+    "sourcePath": "lorc/evil-bat.svg"
+  },
+  "battle-axe": {
+    "author": "lorc",
+    "file": "battle-axe.svg",
+    "sourcePath": "lorc/battle-axe.svg"
+  },
+  "bear": {
+    "author": "delapouite",
+    "file": "bear-head.svg",
+    "sourcePath": "delapouite/bear-head.svg"
+  },
+  "bed": {
+    "author": "delapouite",
+    "file": "bed.svg",
+    "sourcePath": "delapouite/bed.svg"
+  },
+  "blight": {
+    "author": "lorc",
+    "file": "evil-tree.svg",
+    "sourcePath": "lorc/evil-tree.svg"
+  },
+  "blinded": {
+    "author": "skoll",
+    "file": "sight-disabled.svg",
+    "sourcePath": "skoll/sight-disabled.svg"
+  },
+  "bone": {
+    "author": "delapouite",
+    "file": "pelvis-bone.svg",
+    "sourcePath": "delapouite/pelvis-bone.svg"
+  },
+  "boots": {
+    "author": "lorc",
+    "file": "leather-boot.svg",
+    "sourcePath": "lorc/leather-boot.svg"
+  },
+  "breastplate": {
+    "author": "lorc",
+    "file": "breastplate.svg",
+    "sourcePath": "lorc/breastplate.svg"
+  },
+  "broadsword": {
+    "author": "lorc",
+    "file": "broadsword.svg",
+    "sourcePath": "lorc/broadsword.svg"
+  },
+  "burning": {
+    "author": "sbed",
+    "file": "fire.svg",
+    "sourcePath": "sbed/fire.svg"
+  },
+  "burning-dot": {
+    "author": "lorc",
+    "file": "burning-dot.svg",
+    "sourcePath": "lorc/burning-dot.svg"
+  },
+  "camp": {
+    "author": "lorc",
+    "file": "campfire.svg",
+    "sourcePath": "lorc/campfire.svg"
+  },
+  "chain-mail": {
+    "author": "willdabeast",
+    "file": "chain-mail.svg",
+    "sourcePath": "willdabeast/chain-mail.svg"
+  },
+  "character": {
+    "author": "delapouite",
+    "file": "person.svg",
+    "sourcePath": "delapouite/person.svg"
+  },
+  "charmed": {
+    "author": "lorc",
+    "file": "charm.svg",
+    "sourcePath": "lorc/charm.svg"
+  },
+  "chat-bubble": {
+    "author": "delapouite",
+    "file": "chat-bubble.svg",
+    "sourcePath": "delapouite/chat-bubble.svg"
+  },
+  "chest": {
+    "author": "delapouite",
+    "file": "chest.svg",
+    "sourcePath": "delapouite/chest.svg"
+  },
+  "cleric": {
+    "author": "delapouite",
+    "file": "sun-priest.svg",
+    "sourcePath": "delapouite/sun-priest.svg"
+  },
+  "cloak": {
+    "author": "delapouite",
+    "file": "cape.svg",
+    "sourcePath": "delapouite/cape.svg"
+  },
+  "club": {
+    "author": "delapouite",
+    "file": "wood-club.svg",
+    "sourcePath": "delapouite/wood-club.svg"
+  },
+  "coins": {
+    "author": "delapouite",
+    "file": "two-coins.svg",
+    "sourcePath": "delapouite/two-coins.svg"
+  },
+  "combat": {
+    "author": "lorc",
+    "file": "crossed-swords.svg",
+    "sourcePath": "lorc/crossed-swords.svg"
+  },
+  "crossbow": {
+    "author": "carl-olsen",
+    "file": "crossbow.svg",
+    "sourcePath": "carl-olsen/crossbow.svg"
+  },
+  "crown": {
+    "author": "lorc",
+    "file": "crown.svg",
+    "sourcePath": "lorc/crown.svg"
+  },
+  "crystal-ball": {
+    "author": "lorc",
+    "file": "crystal-ball.svg",
+    "sourcePath": "lorc/crystal-ball.svg"
+  },
+  "cultist": {
+    "author": "lorc",
+    "file": "cultist.svg",
+    "sourcePath": "lorc/cultist.svg"
+  },
+  "d20": {
+    "author": "delapouite",
+    "file": "dice-twenty-faces-twenty.svg",
+    "sourcePath": "delapouite/dice-twenty-faces-twenty.svg"
+  },
+  "dagger": {
+    "author": "lorc",
+    "file": "bowie-knife.svg",
+    "sourcePath": "lorc/bowie-knife.svg"
+  },
+  "deafened": {
+    "author": "delapouite",
+    "file": "human-ear.svg",
+    "sourcePath": "delapouite/human-ear.svg"
+  },
+  "death": {
+    "author": "sbed",
+    "file": "death-skull.svg",
+    "sourcePath": "sbed/death-skull.svg"
+  },
+  "dialogue": {
+    "author": "lorc",
+    "file": "conversation.svg",
+    "sourcePath": "lorc/conversation.svg"
+  },
+  "dire-wolf": {
+    "author": "lorc",
+    "file": "direwolf.svg",
+    "sourcePath": "lorc/direwolf.svg"
+  },
+  "door": {
+    "author": "delapouite",
+    "file": "door.svg",
+    "sourcePath": "delapouite/door.svg"
+  },
+  "drop": {
+    "author": "lorc",
+    "file": "drop.svg",
+    "sourcePath": "lorc/drop.svg"
+  },
+  "druid": {
+    "author": "delapouite",
+    "file": "oak-leaf.svg",
+    "sourcePath": "delapouite/oak-leaf.svg"
+  },
+  "dungeon-gate": {
+    "author": "delapouite",
+    "file": "dungeon-gate.svg",
+    "sourcePath": "delapouite/dungeon-gate.svg"
+  },
+  "exhausted": {
+    "author": "delapouite",
+    "file": "tired-eye.svg",
+    "sourcePath": "delapouite/tired-eye.svg"
+  },
+  "eye": {
+    "author": "lorc",
+    "file": "eyeball.svg",
+    "sourcePath": "lorc/eyeball.svg"
+  },
+  "fangs": {
+    "author": "skoll",
+    "file": "fangs.svg",
+    "sourcePath": "skoll/fangs.svg"
+  },
+  "fighter": {
+    "author": "lorc",
+    "file": "visored-helm.svg",
+    "sourcePath": "lorc/visored-helm.svg"
+  },
+  "fire-elemental": {
+    "author": "lorc",
+    "file": "fire-silhouette.svg",
+    "sourcePath": "lorc/fire-silhouette.svg"
+  },
+  "fire-ray": {
+    "author": "lorc",
+    "file": "fire-ray.svg",
+    "sourcePath": "lorc/fire-ray.svg"
+  },
+  "fireball": {
+    "author": "lorc",
+    "file": "fireball.svg",
+    "sourcePath": "lorc/fireball.svg"
+  },
+  "flail": {
+    "author": "delapouite",
+    "file": "flail.svg",
+    "sourcePath": "delapouite/flail.svg"
+  },
+  "fog": {
+    "author": "delapouite",
+    "file": "fog.svg",
+    "sourcePath": "delapouite/fog.svg"
+  },
+  "footprint": {
+    "author": "lorc",
+    "file": "footprint.svg",
+    "sourcePath": "lorc/footprint.svg"
+  },
+  "frightened": {
+    "author": "lorc",
+    "file": "terror.svg",
+    "sourcePath": "lorc/terror.svg"
+  },
+  "frozen-orb": {
+    "author": "lorc",
+    "file": "frozen-orb.svg",
+    "sourcePath": "lorc/frozen-orb.svg"
+  },
+  "gem": {
+    "author": "lorc",
+    "file": "cut-diamond.svg",
+    "sourcePath": "lorc/cut-diamond.svg"
+  },
+  "ghost": {
+    "author": "lorc",
+    "file": "ghost.svg",
+    "sourcePath": "lorc/ghost.svg"
+  },
+  "giant-spider": {
+    "author": "carl-olsen",
+    "file": "spider-alt.svg",
+    "sourcePath": "carl-olsen/spider-alt.svg"
+  },
+  "glaive": {
+    "author": "delapouite",
+    "file": "glaive.svg",
+    "sourcePath": "delapouite/glaive.svg"
+  },
+  "goblin": {
+    "author": "delapouite",
+    "file": "goblin-head.svg",
+    "sourcePath": "delapouite/goblin-head.svg"
+  },
+  "grappled": {
+    "author": "lorc",
+    "file": "grab.svg",
+    "sourcePath": "lorc/grab.svg"
+  },
+  "graveyard": {
+    "author": "delapouite",
+    "file": "graveyard.svg",
+    "sourcePath": "delapouite/graveyard.svg"
+  },
+  "greatsword": {
+    "author": "delapouite",
+    "file": "two-handed-sword.svg",
+    "sourcePath": "delapouite/two-handed-sword.svg"
+  },
+  "hag": {
+    "author": "cathelineau",
+    "file": "witch-face.svg",
+    "sourcePath": "cathelineau/witch-face.svg"
+  },
+  "halberd": {
+    "author": "lorc",
+    "file": "halberd.svg",
+    "sourcePath": "lorc/halberd.svg"
+  },
+  "handaxe": {
+    "author": "delapouite",
+    "file": "hatchet.svg",
+    "sourcePath": "delapouite/hatchet.svg"
+  },
+  "handcuffed": {
+    "author": "lorc",
+    "file": "handcuffs.svg",
+    "sourcePath": "lorc/handcuffs.svg"
+  },
+  "hanging-spider": {
+    "author": "lorc",
+    "file": "hanging-spider.svg",
+    "sourcePath": "lorc/hanging-spider.svg"
+  },
+  "heal": {
+    "author": "delapouite",
+    "file": "healing.svg",
+    "sourcePath": "delapouite/healing.svg"
+  },
+  "health-potion": {
+    "author": "delapouite",
+    "file": "health-potion.svg",
+    "sourcePath": "delapouite/health-potion.svg"
+  },
+  "heart": {
+    "author": "badges",
+    "file": "heart.svg",
+    "sourcePath": "badges/heart.svg"
+  },
+  "heart-plus": {
+    "author": "zeromancer",
+    "file": "heart-plus.svg",
+    "sourcePath": "zeromancer/heart-plus.svg"
+  },
+  "helmet": {
+    "author": "lorc",
+    "file": "barbute.svg",
+    "sourcePath": "lorc/barbute.svg"
+  },
+  "holy-symbol": {
+    "author": "lorc",
+    "file": "holy-symbol.svg",
+    "sourcePath": "lorc/holy-symbol.svg"
+  },
+  "holy-water": {
+    "author": "delapouite",
+    "file": "holy-water.svg",
+    "sourcePath": "delapouite/holy-water.svg"
+  },
+  "hourglass": {
+    "author": "lorc",
+    "file": "hourglass.svg",
+    "sourcePath": "lorc/hourglass.svg"
+  },
+  "ice-bolt": {
+    "author": "lorc",
+    "file": "ice-bolt.svg",
+    "sourcePath": "lorc/ice-bolt.svg"
+  },
+  "invisible": {
+    "author": "lorc",
+    "file": "semi-closed-eye.svg",
+    "sourcePath": "lorc/semi-closed-eye.svg"
+  },
+  "journal": {
+    "author": "lorc",
+    "file": "open-book.svg",
+    "sourcePath": "lorc/open-book.svg"
+  },
+  "key": {
+    "author": "lorc",
+    "file": "key.svg",
+    "sourcePath": "lorc/key.svg"
+  },
+  "lantern": {
+    "author": "lorc",
+    "file": "lantern-flame.svg",
+    "sourcePath": "lorc/lantern-flame.svg"
+  },
+  "leather-armor": {
+    "author": "delapouite",
+    "file": "leather-armor.svg",
+    "sourcePath": "delapouite/leather-armor.svg"
+  },
+  "lightning": {
+    "author": "lorc",
+    "file": "power-lightning.svg",
+    "sourcePath": "lorc/power-lightning.svg"
+  },
+  "locked-chest": {
+    "author": "lorc",
+    "file": "locked-chest.svg",
+    "sourcePath": "lorc/locked-chest.svg"
+  },
+  "lockpicks": {
+    "author": "delapouite",
+    "file": "lockpicks.svg",
+    "sourcePath": "delapouite/lockpicks.svg"
+  },
+  "longbow": {
+    "author": "lorc",
+    "file": "high-shot.svg",
+    "sourcePath": "lorc/high-shot.svg"
+  },
+  "mace": {
+    "author": "delapouite",
+    "file": "flanged-mace.svg",
+    "sourcePath": "delapouite/flanged-mace.svg"
+  },
+  "magic-missile": {
+    "author": "lorc",
+    "file": "comet-spark.svg",
+    "sourcePath": "lorc/comet-spark.svg"
+  },
+  "magic-swirl": {
+    "author": "lorc",
+    "file": "magic-swirl.svg",
+    "sourcePath": "lorc/magic-swirl.svg"
+  },
+  "map": {
+    "author": "lorc",
+    "file": "treasure-map.svg",
+    "sourcePath": "lorc/treasure-map.svg"
+  },
+  "mephit": {
+    "author": "lorc",
+    "file": "smoking-orb.svg",
+    "sourcePath": "lorc/smoking-orb.svg"
+  },
+  "money-stack": {
+    "author": "delapouite",
+    "file": "money-stack.svg",
+    "sourcePath": "delapouite/money-stack.svg"
+  },
+  "monk": {
+    "author": "delapouite",
+    "file": "monk-face.svg",
+    "sourcePath": "delapouite/monk-face.svg"
+  },
+  "moon": {
+    "author": "lorc",
+    "file": "moon.svg",
+    "sourcePath": "lorc/moon.svg"
+  },
+  "morning-star": {
+    "author": "lorc",
+    "file": "spiked-mace.svg",
+    "sourcePath": "lorc/spiked-mace.svg"
+  },
+  "net": {
+    "author": "lorc",
+    "file": "fishing-net.svg",
+    "sourcePath": "lorc/fishing-net.svg"
+  },
+  "open-chest": {
+    "author": "skoll",
+    "file": "open-chest.svg",
+    "sourcePath": "skoll/open-chest.svg"
+  },
+  "orc": {
+    "author": "delapouite",
+    "file": "orc-head.svg",
+    "sourcePath": "delapouite/orc-head.svg"
+  },
+  "owl": {
+    "author": "lorc",
+    "file": "owl.svg",
+    "sourcePath": "lorc/owl.svg"
+  },
+  "padded-armor": {
+    "author": "lorc",
+    "file": "leather-vest.svg",
+    "sourcePath": "lorc/leather-vest.svg"
+  },
+  "paladin": {
+    "author": "lorc",
+    "file": "winged-shield.svg",
+    "sourcePath": "lorc/winged-shield.svg"
+  },
+  "pike": {
+    "author": "lorc",
+    "file": "spear-hook.svg",
+    "sourcePath": "lorc/spear-hook.svg"
+  },
+  "poison-fang": {
+    "author": "lorc",
+    "file": "snake-bite.svg",
+    "sourcePath": "lorc/snake-bite.svg"
+  },
+  "poisoned": {
+    "author": "lorc",
+    "file": "poison-bottle.svg",
+    "sourcePath": "lorc/poison-bottle.svg"
+  },
+  "potion": {
+    "author": "lorc",
+    "file": "standing-potion.svg",
+    "sourcePath": "lorc/standing-potion.svg"
+  },
+  "prone": {
+    "author": "sbed",
+    "file": "falling.svg",
+    "sourcePath": "sbed/falling.svg"
+  },
+  "quarterstaff": {
+    "author": "delapouite",
+    "file": "bo.svg",
+    "sourcePath": "delapouite/bo.svg"
+  },
+  "quiver": {
+    "author": "delapouite",
+    "file": "quiver.svg",
+    "sourcePath": "delapouite/quiver.svg"
+  },
+  "ranger": {
+    "author": "lorc",
+    "file": "bowman.svg",
+    "sourcePath": "lorc/bowman.svg"
+  },
+  "rapier": {
+    "author": "lorc",
+    "file": "sword-hilt.svg",
+    "sourcePath": "lorc/sword-hilt.svg"
+  },
+  "rat": {
+    "author": "delapouite",
+    "file": "rat.svg",
+    "sourcePath": "delapouite/rat.svg"
+  },
+  "raven": {
+    "author": "lorc",
+    "file": "crow-dive.svg",
+    "sourcePath": "lorc/crow-dive.svg"
+  },
+  "restrained": {
+    "author": "lorc",
+    "file": "manacles.svg",
+    "sourcePath": "lorc/manacles.svg"
+  },
+  "ring": {
+    "author": "delapouite",
+    "file": "ring.svg",
+    "sourcePath": "delapouite/ring.svg"
+  },
+  "robe": {
+    "author": "lorc",
+    "file": "robe.svg",
+    "sourcePath": "lorc/robe.svg"
+  },
+  "rogue": {
+    "author": "lorc",
+    "file": "hood.svg",
+    "sourcePath": "lorc/hood.svg"
+  },
+  "rope": {
+    "author": "delapouite",
+    "file": "rope-coil.svg",
+    "sourcePath": "delapouite/rope-coil.svg"
+  },
+  "round-shield": {
+    "author": "willdabeast",
+    "file": "round-shield.svg",
+    "sourcePath": "willdabeast/round-shield.svg"
+  },
+  "run": {
+    "author": "lorc",
+    "file": "run.svg",
+    "sourcePath": "lorc/run.svg"
+  },
+  "rune": {
+    "author": "lorc",
+    "file": "rune-stone.svg",
+    "sourcePath": "lorc/rune-stone.svg"
+  },
+  "save": {
+    "author": "delapouite",
+    "file": "save.svg",
+    "sourcePath": "delapouite/save.svg"
+  },
+  "scimitar": {
+    "author": "lorc",
+    "file": "machete.svg",
+    "sourcePath": "lorc/machete.svg"
+  },
+  "scroll": {
+    "author": "lorc",
+    "file": "scroll-unfurled.svg",
+    "sourcePath": "lorc/scroll-unfurled.svg"
+  },
+  "settings": {
+    "author": "lorc",
+    "file": "cog.svg",
+    "sourcePath": "lorc/cog.svg"
+  },
+  "shield": {
+    "author": "sbed",
+    "file": "shield.svg",
+    "sourcePath": "sbed/shield.svg"
+  },
+  "shortbow": {
+    "author": "delapouite",
+    "file": "bow-arrow.svg",
+    "sourcePath": "delapouite/bow-arrow.svg"
+  },
+  "sickle": {
+    "author": "delapouite",
+    "file": "sickle.svg",
+    "sourcePath": "delapouite/sickle.svg"
+  },
+  "skeleton": {
+    "author": "skoll",
+    "file": "skeleton.svg",
+    "sourcePath": "skoll/skeleton.svg"
+  },
+  "skills": {
+    "author": "delapouite",
+    "file": "skills.svg",
+    "sourcePath": "delapouite/skills.svg"
+  },
+  "skull": {
+    "author": "badges",
+    "file": "skull.svg",
+    "sourcePath": "badges/skull.svg"
+  },
+  "sleep-spell": {
+    "author": "delapouite",
+    "file": "night-sleep.svg",
+    "sourcePath": "delapouite/night-sleep.svg"
+  },
+  "sling": {
+    "author": "delapouite",
+    "file": "sling.svg",
+    "sourcePath": "delapouite/sling.svg"
+  },
+  "slowed": {
+    "author": "lorc",
+    "file": "snail.svg",
+    "sourcePath": "lorc/snail.svg"
+  },
+  "snake": {
+    "author": "delapouite",
+    "file": "rattlesnake.svg",
+    "sourcePath": "delapouite/rattlesnake.svg"
+  },
+  "snowflake": {
+    "author": "lorc",
+    "file": "snowflake-1.svg",
+    "sourcePath": "lorc/snowflake-1.svg"
+  },
+  "sparkles": {
+    "author": "delapouite",
+    "file": "sparkles.svg",
+    "sourcePath": "delapouite/sparkles.svg"
+  },
+  "spear": {
+    "author": "lorc",
+    "file": "stone-spear.svg",
+    "sourcePath": "lorc/stone-spear.svg"
+  },
+  "spell-book": {
+    "author": "delapouite",
+    "file": "spell-book.svg",
+    "sourcePath": "delapouite/spell-book.svg"
+  },
+  "spider": {
+    "author": "carl-olsen",
+    "file": "spider-face.svg",
+    "sourcePath": "carl-olsen/spider-face.svg"
+  },
+  "sprint": {
+    "author": "lorc",
+    "file": "sprint.svg",
+    "sourcePath": "lorc/sprint.svg"
+  },
+  "stairs": {
+    "author": "delapouite",
+    "file": "stairs.svg",
+    "sourcePath": "delapouite/stairs.svg"
+  },
+  "stiletto": {
+    "author": "lorc",
+    "file": "stiletto.svg",
+    "sourcePath": "lorc/stiletto.svg"
+  },
+  "stirge": {
+    "author": "delapouite",
+    "file": "fly.svg",
+    "sourcePath": "delapouite/fly.svg"
+  },
+  "stunned": {
+    "author": "delapouite",
+    "file": "knocked-out-stars.svg",
+    "sourcePath": "delapouite/knocked-out-stars.svg"
+  },
+  "sun": {
+    "author": "lorc",
+    "file": "sun.svg",
+    "sourcePath": "lorc/sun.svg"
+  },
+  "swap-bag": {
+    "author": "lorc",
+    "file": "swap-bag.svg",
+    "sourcePath": "lorc/swap-bag.svg"
+  },
+  "swarm": {
+    "author": "lorc",
+    "file": "insect-jaws.svg",
+    "sourcePath": "lorc/insect-jaws.svg"
+  },
+  "tent": {
+    "author": "delapouite",
+    "file": "camping-tent.svg",
+    "sourcePath": "delapouite/camping-tent.svg"
+  },
+  "tombstone": {
+    "author": "lorc",
+    "file": "tombstone.svg",
+    "sourcePath": "lorc/tombstone.svg"
+  },
+  "tome": {
+    "author": "lorc",
+    "file": "book-cover.svg",
+    "sourcePath": "lorc/book-cover.svg"
+  },
+  "torch": {
+    "author": "delapouite",
+    "file": "torch.svg",
+    "sourcePath": "delapouite/torch.svg"
+  },
+  "trade": {
+    "author": "lorc",
+    "file": "trade.svg",
+    "sourcePath": "lorc/trade.svg"
+  },
+  "trident": {
+    "author": "lorc",
+    "file": "trident.svg",
+    "sourcePath": "lorc/trident.svg"
+  },
+  "twig-blight": {
+    "author": "lorc",
+    "file": "dead-wood.svg",
+    "sourcePath": "lorc/dead-wood.svg"
+  },
+  "unconscious": {
+    "author": "lorc",
+    "file": "sleepy.svg",
+    "sourcePath": "lorc/sleepy.svg"
+  },
+  "upgrade": {
+    "author": "delapouite",
+    "file": "upgrade.svg",
+    "sourcePath": "delapouite/upgrade.svg"
+  },
+  "war-pick": {
+    "author": "delapouite",
+    "file": "war-pick.svg",
+    "sourcePath": "delapouite/war-pick.svg"
+  },
+  "warhammer": {
+    "author": "delapouite",
+    "file": "warhammer.svg",
+    "sourcePath": "delapouite/warhammer.svg"
+  },
+  "warlock": {
+    "author": "lorc",
+    "file": "cowled.svg",
+    "sourcePath": "lorc/cowled.svg"
+  },
+  "web": {
+    "author": "lorc",
+    "file": "spider-web.svg",
+    "sourcePath": "lorc/spider-web.svg"
+  },
+  "whip": {
+    "author": "lorc",
+    "file": "whip.svg",
+    "sourcePath": "lorc/whip.svg"
+  },
+  "wight": {
+    "author": "lorc",
+    "file": "crowned-skull.svg",
+    "sourcePath": "lorc/crowned-skull.svg"
+  },
+  "witch-flight": {
+    "author": "lorc",
+    "file": "witch-flight.svg",
+    "sourcePath": "lorc/witch-flight.svg"
+  },
+  "wizard": {
+    "author": "delapouite",
+    "file": "wizard-face.svg",
+    "sourcePath": "delapouite/wizard-face.svg"
+  },
+  "wizard-staff": {
+    "author": "lorc",
+    "file": "wizard-staff.svg",
+    "sourcePath": "lorc/wizard-staff.svg"
+  },
+  "wolf": {
+    "author": "lorc",
+    "file": "wolf-head.svg",
+    "sourcePath": "lorc/wolf-head.svg"
+  },
+  "wolf-howl": {
+    "author": "lorc",
+    "file": "wolf-howl.svg",
+    "sourcePath": "lorc/wolf-howl.svg"
+  },
+  "zombie": {
+    "author": "delapouite",
+    "file": "shambling-zombie.svg",
+    "sourcePath": "delapouite/shambling-zombie.svg"
+  }
+}

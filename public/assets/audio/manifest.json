@@ -1,0 +1,386 @@
+{
+  "sfx": [
+    {
+      "file": "arrow-hit.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "axe-chop.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "bell-toll.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "belt-equip.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "body-thud.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "book-close.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "book-open.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "chest-open.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "cloth-rustle-2.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "cloth-rustle.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "coins-2.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "coins.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "door-close.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "door-creak.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "door-open-2.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "door-open.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-dirt-1.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-dirt-2.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-dirt-3.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-dirt-4.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-grass-1.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-grass-2.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-grass-3.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-grass-4.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-stone-1.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-stone-2.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-stone-3.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-stone-4.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-wood-1.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "footstep-wood-2.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "knife-draw.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "knife-slice.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "leather-item.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "lock-pick.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "potion-break.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "potion-clink.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "punch-1.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "punch-2.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "punch-heavy.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "rock-hit.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "shield-block.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "spell-cast.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "spell-fizzle.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "sword-clash.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "sword-hit-1.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "sword-hit-2.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "sword-hit-3.ogg",
+      "source": "Kenney Impact Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-cancel.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-click-soft.ogg",
+      "source": "Kenney UI Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-click.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-close.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-confirm.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-error.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-hover.ogg",
+      "source": "Kenney UI Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-open.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-page-turn.ogg",
+      "source": "Kenney RPG Audio",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-question.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-scroll.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-select.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    },
+    {
+      "file": "ui-toggle.ogg",
+      "source": "Kenney Interface Sounds",
+      "license": "CC0"
+    }
+  ],
+  "music": [
+    {
+      "file": "music-title.ogg",
+      "originalTitle": "Long Note Two",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Long%20Note%20Two.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-town.ogg",
+      "originalTitle": "Virtutes Instrumenti",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Virtutes%20Instrumenti.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-forest.ogg",
+      "originalTitle": "Ghost Story",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ghost%20Story.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-marsh.ogg",
+      "originalTitle": "Lightless Dawn",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Lightless%20Dawn.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-dungeon.ogg",
+      "originalTitle": "Ossuary 5 - Rest",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ossuary%205%20-%20Rest.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-camp.ogg",
+      "originalTitle": "Darkling",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Darkling.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-combat.ogg",
+      "originalTitle": "Stormfront",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Stormfront.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-boss.ogg",
+      "originalTitle": "Killers",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Killers.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-finale.ogg",
+      "originalTitle": "Five Armies",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Five%20Armies.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    },
+    {
+      "file": "music-somber.ogg",
+      "originalTitle": "Anguish",
+      "artist": "Kevin MacLeod (incompetech.com)",
+      "license": "CC BY 4.0",
+      "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Anguish.mp3",
+      "modifications": "Re-encoded from source MP3 to OGG Vorbis (q2) to reduce size; otherwise unmodified."
+    }
+  ]
+}
