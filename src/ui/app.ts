@@ -366,6 +366,7 @@ export class GameApp implements UiHost {
   }
 
   askRestChoice(): void { this.panels.open('rest', {}); }
+  openPanel(name: string, params: Record<string, unknown> = {}): void { this.panels.open(name, params); }
   refreshJournal(): void { this.panels.refreshIfOpen(); }
   showLevelUpBadge(): void { this.hud.update(); }
 

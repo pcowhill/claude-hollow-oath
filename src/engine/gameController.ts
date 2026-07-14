@@ -49,6 +49,7 @@ export interface UiHost {
   showDefeat(): void;
   logEvent(text: string, detail?: string): void;
   askRestChoice(): void;
+  openPanel(name: string, params?: Record<string, unknown>): void;
   refreshJournal(): void;
   showLevelUpBadge(): void;
   onModeChange(mode: GameMode): void;
