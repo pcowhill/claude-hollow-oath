@@ -920,6 +920,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
           { kind: 'give-item', itemId: 'ravenna-letters' },
           { kind: 'set-flag', key: 'sorrel-released', value: true },
           { kind: 'set-flag', key: 'stakeout-done', value: true },
+          { kind: 'set-flag', key: 'stakeout-active', value: false },
           { kind: 'quest', questId: 'main-hollow-oath', op: 'objective-done', objectiveId: 'gather-evidence' },
           { kind: 'approval', companionId: 'ondine', delta: 2, reason: 'mercy at the graves' },
           { kind: 'approval', companionId: 'korrin', delta: -2, reason: 'letting culprits walk' },

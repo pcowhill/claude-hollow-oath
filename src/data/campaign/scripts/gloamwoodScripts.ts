@@ -154,6 +154,12 @@ export const GLOAMWOOD_SCRIPTS: Record<string, InteractionScript> = {
       { kind: 'give-item', itemId: 'temple-key-iron' },
       { kind: 'journal', title: 'The Waystation Papers', body: 'The cult waystation\'s map-table held Ilvane\'s operational letters, a black iron key, and — inexplicably — one of Master Drear\'s stolen research notebooks, annotated in a second hand.' },
     ];
+    if (gs.flags['waystation-cleared'] && gs.quests['side-tallow-trade']?.status === 'active') {
+      effects.push({ kind: 'quest', questId: 'side-tallow-trade', op: 'objective-done', objectiveId: 'confront-route' });
+      effects.push({ kind: 'quest', questId: 'side-tallow-trade', op: 'resolve', resolution: 'busted' });
+      effects.push({ kind: 'quest', questId: 'side-tallow-trade', op: 'complete' });
+      game.ui.logEvent('With the waystation taken and its candle-stock scattered, the tallow route through Greyfen\'s docks is dead at the source.');
+    }
     if (gs.quests['comp-elowen-marginalia']?.status === 'active' || gs.party.includes('elowen') || gs.flags['elowen-recruited']) {
       effects.push({ kind: 'inc-flag', key: 'elowen-notebooks', by: 1 });
       effects.push({ kind: 'quest', questId: 'comp-elowen-marginalia', op: 'start' });

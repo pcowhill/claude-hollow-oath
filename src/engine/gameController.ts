@@ -564,10 +564,29 @@ export class GameController {
     }
   }
 
+  /** spawn creatures whose conditions have become true since map load (scripted fights) */
+  materializeSpawns(encounterId: string): void {
+    for (const sp of this.map.def.spawns) {
+      if (sp.encounterId !== encounterId) continue;
+      if (this.spawnBySpawnId.has(sp.id)) continue;
+      if (this.map.state.removedSpawns.includes(sp.id)) continue;
+      if (this.map.state.clearedEncounters.includes(sp.encounterId)) continue;
+      if (!evalConditions(this.gs, sp.conditions)) continue;
+      const c = spawnMonster(sp.monsterId, sp.pos, this.rng('world'), {
+        id: `sp-${sp.id}`, name: sp.name, hidden: sp.hidden, stealthValue: sp.stealthValue,
+        isBoss: sp.isBoss, hp: sp.hpOverride,
+      });
+      this.mapMonsters.set(c.id, c);
+      this.spawnBySpawnId.set(sp.id, c.id);
+    }
+    this.ui.updateCreatures();
+  }
+
   startCombat(encounterId: string): void {
     if (this.mode === 'combat') return;
     const enc = this.map.def.encounters.find((e) => e.id === encounterId);
     if (!enc) return;
+    this.materializeSpawns(encounterId);
     this.mode = 'combat';
     this.combat = new CombatController(this, enc);
     this.combat.begin();
@@ -837,8 +856,28 @@ export class GameController {
     audio.duckMusic(1, 0.8);
     this.ui.closeDialogue();
     this.syncVitals();
+    this.pruneInvalidSpawns();
+    this.refreshNpcs();
     this.ui.updateHud();
     this.ui.updateCreatures();
+  }
+
+  /** despawn map monsters whose spawn conditions no longer hold (e.g. after a peaceful parley) */
+  pruneInvalidSpawns(): void {
+    if (this.mode === 'combat') return;
+    for (const [spawnId, cid] of [...this.spawnBySpawnId]) {
+      const sp = this.map.def.spawns.find((s) => s.id === spawnId);
+      if (!sp?.conditions) continue;
+      if (!evalConditions(this.gs, sp.conditions)) {
+        this.mapMonsters.delete(cid);
+        this.spawnBySpawnId.delete(spawnId);
+      }
+    }
+  }
+
+  /** re-evaluate NPC placement conditions (e.g. an NPC leaves after a scene) */
+  refreshNpcs(): void {
+    this.npcs = this.map.def.npcs.filter((n) => evalConditions(this.gs, n.conditions) && !this.gs.flags[`npc-removed:${n.id}`]);
   }
 
   // ------------------------------------------------------------ resting
