@@ -1,14 +1,13 @@
 /** Combat HUD: initiative rail, action bar, targeting, previews, reaction prompts, combat log. */
 import type { GameApp } from './app';
 import type { Pt } from '../core/grid';
-import { chebyshev, distanceFt, ptKey } from '../core/grid';
+import { chebyshev } from '../core/grid';
 import { icon, damageIcon } from './icons';
-import { spellById, SPELLS } from '../data/spells';
+import { spellById } from '../data/spells';
 import { itemById } from '../data/items';
 import { weaponProfile } from '../rules/attacks';
 import { MANEUVERS } from '../data/classes';
 import type { Creature, D20Roll } from '../rules/types';
-import { abilityMod } from '../rules/types';
 import type { LogEntry, ReactionKind } from '../engine/combatState';
 import type { CastOptions } from '../engine/combatSpells';
 
@@ -210,7 +209,6 @@ export class CombatHud {
 
   private classActionButtons(cur: Creature): string[] {
     const out: string[] = [];
-    const combat = this.combat()!;
     const build = this.app.gs.builds[cur.id];
     if (!build) return out;
     const res = cur.resources;

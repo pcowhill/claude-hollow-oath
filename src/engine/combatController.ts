@@ -3,7 +3,7 @@
  * encounter — participant assembly, surprise, difficulty adjustments, the
  * enemy-AI loop, victory/defeat/retry, and post-combat cleanup.
  */
-import { chebyshev, distanceFt, ptKey } from '../core/grid';
+import { chebyshev, ptKey } from '../core/grid';
 import type { Pt } from '../core/grid';
 import type { EncounterDef } from '../data/mapTypes';
 import { itemById } from '../data/items';

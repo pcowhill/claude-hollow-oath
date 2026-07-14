@@ -4,7 +4,7 @@ import type { GameApp } from '../app';
 import { classById, MANEUVERS, INVOCATIONS, FIGHTING_STYLES } from '../../data/classes';
 import { LEVEL4_FEATS, featById } from '../../data/feats';
 import { spellsForClass, spellById } from '../../data/spells';
-import { ABILITIES, ABILITY_NAMES, abilityMod, fmtMod } from '../../rules/types';
+import { ABILITIES, ABILITY_NAMES, abilityMod } from '../../rules/types';
 import type { AbilityKey, SkillKey } from '../../rules/types';
 import { finalAbilities, maxHpFor, spellSlotsFor, skillProfs } from '../../rules/derive';
 import { SKILL_NAMES } from '../../rules/types';

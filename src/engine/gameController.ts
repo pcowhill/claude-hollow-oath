@@ -12,7 +12,7 @@ import { getMapDef } from '../data/campaign/maps/index';
 import { companionById } from '../data/campaign/companions';
 import { DIALOGUES } from '../data/campaign/dialogues/index';
 import { itemById } from '../data/items';
-import type { ContainerDef, InteractableDef, MonsterSpawnDef, NpcPlacement, TrapDef } from '../data/mapTypes';
+import type { InteractableDef, NpcPlacement, TrapDef } from '../data/mapTypes';
 import { abilityCheck, passiveScore, savingThrow } from '../rules/checks';
 import { makePartyCreature } from '../rules/derive';
 import { applyDamage, rollDamage, heal } from '../rules/damage';

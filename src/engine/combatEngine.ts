@@ -4,11 +4,11 @@
  * decisions can interrupt attack/movement pipelines at the correct rule timing.
  */
 import type { Rng } from '../core/rng';
-import { chebyshev, distanceFt, findPath, ptEq, ptKey, reachable, coverAcBonus } from '../core/grid';
+import { chebyshev, distanceFt, findPath, ptKey, reachable, coverAcBonus } from '../core/grid';
 import type { PathNode, Pt } from '../core/grid';
 import type { MapRuntime } from './mapRuntime';
 import type { CharacterBuild } from '../rules/build';
-import { attackRoll, concentrationSave, initiativeRoll, resolveAdv, savingThrow } from '../rules/checks';
+import { attackRoll, concentrationSave, initiativeRoll, savingThrow } from '../rules/checks';
 import { applyCondition, CONDITION_NAMES, hasCondition, isIncapacitated, removeCondition, speedMultiplier } from '../rules/conditions';
 import { applyDamage, deathSavingThrow, grantTempHp, heal, rollDamage } from '../rules/damage';
 import type { DamageSpec } from '../rules/damage';

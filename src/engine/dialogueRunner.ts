@@ -1,6 +1,6 @@
 /** Dialogue session runtime: entry selection, condition filtering, checks, interjections, effects. */
 import type { Rng } from '../core/rng';
-import type { DialogueDef, DialogueNode, DialogueOption, NarrativeEffect } from '../data/narrativeTypes';
+import type { DialogueDef, DialogueNode, NarrativeEffect } from '../data/narrativeTypes';
 import { SKILL_ABILITY, SKILL_NAMES } from '../rules/types';
 import type { D20Roll } from '../rules/types';
 import type { Creature } from '../rules/types';

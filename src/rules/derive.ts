@@ -2,7 +2,7 @@
  * Derivation: CharacterBuild + equipment -> CreatureStats and runtime Creature.
  * Single source of truth for HP, AC, saves, skills, slots, resources.
  */
-import { classById, CLASSES } from '../data/classes';
+import { classById } from '../data/classes';
 import { speciesById } from '../data/species';
 import { backgroundById } from '../data/backgrounds';
 import { featById } from '../data/feats';

@@ -6,7 +6,7 @@ import type { SpellDef } from '../data/defs';
 import { attackRoll, savingThrow } from '../rules/checks';
 import { applyCondition, hasCondition, isIncapacitated } from '../rules/conditions';
 import { applyDamage, grantTempHp, heal, rollDamage } from '../rules/damage';
-import { spellAttackParts, spellMod, spellSaveDc } from '../rules/attacks';
+import { spellAttackParts, spellMod } from '../rules/attacks';
 import type { AdvSource, Creature, DamageRoll } from '../rules/types';
 import { abilityMod } from '../rules/types';
 import type { CombatEngine } from './combatEngine';

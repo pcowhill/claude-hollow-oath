@@ -44,7 +44,7 @@ export function neighbors8(p: Pt): Pt[] {
 export function lineCells(a: Pt, b: Pt): Pt[] {
   // Amanatides & Woo style traversal between cell centers.
   const cells: Pt[] = [];
-  let x0 = a.x + 0.5, y0 = a.y + 0.5;
+  const x0 = a.x + 0.5, y0 = a.y + 0.5;
   const x1 = b.x + 0.5, y1 = b.y + 0.5;
   const dx = x1 - x0, dy = y1 - y0;
   const steps = Math.max(Math.abs(dx), Math.abs(dy)) * 2;
