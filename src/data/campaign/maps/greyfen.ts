@@ -82,7 +82,7 @@ export const GREYFEN: MapDef = {
   containers: [
     { id: 'records-cabinet', pos: { x: 19, y: 4 }, kind: 'bookshelf', loot: [], label: 'patrol records' },
     { id: 'inn-lostfound', pos: { x: 4, y: 4 }, kind: 'crate', loot: [{ itemId: 'rations', qty: 2 }, { itemId: 'torch' }], label: 'lost-and-found crate' },
-    { id: 'warehouse-tallow', pos: { x: 12, y: 36 }, kind: 'crate', loot: [], label: 'freight marked "eel-oil"' },
+    { id: 'warehouse-tallow', pos: { x: 16, y: 35 }, kind: 'crate', loot: [{ itemId: 'oil-flask' }], label: 'warehouse freight' },
     { id: 'mission-alms-chest', pos: { x: 33, y: 4 }, kind: 'chest', locked: { dc: 12 }, loot: [{ itemId: 'holy-water', qty: 2 }], gold: 8, label: 'the alms chest' },
   ],
   traps: [],
@@ -93,10 +93,22 @@ export const GREYFEN: MapDef = {
     },
   ],
   interactables: [
-    { id: 'town-well', pos: { x: 22, y: 28 }, icon: 'well', label: 'The town well', kind: 'well', script: 'gf-well' },
+    { id: 'town-well', pos: { x: 22, y: 28 }, icon: 'drop', label: 'The town well', kind: 'well', script: 'gf-well' },
+    { id: 'warden-board', pos: { x: 25, y: 7 }, icon: 'map', label: 'The Warden muster board', kind: 'plaque', script: 'gf-warden-board' },
+    { id: 'archive-plaque', pos: { x: 7, y: 15 }, icon: 'tome', label: 'The founding-plaque', kind: 'plaque', script: 'gf-archive-plaque' },
+    { id: 'founder-graves', pos: { x: 35, y: 27 }, icon: 'tombstone', label: 'Founders\' Row — four stones, untouched', kind: 'grave', script: 'gf-founder-graves' },
+    { id: 'tallow-crates', pos: { x: 15, y: 36 }, icon: 'chest', label: 'Freight marked EEL-OIL, GRADE FAIR', kind: 'custom', script: 'gf-tallow-crates' },
+    {
+      id: 'grave-moss-spot', pos: { x: 35, y: 32 }, icon: 'oak-leaf', label: 'Silver-grey moss on the tended graves', kind: 'herb', script: 'gf-grave-moss',
+      conditions: [{ kind: 'quest-status', key: 'side-marshbane', value: 'active' }],
+    },
+    {
+      id: 'brew-pot', pos: { x: 5, y: 34 }, icon: 'potion', label: 'Gran Tally\'s brewing pot', kind: 'custom', script: 'gf-marshbane-brew',
+      conditions: [{ kind: 'quest-status', key: 'side-marshbane', value: 'active' }],
+    },
     { id: 'mission-flame', pos: { x: 37, y: 5 }, icon: 'torch', label: 'The Undying Flame', kind: 'brazier', script: 'gf-mission-flame' },
     { id: 'joram-grave-2', pos: { x: 36, y: 28 }, icon: 'tombstone', label: 'Joram Harrow\'s grave', kind: 'grave', script: 'gf-joram-grave-day' },
-    { id: 'funeral-bell', pos: { x: 32, y: 26 }, icon: 'bell', label: 'The graveyard bell', kind: 'bell', script: 'gf-second-funeral-bell', conditions: [{ kind: 'not-flag', key: 'milestone:crisis-resolved' }] },
+    { id: 'funeral-bell', pos: { x: 32, y: 26 }, icon: 'rune', label: 'The graveyard rite-bell', kind: 'bell', script: 'gf-second-funeral-bell', conditions: [{ kind: 'not-flag', key: 'milestone:crisis-resolved' }] },
     { id: 'cipher@bookshelf', pos: { x: 5, y: 15 }, icon: 'tome', label: 'The founders\' records cage', kind: 'custom', script: 'gf-founders-cipher' },
     { id: 'aldous-clock@statue', pos: { x: 5, y: 26 }, icon: 'hourglass', label: 'Aldous\'s unfinished clock', kind: 'custom', script: 'gf-aldous-clock' },
     { id: 'records-search@bookshelf', pos: { x: 19, y: 5 }, icon: 'journal', label: 'The patrol ledgers', kind: 'custom', script: 'gf-records-search' },
@@ -185,6 +197,16 @@ export const GREYFEN: MapDef = {
       id: 'first-arrival', rect: { x: 20, y: 32, w: 6, h: 5 }, oneShot: true,
       onEnterDialogue: 'greyfen-arrival',
       conditions: [{ kind: 'not-flag', key: 'greyfen-arrived' }],
+    },
+    {
+      id: 'town-flavor', rect: { x: 19, y: 24, w: 8, h: 6 }, oneShot: true,
+      onEnterScript: 'gf-town-arrival',
+      conditions: [{ kind: 'flag', key: 'greyfen-arrived' }],
+    },
+    {
+      id: 'stakeout-night', rect: { x: 31, y: 26, w: 12, h: 8 }, oneShot: true,
+      onEnterScript: 'gf-stakeout-region',
+      conditions: [{ kind: 'flag', key: 'stakeout-active' }, { kind: 'time', value: 'night' }, { kind: 'not-flag', key: 'stakeout-done' }],
     },
   ],
 };

@@ -237,8 +237,79 @@ export const GREYFEN_SCRIPTS: Record<string, InteractionScript> = {
     game.ui.playSfx('ui-confirm');
   },
 
+  // -------------------------------------------------- the defaced graves
+  'gf-defaced-stones': (game) => {
+    const gs = game.gs;
+    game.ui.logEvent('A row of unnamed graves: five stones, five clean rectangular voids where names used to be. The chisel-work is patient, professional, and — strangest of all — reverent. Someone knelt to do this.');
+    const effects: Parameters<typeof fx>[1] = [];
+    if (!gs.clues.includes('chisel-marks')) effects.push({ kind: 'add-clue', clueId: 'chisel-marks' });
+    if (!gs.flags['gf-stones-tallow']) {
+      gs.flags['gf-stones-tallow'] = true;
+      game.ui.logEvent('Grey wax has dripped and set along the cut edges — tallow, flecked with silver ash. Candles were burned here while the work was done. Ritual light, not lantern light.');
+      effects.push({ kind: 'add-clue', clueId: 'tallow-smell' });
+      effects.push({ kind: 'quest', questId: 'main-hollow-oath', op: 'objective-done', objectiveId: 'investigate-graves' });
+    }
+    if (!gs.flags['gf-stones-boots']) {
+      gs.flags['gf-stones-boots'] = true;
+      game.ui.logEvent('Behind the row, two sets of boot-prints climb the back wall — heavy with pale clay that belongs to the north road, not the town. The workers came from the Gloamwood side, and left the same way.');
+      effects.push({ kind: 'add-clue', clueId: 'boot-prints-north' });
+    }
+    if (effects.length) fx(game, effects);
+  },
+
+  // -------------------------------------------------- Nim's perch
+  'gf-nims-perch': (game) => {
+    const gs = game.gs;
+    if (gs.flags['nims-path']) {
+      game.ui.logEvent('Nim\'s wall-walk perch: fish-hooks, a sling, and a heroic collection of interesting pebbles. From up here you can see clear across the fen — including, on a clear dusk, the ring of dead trees north of the Gloamwood that Nim calls "the plughole."');
+      return;
+    }
+    game.ui.logEvent('A rickety ladder up to the wall-walk — clearly some child\'s private kingdom. Fish-hooks, a sling, pebbles sorted by rank. Whoever perches here sees everything that happens on this side of town.');
+    game.ui.logEvent('Nim, presumably. Worth talking to — watchers this dedicated always have testimony.');
+  },
+
+  // -------------------------------------------------- marshbane: the moss & the brew
+  'gf-grave-moss': (game) => {
+    if (game.gs.flags['gf-moss-taken']) {
+      game.ui.logEvent('The tended graves, trimmed and re-mossed. Tobin has taken over the watering with the grim pride of a man defending a reputation.');
+      return;
+    }
+    game.startDialogue('moss-gathering', null);
+  },
+
+  'gf-marshbane-brew': (game) => {
+    const gs = game.gs;
+    const q = gs.quests['side-marshbane'];
+    if (!q || q.status !== 'active') {
+      game.ui.logEvent('Gran Tally\'s brewing pot, black with decades of honest use.');
+      return;
+    }
+    if (!game.partyHasItem('bogmyrtle-sprig') || !game.partyHasItem('grave-moss')) {
+      game.ui.logEvent('The pot waits. The recipe wants bogmyrtle cut where the water runs clean, and grave-moss from tended stones. Gran Tally watches you inventory your satchels and says nothing, loudly.');
+      return;
+    }
+    gs.flags['marshbane-brewed'] = true;
+    game.ui.playSfx('potion-clink');
+    game.ui.logEvent('Gran Tally brews the way surgeons cut: no wasted motion, no conversation. The bogmyrtle goes in whole; the moss goes in last, crumbled "widdershins, for manners." The draught comes out the green-black of pond shadow and smells like a healthy childhood.');
+    game.ui.logEvent('At the leather-works, the three tanners take their doses grey-faced and swearing — and by the second cup, the grey is going out of them like a tide. Yara counts out coin with shaking hands and will not be argued out of it.');
+    const costly = !!gs.flags['moss-costly'];
+    fx(game, [
+      { kind: 'take-item', itemId: 'bogmyrtle-sprig', qty: 1 },
+      { kind: 'take-item', itemId: 'grave-moss', qty: 1 },
+      { kind: 'give-item', itemId: 'marshbane-draught' },
+      { kind: 'gold', delta: 30 },
+      { kind: 'quest', questId: 'side-marshbane', op: 'objective-done', objectiveId: 'brew-cure' },
+      { kind: 'quest', questId: 'side-marshbane', op: 'resolve', resolution: costly ? 'costly-cure' : 'clean-cure' },
+      { kind: 'quest', questId: 'side-marshbane', op: 'complete' },
+      { kind: 'faction', factionId: 'compact', delta: 3 },
+      { kind: 'journal', title: 'Marshbane, Brewed', body: costly
+        ? 'The cure worked; the tanners will live. The moss was stripped fast from tended graves, though, and Tobin has opinions about the quiet that followed. Gran Tally pocketed her share of the fee without comment, which is its own comment.'
+        : 'The cure worked the slow, honest way: graves tended first, moss taken after, three tanners pulled back from the grey. Gran Tally chalked the recipe on the leather-works wall — "spelling errors and all, that\'s how recipes survive."' },
+    ]);
+  },
+
   // -------------------------------------------------- flavor
-  'gf-town-well': (game) => {
+  'gf-well': (game) => {
     const gs = game.gs;
     game.ui.logEvent('The market well. The rope is new; the bucket is older than most marriages. A tin plate nailed to the frame reads: THE FEN GIVES. GIVE BACK.');
     if (!gs.flags['gf-well-listened']) {

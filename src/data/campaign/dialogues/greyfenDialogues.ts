@@ -1012,4 +1012,63 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
     },
   },
+
+  // ==================================================================== marshbane: the moss
+  'moss-gathering': {
+    id: 'moss-gathering',
+    nodes: {
+      start: {
+        speaker: '',
+        text: 'The grave-moss grows exactly where Gran Tally said: silver-grey and dense on the LOVED stones — the ones with fresh flowers, trimmed grass, a visiting path worn in the turf. It grows nowhere else. "It grows on graves that are loved — that\'s not poetry, that\'s the ingredient. Tend first, take after. The fen respects manners."\n\nTending the far graves properly — weeding, righting, watering — would take the rest of the day. Stripping the moss takes ten minutes.',
+        options: [
+          {
+            text: 'Tend first, take after: spend the day on the far graves, then harvest with manners.',
+            next: 'clean',
+          },
+          {
+            text: 'Strip the moss fast. The tanners are dying NOW; the graves can be tended later.',
+            next: 'costly',
+          },
+          { text: 'Leave the moss for now.', next: '#end' },
+        ],
+      },
+      clean: {
+        speaker: '',
+        text: 'You spend the afternoon at grave-keeping: weeds pulled, leaning stones righted, water carried up the hill in Tobin\'s good buckets while he supervises with wet eyes and a foreman\'s vocabulary. By dusk the far graves look VISITED — and the moss comes away willing, in thick silver mats that regrow behind your fingers almost as you watch.\n\nThe fen respects manners.',
+        options: [
+          {
+            text: 'Take what the recipe needs.', next: '#end',
+            effects: [
+              { kind: 'set-flag', key: 'gf-moss-taken', value: true },
+              { kind: 'give-item', itemId: 'grave-moss', qty: 2 },
+              { kind: 'quest', questId: 'side-marshbane', op: 'objective-done', objectiveId: 'gather-moss' },
+              { kind: 'advance-time' },
+              { kind: 'approval', companionId: 'ondine', delta: 2, reason: 'tending graves the right way' },
+              { kind: 'approval', companionId: 'korrin', delta: 1, reason: 'doing it properly' },
+              { kind: 'journal', title: 'Moss, With Manners', body: 'The far graves got their first real tending in months — and the grave-moss came away willing afterward. Tend first, take after. Now: the brewing, at Gran Tally\'s pot.' },
+            ],
+          },
+        ],
+      },
+      costly: {
+        speaker: '',
+        text: 'The moss comes up fast under a knife — and under it, the tended graves look suddenly threadbare, like a coat with the lining pulled out. By the time you leave, the silver is already dulling on the stones behind you, and Tobin is standing at the yard gate with his hat in his hands, not saying anything, which from Tobin is a shout.',
+        interjections: [
+          { companionId: 'ondine', text: '"The tanners live. I\'ll pray it even," Ondine says quietly. "But I\'ll pray it HERE, tonight, with a trowel." ', effects: [{ kind: 'approval', companionId: 'ondine', delta: -2, reason: 'stripping tended graves' }] },
+        ],
+        options: [
+          {
+            text: 'The living come first. Go.', next: '#end',
+            effects: [
+              { kind: 'set-flag', key: 'gf-moss-taken', value: true },
+              { kind: 'set-flag', key: 'moss-costly', value: true },
+              { kind: 'give-item', itemId: 'grave-moss', qty: 2 },
+              { kind: 'quest', questId: 'side-marshbane', op: 'objective-done', objectiveId: 'gather-moss' },
+              { kind: 'journal', title: 'Moss, Fast', body: 'The moss came off the tended graves in ten quick minutes. The tanners\' cure is within reach — and the graves went quiet in a way the gravedigger did not like. Now: the brewing, at Gran Tally\'s pot.' },
+            ],
+          },
+        ],
+      },
+    },
+  },
 };
