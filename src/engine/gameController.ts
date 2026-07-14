@@ -252,6 +252,17 @@ export class GameController {
 
   getExplored(): Set<string> { return new Set(decodeExplored(this.map.state.explored)); }
 
+  /** dev panel: mark the whole map explored */
+  revealMap(): void {
+    const all = new Set<string>();
+    for (let y = 0; y < this.map.def.height; y++) {
+      for (let x = 0; x < this.map.def.width; x++) all.add(`${x},${y}`);
+    }
+    this.map.state.explored = encodeExplored(all);
+    this.recomputeFog();
+    this.ui.updateFog();
+  }
+
   // ------------------------------------------------------------ perception & secrets
 
   private passivePerceptionSweep(): void {

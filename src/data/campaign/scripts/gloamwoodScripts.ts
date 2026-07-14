@@ -205,7 +205,7 @@ export const GLOAMWOOD_ENCOUNTER_SCRIPTS: Record<string, EncounterScript> = {
     if (event !== 'round-start') return;
     const vessa = combat.engine.combatants.find((c) => c.name === 'Vessa Marrow' && !c.dead);
     if (!vessa || combat.engine.state.fled.includes(vessa.id)) return;
-    if (vessa.stats.hp <= Math.floor(vessa.stats.maxHp * 0.35) && !vessa.effects.some((e) => e.id === 'vessa-flee')) {
+    if (vessa.hp <= Math.floor(vessa.stats.maxHp * 0.35) && !vessa.effects.some((e) => e.id === 'vessa-flee')) {
       vessa.effects.push({ id: 'vessa-flee', label: 'Bargain Broken', source: vessa.id, tags: ['commanded-flee'] });
       combat.game.gs.flags['vessa-fled'] = true;
       combat.game.gs.flags['vessa-gone'] = true;

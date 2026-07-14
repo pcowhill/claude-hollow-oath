@@ -235,7 +235,7 @@ export const TEMPLE_DIALOGUES: Record<string, DialogueDef> = {
         speaker: 'Quartermaster Sorrel',
         text: 'The weathered woman from the graveyard looks up from a requisition slate, and this time the hood is down. She doesn\'t reach for a weapon. She looks, if anything, relieved.\n\nThe mercy from the graveyard. I wondered if you\'d come. I\'ve been doing sums since that night — the kind the Unbinder won\'t hear read out.\n\nShe turns the slate around: two columns. LINKS STRUCK. And: COSTS.\n\nThe second column is longer.',
         options: [
-          { text: '"Read me the costs column, Sorrel."', next: 'costs' },
+          { text: '"Read me the costs column, Sorrel."', next: 'evidence-lands' },
           { text: '"Then stop adding to it. Walk out of here, now, and testify."', next: 'ask-defect' },
         ],
       },

@@ -255,7 +255,7 @@ export const TEMPLE: MapDef = {
   ],
   entryPoints: {
     main: [{ x: 27, y: 2 }, { x: 28, y: 2 }, { x: 29, y: 2 }, { x: 28, y: 3 }],
-    nims: [{ x: 24, y: 7 }, { x: 25, y: 7 }, { x: 24, y: 8 }, { x: 25, y: 8 }],
+    nims: [{ x: 24, y: 7 }, { x: 25, y: 7 }, { x: 24, y: 8 }, { x: 23, y: 8 }],
     flooded: [{ x: 2, y: 27 }, { x: 3, y: 27 }, { x: 2, y: 26 }, { x: 2, y: 28 }],
     'pact-return': [{ x: 28, y: 41 }, { x: 29, y: 41 }, { x: 30, y: 41 }, { x: 29, y: 40 }],
   },

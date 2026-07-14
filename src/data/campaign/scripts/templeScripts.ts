@@ -311,7 +311,7 @@ export const TEMPLE_ENCOUNTER_SCRIPTS: Record<string, EncounterScript> = {
     const st = combat.engine.state;
     const hollis = combat.engine.combatants.find((c) => c.name === 'Warden-Captain Hollis');
     if (!hollis || hollis.dead || st.scriptState?.['muster']) return;
-    if (hollis.stats.hp <= Math.floor(hollis.stats.maxHp / 2)) {
+    if (hollis.hp <= Math.floor(hollis.stats.maxHp / 2)) {
       st.scriptState = { ...st.scriptState, muster: true };
       combat.spawnReinforcement('skeleton', { x: 24, y: 27 }, 'Mustered Dead');
       combat.spawnReinforcement('skeleton', { x: 34, y: 27 }, 'Mustered Dead');
@@ -330,7 +330,7 @@ export const TEMPLE_ENCOUNTER_SCRIPTS: Record<string, EncounterScript> = {
     if (event !== 'round-start') return;
     const ilvane = combat.engine.combatants.find((c) => c.name === 'Ilvane the Unbinder');
     if (!ilvane || ilvane.dead || st.scriptState?.['unbound-dark']) return;
-    if (ilvane.stats.hp <= Math.floor(ilvane.stats.maxHp / 2)) {
+    if (ilvane.hp <= Math.floor(ilvane.stats.maxHp / 2)) {
       st.scriptState = { ...st.scriptState, 'unbound-dark': true };
       combat.spawnReinforcement('shadow', { x: 29, y: 39 }, 'Unbound Dark');
       combat.game.ui.logEvent('Bleeding, Ilvane tears a seal from her own notes and lets a piece of the unbound dark loose into the room. "You see?" she says, to no one alive. "It WANTS to be free. Everything down here wants to be free."');

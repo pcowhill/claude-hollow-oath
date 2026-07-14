@@ -497,7 +497,7 @@ export class CharCreationScreen {
       case 'cc-difficulty': this.difficulty = t.value as Difficulty; return;
       case 'cc-seed': this.seed = t.value; return;
       case 'cc-bonus-mode': {
-        this.bonusMode = t.value as '2-1';
+        this.bonusMode = t.value as '2-1' | '1-1-1';
         const bg = backgroundById(this.backgroundId);
         if (this.bonusMode === '1-1-1') {
           this.bgBonus = { [bg.abilities[0]]: 1, [bg.abilities[1]]: 1, [bg.abilities[2]]: 1 };

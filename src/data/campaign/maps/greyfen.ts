@@ -151,8 +151,8 @@ export const GREYFEN: MapDef = {
   ],
   entryPoints: {
     south: [{ x: 22, y: 36 }, { x: 23, y: 36 }, { x: 22, y: 37 }, { x: 23, y: 37 }],
-    'east-return': [{ x: 43, y: 19 }, { x: 43, y: 20 }, { x: 42, y: 19 }, { x: 42, y: 20 }],
-    pier: [{ x: 9, y: 35 }, { x: 10, y: 35 }, { x: 9, y: 36 }, { x: 10, y: 36 }],
+    'east-return': [{ x: 43, y: 19 }, { x: 43, y: 20 }, { x: 44, y: 19 }, { x: 44, y: 20 }],
+    pier: [{ x: 7, y: 35 }, { x: 8, y: 35 }, { x: 7, y: 36 }, { x: 8, y: 36 }],
     'camp-return': [{ x: 22, y: 35 }, { x: 23, y: 35 }, { x: 21, y: 35 }, { x: 24, y: 35 }],
   },
   lights: [

@@ -19,7 +19,7 @@ export function itemTooltip(app: GameApp, instId: string, forCharId?: string): s
   if (def.weapon) {
     const w = def.weapon;
     lines.push(`<div class='tt-line'>${w.damage}${def.bonus ? `+${def.bonus}` : ''} ${w.damageType}${w.versatileDamage ? ` (${w.versatileDamage} two-handed)` : ''}</div>`);
-    const props = [...w.properties];
+    const props: string[] = [...w.properties];
     if (w.rangeFt) props.push(`range ${w.rangeFt[0]}/${w.rangeFt[1]} ft`);
     lines.push(`<div class='tt-line muted'>${w.group} ${w.kind} · ${props.join(', ') || 'no properties'}</div>`);
     lines.push(`<div class='tt-line'>Mastery: <b>${w.mastery}</b></div>`);
