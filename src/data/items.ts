@@ -1,0 +1,152 @@
+/** Equipment catalog: 2024 weapon/armor tables (subset), consumables, quest items, authored magic items. */
+import type { ItemDef } from './defs';
+
+const W = (
+  id: string, name: string, group: 'simple' | 'martial', kind: 'melee' | 'ranged',
+  damage: string, damageType: 'bludgeoning' | 'piercing' | 'slashing', mastery: ItemDef['weapon'] extends undefined ? never : NonNullable<ItemDef['weapon']>['mastery'],
+  properties: NonNullable<ItemDef['weapon']>['properties'], value: number, icon: string, description: string,
+  extra?: Partial<NonNullable<ItemDef['weapon']>>,
+): ItemDef => ({
+  id, name, category: 'weapon', icon, description, value,
+  weapon: { damage, damageType, properties, mastery, group, kind, ...extra },
+});
+
+export const ITEMS: ItemDef[] = [
+  // ============================================ simple melee
+  W('club', 'Club', 'simple', 'melee', '1d4', 'bludgeoning', 'slow', ['light'], 0.1, 'club', 'A stout length of hardwood. Favored by those who prefer arguments settled quickly.'),
+  W('dagger', 'Dagger', 'simple', 'melee', '1d4', 'piercing', 'nick', ['finesse', 'light', 'thrown'], 2, 'dagger', 'Short, sharp, and easily hidden. The marsh-folk call it "a quiet answer."', { rangeFt: [20, 60] }),
+  W('greatclub', 'Greatclub', 'simple', 'melee', '1d8', 'bludgeoning', 'push', ['two-handed'], 0.2, 'greatclub', 'A two-handed slab of oak. Subtlety not included.'),
+  W('handaxe', 'Handaxe', 'simple', 'melee', '1d6', 'slashing', 'vex', ['light', 'thrown'], 5, 'handaxe', 'A woodsman\'s tool with a soldier\'s résumé.', { rangeFt: [20, 60] }),
+  W('javelin', 'Javelin', 'simple', 'melee', '1d6', 'piercing', 'slow', ['thrown'], 0.5, 'javelin', 'A light spear built for throwing.', { rangeFt: [30, 120] }),
+  W('mace', 'Mace', 'simple', 'melee', '1d6', 'bludgeoning', 'sap', [], 5, 'mace', 'A flanged head on an iron haft. The traditional persuasion of clerics.'),
+  W('quarterstaff', 'Quarterstaff', 'simple', 'melee', '1d6', 'bludgeoning', 'topple', ['versatile'], 0.2, 'quarterstaff', 'A traveler\'s staff — and, held right, a soldier\'s reach.', { versatileDamage: '1d8' }),
+  W('sickle', 'Sickle', 'simple', 'melee', '1d4', 'slashing', 'nick', ['light'], 1, 'sickle', 'A curved harvest blade. Some harvests are stranger than wheat.'),
+  W('spear', 'Spear', 'simple', 'melee', '1d6', 'piercing', 'sap', ['thrown', 'versatile'], 1, 'spear', 'The militia\'s backbone: point it at trouble, keep trouble at the point.', { versatileDamage: '1d8', rangeFt: [20, 60] }),
+  // ============================================ simple ranged
+  W('light-crossbow', 'Light Crossbow', 'simple', 'ranged', '1d8', 'piercing', 'slow', ['ammunition', 'loading', 'two-handed'], 25, 'crossbow', 'Wind, aim, and let the machine do the arguing.', { rangeFt: [80, 320] }),
+  W('shortbow', 'Shortbow', 'simple', 'ranged', '1d6', 'piercing', 'vex', ['ammunition', 'two-handed'], 25, 'shortbow', 'Light and quick — a hunter\'s constant companion.', { rangeFt: [80, 320] }),
+  W('sling', 'Sling', 'simple', 'ranged', '1d4', 'bludgeoning', 'slow', ['ammunition'], 0.1, 'sling', 'A strap, a stone, and ten thousand years of practice behind it.', { rangeFt: [30, 120] }),
+  // ============================================ martial melee
+  W('battleaxe', 'Battleaxe', 'martial', 'melee', '1d8', 'slashing', 'topple', ['versatile'], 10, 'battleaxe', 'A dwarven favorite: equally good against doors, shields, and expectations.', { versatileDamage: '1d10' }),
+  W('greataxe', 'Greataxe', 'martial', 'melee', '1d12', 'slashing', 'cleave', ['heavy', 'two-handed'], 30, 'greataxe', 'When it hits, things stop being in the way.'),
+  W('greatsword', 'Greatsword', 'martial', 'melee', '2d6', 'slashing', 'graze', ['heavy', 'two-handed'], 50, 'greatsword', 'Six feet of steel with opinions.'),
+  W('longsword', 'Longsword', 'martial', 'melee', '1d8', 'slashing', 'sap', ['versatile'], 15, 'longsword', 'The knight\'s answer to most questions.', { versatileDamage: '1d10' }),
+  W('morningstar', 'Morningstar', 'martial', 'melee', '1d8', 'piercing', 'sap', [], 15, 'morningstar', 'A spiked head that makes armor reconsider.'),
+  W('rapier', 'Rapier', 'martial', 'melee', '1d8', 'piercing', 'vex', ['finesse'], 25, 'rapier', 'Elegant, precise, and faster than an apology.'),
+  W('scimitar', 'Scimitar', 'martial', 'melee', '1d6', 'slashing', 'nick', ['finesse', 'light'], 25, 'scimitar', 'A curved blade that flows like water and cuts like regret.'),
+  W('shortsword', 'Shortsword', 'martial', 'melee', '1d6', 'piercing', 'vex', ['finesse', 'light'], 10, 'shortsword', 'Close work. Reliable work.'),
+  W('warhammer', 'Warhammer', 'martial', 'melee', '1d8', 'bludgeoning', 'push', ['versatile'], 15, 'warhammer', 'Forged for the moment when finesse stops being the plan.', { versatileDamage: '1d10' }),
+  // ============================================ martial ranged
+  W('hand-crossbow', 'Hand Crossbow', 'martial', 'ranged', '1d6', 'piercing', 'vex', ['ammunition', 'light', 'loading'], 75, 'hand-crossbow', 'A pistol-grip crossbow beloved of people with something to hide.', { rangeFt: [30, 120] }),
+  W('heavy-crossbow', 'Heavy Crossbow', 'martial', 'ranged', '1d10', 'piercing', 'push', ['ammunition', 'heavy', 'loading', 'two-handed'], 50, 'heavy-crossbow', 'A siege argument in portable form.', { rangeFt: [100, 400] }),
+  W('longbow', 'Longbow', 'martial', 'ranged', '1d8', 'piercing', 'slow', ['ammunition', 'heavy', 'two-handed'], 50, 'longbow', 'Six feet of yew that outranges everything in the fen.', { rangeFt: [150, 600] }),
+
+  // ============================================ armor & shields
+  { id: 'leather-armor', name: 'Leather Armor', category: 'armor', icon: 'leather-armor', value: 10, description: 'Supple boiled leather. Quiet, light, dependable.', armor: { acBase: 11, addDex: true, category: 'light' } },
+  { id: 'studded-leather', name: 'Studded Leather', category: 'armor', icon: 'studded-leather', value: 45, description: 'Leather reinforced with riveted studs — the scout\'s compromise.', armor: { acBase: 12, addDex: true, category: 'light' } },
+  { id: 'hide-armor', name: 'Hide Armor', category: 'armor', icon: 'hide-armor', value: 10, description: 'Thick pelts and stubbornness.', armor: { acBase: 12, addDex: true, dexCap: 2, category: 'medium' } },
+  { id: 'chain-shirt', name: 'Chain Shirt', category: 'armor', icon: 'chain-shirt', value: 50, description: 'A shirt of interlocked rings worn under cloth — protection that travels politely.', armor: { acBase: 13, addDex: true, dexCap: 2, category: 'medium' } },
+  { id: 'scale-mail', name: 'Scale Mail', category: 'armor', icon: 'scale-mail', value: 50, description: 'Overlapping steel scales. Hisses like rain when you run — everyone hears it.', armor: { acBase: 14, addDex: true, dexCap: 2, category: 'medium', stealthDisadv: true } },
+  { id: 'breastplate', name: 'Breastplate', category: 'armor', icon: 'breastplate', value: 400, description: 'A fitted steel heart-guard: heavy protection without the heavy noise.', armor: { acBase: 14, addDex: true, dexCap: 2, category: 'medium' } },
+  { id: 'half-plate', name: 'Half Plate', category: 'armor', icon: 'half-plate', value: 750, description: 'Plate where it matters most. Rattles like a kitchen falling downstairs.', armor: { acBase: 15, addDex: true, dexCap: 2, category: 'medium', stealthDisadv: true } },
+  { id: 'ring-mail', name: 'Ring Mail', category: 'armor', icon: 'ring-mail', value: 30, description: 'Leather sewn with heavy rings — armor for those still saving up.', armor: { acBase: 14, addDex: false, category: 'heavy', stealthDisadv: true } },
+  { id: 'chain-mail', name: 'Chain Mail', category: 'armor', icon: 'chain-mail', value: 75, description: 'Head-to-knee interlocked steel. The infantry standard for good reason.', armor: { acBase: 16, addDex: false, category: 'heavy', strengthReq: 13, stealthDisadv: true } },
+  { id: 'splint-armor', name: 'Splint Armor', category: 'armor', icon: 'splint-armor', value: 200, description: 'Vertical steel strips over chain. Walking cover.', armor: { acBase: 17, addDex: false, category: 'heavy', strengthReq: 15, stealthDisadv: true } },
+  { id: 'shield', name: 'Shield', category: 'shield', icon: 'shield', value: 10, shieldAc: 2, description: 'A wooden round faced with steel. The difference between a scar and a story.' },
+
+  // ============================================ ammo, focus, tools, gear
+  { id: 'arrows-20', name: 'Arrows (20)', category: 'ammo', icon: 'arrows', value: 1, stackable: true, description: 'A quiver\'s worth of goose-fletched arrows.' },
+  { id: 'bolts-20', name: 'Crossbow Bolts (20)', category: 'ammo', icon: 'bolts', value: 1, stackable: true, description: 'Stubby iron-tipped bolts.' },
+  { id: 'sling-stones', name: 'Sling Stones (20)', category: 'ammo', icon: 'sling-stones', value: 0.1, stackable: true, description: 'River-smooth stones, selected with care.' },
+  { id: 'holy-symbol', name: 'Holy Symbol', category: 'focus', icon: 'holy-symbol', value: 5, description: 'A silver emblem of the Dawnkeeper\'s lantern. A cleric\'s spellcasting focus.' },
+  { id: 'arcane-focus', name: 'Arcane Focus (Orb)', category: 'focus', icon: 'arcane-focus', value: 20, description: 'A glass orb that hums faintly near the leylines. A wizard or warlock\'s focus.' },
+  { id: 'druidic-focus', name: 'Druidic Focus (Sprig)', category: 'focus', icon: 'druidic-focus', value: 1, description: 'A sprig of fenwillow, still green after years. A ranger\'s focus.' },
+  { id: 'spellbook-item', name: 'Spellbook', category: 'gear', icon: 'spellbook', value: 50, description: 'Your spellbook: gathered formulae in a waxed leather binding. Guard it well.' },
+  { id: 'thieves-tools', name: 'Thieves\' Tools', category: 'tool', icon: 'thieves-tools', value: 25, description: 'Picks, rakes, tension bars, and a small mirror. Required for picking locks and disarming delicate traps.' },
+  { id: 'crowbar', name: 'Crowbar', category: 'tool', icon: 'crowbar', value: 2, description: 'Grants leverage — pry open crates, jammed doors, and stubborn coffin lids. Loudly.' },
+  { id: 'healers-kit', name: 'Healer\'s Kit', category: 'tool', icon: 'healers-kit', value: 5, charges: { max: 10, recharge: 'none' }, description: 'Bandages, splints, salves. Stabilizes a dying creature without a check (10 uses).' },
+  { id: 'rope-50', name: 'Rope (50 feet)', category: 'gear', icon: 'rope', value: 1, description: 'Hemp rope. Opens the routes that stairs forgot.' },
+  { id: 'torch', name: 'Torch', category: 'gear', icon: 'torch', value: 0.01, stackable: true, description: 'Bright light for 20 feet, dim light beyond. Burns an hour. Announces you warmly.' },
+  { id: 'lantern-hooded', name: 'Hooded Lantern', category: 'gear', icon: 'lantern', value: 5, description: 'Steady light you can shutter in a heartbeat when patrols pass.' },
+  { id: 'oil-flask', name: 'Oil Flask', category: 'consumable', icon: 'oil-flask', value: 0.1, stackable: true, consumable: { kind: 'oil', hook: 'oil-flask', combatAction: 'action' }, description: 'Throw to douse a 5-foot square (or a creature) in oil: the next Fire damage there ignites it for +5 Fire damage.' },
+  { id: 'bedroll', name: 'Bedroll', category: 'gear', icon: 'bedroll', value: 1, description: 'Wool and canvas between you and the fen\'s cold arithmetic.' },
+  { id: 'tent-kit', name: 'Tent', category: 'gear', icon: 'tent', value: 2, description: 'Canvas shelter for two. The camp\'s quiet luxury.' },
+  { id: 'book-prayers', name: 'Book of Rites', category: 'gear', icon: 'book', value: 5, description: 'The Dawnkeeper liturgies — including the burial rites that have stopped working.' },
+  { id: 'book-lore', name: 'Volume of Old Accords', category: 'gear', icon: 'book', value: 5, description: 'A scholar\'s compilation of frontier treaties, charters, and oaths — some struck with things that were not people.' },
+  { id: 'parchment-set', name: 'Parchment & Ink', category: 'gear', icon: 'parchment', value: 2, description: 'For copying inscriptions and forging permissions.' },
+  { id: 'gaming-set', name: 'Gaming Set', category: 'gear', icon: 'dice', value: 1, description: 'Bone dice and a deck of worn cards. Loosens tongues in taverns.' },
+  { id: 'robe-vestments', name: 'Vestments', category: 'gear', icon: 'robe', value: 1, description: 'Formal robes of the shrine. Some doors open for the cloth, not the person.' },
+  { id: 'camp-supplies', name: 'Camp Supplies', category: 'consumable', icon: 'campfire', value: 15, stackable: true, consumable: { kind: 'supply', hook: 'camp-supply', combatAction: 'none' }, description: 'Food, firewood, clean water, and lamp oil for one Long Rest at camp. The fen sells nothing for free.' },
+  { id: 'rations', name: 'Rations (1 day)', category: 'consumable', icon: 'rations', value: 0.5, stackable: true, consumable: { kind: 'food', hook: 'rations', combatAction: 'none' }, description: 'Hardtack, dried eel, marsh-berry preserve. Needed for Short Rests in the wild.' },
+
+  // ============================================ potions & consumables
+  { id: 'potion-healing', name: 'Potion of Healing', category: 'consumable', icon: 'potion-red', value: 50, stackable: true, magic: true, consumable: { kind: 'potion', hook: 'heal', healDice: '2d4+2', combatAction: 'bonus' }, description: 'Rubied glass, warm to the touch. Drink (Bonus Action) to regain 2d4+2 Hit Points.' },
+  { id: 'potion-greater-healing', name: 'Potion of Greater Healing', category: 'consumable', icon: 'potion-red-large', value: 150, stackable: true, magic: true, consumable: { kind: 'potion', hook: 'heal', healDice: '4d4+4', combatAction: 'bonus' }, description: 'Drink (Bonus Action) to regain 4d4+4 Hit Points.' },
+  { id: 'antitoxin', name: 'Antitoxin', category: 'consumable', icon: 'potion-green', value: 50, stackable: true, consumable: { kind: 'potion', hook: 'antitoxin', combatAction: 'action', cures: ['poisoned'] }, description: 'Bitter draught that ends the Poisoned condition and grants Advantage on Poison saves for 1 hour.' },
+  { id: 'holy-water', name: 'Holy Water', category: 'consumable', icon: 'holy-water', value: 25, stackable: true, consumable: { kind: 'potion', hook: 'holy-water', combatAction: 'action' }, description: 'Throw (range 20 ft): a ranged attack that deals 2d6 Radiant damage to an undead or fiend.' },
+  { id: 'alchemist-fire', name: 'Alchemist\'s Fire', category: 'consumable', icon: 'alchemist-fire', value: 50, stackable: true, consumable: { kind: 'oil', hook: 'alchemist-fire', combatAction: 'action' }, description: 'Throw (range 20 ft): ranged attack, 1d4 Fire damage and the target burns (1d4 Fire at the start of its turns; DC 10 Dexterity check to douse).' },
+  { id: 'marshbane-draught', name: 'Marshbane Draught', category: 'consumable', icon: 'potion-blue', value: 40, stackable: true, consumable: { kind: 'potion', hook: 'marshbane', combatAction: 'action', cures: ['poisoned'] }, description: 'Old Greyfen recipe against fen-rot: cures Poisoned and disease, and grants Resistance to Poison damage for 1 hour. Brewed from bogmyrtle and grave-moss.' },
+  { id: 'grave-candle', name: 'Grave-Candle', category: 'consumable', icon: 'candle', value: 30, stackable: true, magic: true, consumable: { kind: 'potion', hook: 'grave-candle', combatAction: 'none' }, description: 'A candle of corpse-wax and silver ash. Burned at a grave or haunting, it lets the restless dead speak briefly — and honestly.' },
+  { id: 'scroll-revivify', name: 'Scroll of Revivify', category: 'consumable', icon: 'scroll', value: 300, magic: true, consumable: { kind: 'scroll', hook: 'revivify', combatAction: 'action' }, description: 'Costly diamond-dusted vellum: returns a creature dead for less than a minute to life with 1 Hit Point. The fen hates it. Use it anyway.' },
+  { id: 'scroll-bless', name: 'Scroll of Bless', category: 'consumable', icon: 'scroll', value: 60, magic: true, consumable: { kind: 'scroll', hook: 'cast-spell', spellId: 'bless', combatAction: 'action' }, description: 'A prayer written by someone who meant it. Casts Bless (no slot; any class can read it).' },
+  { id: 'scroll-misty-step', name: 'Scroll of Misty Step', category: 'consumable', icon: 'scroll', value: 120, magic: true, consumable: { kind: 'scroll', hook: 'cast-spell', spellId: 'misty-step', combatAction: 'bonus' }, description: 'Casts Misty Step (no slot; any class can read it).' },
+
+  // ============================================ magic items (authored)
+  { id: 'oathkeepers-blade', name: 'Oathkeeper\'s Blade', category: 'weapon', icon: 'longsword-glow', value: 800, magic: true, attunement: true, bonus: 1,
+    weapon: { damage: '1d8', damageType: 'slashing', properties: ['versatile'], versatileDamage: '1d10', mastery: 'sap', group: 'martial', kind: 'melee' },
+    extraDamage: [{ dice: '1d6', type: 'radiant', vsTags: ['undead'] }],
+    description: 'A longsword sworn to the old Oath, its fuller inlaid with lantern-silver. +1 to attack and damage; deals +1d6 Radiant damage to undead. It hums, very softly, near broken promises.' },
+  { id: 'wand-magic-missiles', name: 'Wand of Magic Missiles', category: 'gear', icon: 'wand', value: 500, magic: true, attunement: true,
+    charges: { max: 7, recharge: 'dawn', spellId: 'magic-missile', perUse: 1 },
+    description: 'Blackthorn wound with copper. 7 charges; expend 1 to cast Magic Missile (level 1). Regains 1d6+1 charges at dawn.' },
+  { id: 'cloak-of-protection', name: 'Cloak of Protection', category: 'gear', icon: 'cloak', value: 600, magic: true, attunement: true,
+    effectWhileEquipped: { label: 'Cloak of Protection', mods: { acBonus: 1, saveBonus: 1 } },
+    description: 'Grey fenwool that turns aside more than rain. +1 AC and +1 to saving throws while worn (requires Attunement).' },
+  { id: 'boots-of-elvenkind', name: 'Boots of Elvenkind', category: 'gear', icon: 'boots', value: 400, magic: true,
+    effectWhileEquipped: { label: 'Boots of Elvenkind', tags: ['adv-stealth'] },
+    description: 'Soft doeskin boots that make no sound at all. Advantage on Stealth checks while worn.' },
+  { id: 'pearl-of-power', name: 'Pearl of Power', category: 'gear', icon: 'pearl', value: 500, magic: true, attunement: true,
+    charges: { max: 1, recharge: 'dawn' },
+    description: 'A pearl the color of moonlit fog. Once per dawn, recover one expended spell slot (level 2 or lower) as a Bonus Action.' },
+  { id: 'lantern-of-revealing', name: 'Lantern of Revealing', category: 'gear', icon: 'lantern-magic', value: 700, magic: true,
+    effectWhileEquipped: { label: 'Lantern of Revealing', tags: ['reveal-hidden'] },
+    description: 'Its unwavering flame shows what does not wish to be seen: Invisible and hidden creatures within 30 feet are visible in its light. The Wardens have wanted it back for sixty years.' },
+  { id: 'amulet-of-the-fen', name: 'Amulet of the Fen', category: 'gear', icon: 'amulet', value: 350, magic: true, attunement: true,
+    effectWhileEquipped: { label: 'Amulet of the Fen', tags: ['fen-walker'], mods: { advOnSaves: ['con'] } },
+    description: 'A knot of preserved fenwillow root. Advantage on Constitution saves, and marsh Difficult Terrain does not slow the wearer (requires Attunement).' },
+  { id: 'ring-of-mind-shielding', name: 'Ring of Quiet Thoughts', category: 'gear', icon: 'ring', value: 500, magic: true, attunement: true,
+    effectWhileEquipped: { label: 'Ring of Quiet Thoughts', mods: { advOnSaves: ['int', 'wis', 'cha'] }, tags: ['mind-shield'] },
+    description: 'Cold iron, warm to the mind. Advantage on Intelligence, Wisdom, and Charisma saving throws; the Whisperer in the temple cannot read the wearer (requires Attunement).' },
+  { id: 'dagger-plus-one', name: 'Dagger +1', category: 'weapon', icon: 'dagger-glow', value: 350, magic: true, bonus: 1,
+    weapon: { damage: '1d4', damageType: 'piercing', properties: ['finesse', 'light', 'thrown'], rangeFt: [20, 60], mastery: 'nick', group: 'simple', kind: 'melee' },
+    description: 'Smuggler-forged and leyline-quenched. +1 to attack and damage rolls.' },
+  { id: 'shortbow-plus-one', name: 'Shortbow +1', category: 'weapon', icon: 'shortbow-glow', value: 400, magic: true, bonus: 1,
+    weapon: { damage: '1d6', damageType: 'piercing', properties: ['ammunition', 'two-handed'], rangeFt: [80, 320], mastery: 'vex', group: 'simple', kind: 'ranged' },
+    description: 'Warden-strung yew, blessed against the dark between trees. +1 to attack and damage rolls.' },
+  { id: 'studded-leather-plus-one', name: 'Studded Leather +1', category: 'armor', icon: 'studded-leather-glow', value: 500, magic: true, bonus: 1,
+    armor: { acBase: 12, addDex: true, category: 'light' },
+    description: 'Supple armor sewn with warded rivets. +1 AC beyond ordinary studded leather.' },
+  { id: 'mace-of-the-lantern', name: 'Mace of the Lantern', category: 'weapon', icon: 'mace-glow', value: 700, magic: true, attunement: true, bonus: 1,
+    weapon: { damage: '1d6', damageType: 'bludgeoning', properties: [], mastery: 'sap', group: 'simple', kind: 'melee' },
+    extraDamage: [{ dice: '1d4', type: 'radiant', vsTags: [] }],
+    description: 'The head of this mace glows like a shuttered lamp. +1 to attack and damage; every hit adds 1d4 Radiant damage; sheds dim light 10 feet (requires Attunement).' },
+
+  // ============================================ quest items
+  { id: 'wardstone-shard', name: 'Wardstone Shard', category: 'quest', icon: 'shard', value: 0, questItem: true, description: 'A fist-sized fragment of the shattered boundary-stone from Greyfen\'s graveyard. The runes on it are half-erased — deliberately, by a chisel.' },
+  { id: 'ledger-of-names', name: 'Waterlogged Ledger', category: 'quest', icon: 'ledger', value: 0, questItem: true, description: 'A smuggler\'s ledger recovered from the Drowned Causeway. Several entries record payments for "stone-work, night rates" — signed with a lantern sigil.' },
+  { id: 'seal-of-dawn', name: 'Seal of Dawn', category: 'quest', icon: 'seal-sun', value: 0, questItem: true, description: 'A bronze sun-disc that fits a socket in the Oath-Temple\'s eastern door.' },
+  { id: 'seal-of-dusk', name: 'Seal of Dusk', category: 'quest', icon: 'seal-moon', value: 0, questItem: true, description: 'A tarnished moon-disc that fits a socket in the Oath-Temple\'s western door.' },
+  { id: 'hollow-oath-codex', name: 'The Hollow Oath (Codex)', category: 'quest', icon: 'codex', value: 0, questItem: true, description: 'The original terms of the Oath, in a scribe\'s careful hand — with a final clause you were never meant to read.' },
+  { id: 'bogmyrtle-sprig', name: 'Bogmyrtle Sprig', category: 'quest', icon: 'herb', value: 0, questItem: true, stackable: true, description: 'A resinous herb that grows where the fen-water runs clean. Needed to brew Marshbane Draught.' },
+  { id: 'grave-moss', name: 'Grave-Moss', category: 'quest', icon: 'moss', value: 0, questItem: true, stackable: true, description: 'Silver-grey moss that grows only on tended graves. Needed to brew Marshbane Draught.' },
+  { id: 'silver-bell', name: 'Vesper Bell', category: 'quest', icon: 'bell', value: 0, questItem: true, description: 'The shrine\'s stolen vesper bell. Its note, struck true, is said to still the restless dead for a breath.' },
+  { id: 'temple-key-iron', name: 'Black Iron Key', category: 'quest', icon: 'key-iron', value: 0, questItem: true, description: 'A heavy key of cold-forged iron, taken from the cult\'s quartermaster. It smells faintly of tallow and rust.' },
+  { id: 'ravenna-letters', name: 'Bundle of Letters', category: 'quest', icon: 'letters', value: 0, questItem: true, description: 'Correspondence in a graceful hand, discussing "the renegotiation" — and naming names in Greyfen.' },
+  { id: 'oath-lantern', name: 'The Oath-Lantern', category: 'quest', icon: 'lantern-oath', value: 0, questItem: true, description: 'The lantern carried at the first swearing, long believed lost. Its flame does not burn oil. It burns memory — offered willingly, or otherwise.' },
+];
+
+export function itemById(id: string): ItemDef {
+  const it = ITEMS.find((x) => x.id === id);
+  if (!it) throw new Error(`Unknown item: ${id}`);
+  return it;
+}

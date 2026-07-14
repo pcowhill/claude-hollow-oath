@@ -101,7 +101,7 @@ const fiendPatron: SubclassDef = {
       tags: ['dark-ones-blessing'],
     },
   ],
-  bonusSpells: { 3: ['burning-hands', 'command', 'scorching-ray', 'suggestion-authored'] },
+  bonusSpells: { 3: ['burning-hands', 'command'] },
 };
 
 export const CLASSES: ClassDef[] = [

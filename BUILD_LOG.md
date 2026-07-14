@@ -62,6 +62,34 @@ scripts/       asset fetch/optimize scripts (build-time only)
 
 ## Log
 
+### Milestone 2: rules + data + combat engine (2026-07-14)
+- Rules engine complete & tested (141 vitest tests green): dice/checks/saves/attacks with full
+  labeled breakdowns (D20Roll.parts/advSources/bonusDice), conditions (2024), damage pipeline
+  (defenses, temp HP, death saves, instant death, Undead Fortitude), rests, point buy,
+  derivation (build+equip → stats: AC breakdown, slots, resources, weapon profiles).
+- Data complete: 6 species (+lineages), 6 backgrounds, 17 feats, 6 classes + 6 subclasses,
+  47 spells (13 cantrips/20 L1/14 L2), ~70 items, 26 monsters with AI archetypes.
+- Combat engine (src/engine/combatEngine.ts): initiative w/ 2024 surprise, economy
+  (action/bonus/reaction/move/multiattack/action-surge), step-based movement with OA prompts,
+  attack pipeline with interruptible reaction STACK (warding flare pre-roll; shield/duelist/
+  parry/redirect post-hit; hellish-rebuke post-damage; riposte on miss), all 8 weapon masteries,
+  9 maneuvers, concentration, zones (web/grease/darkness/silence/spike-growth/fog/fire),
+  morale (flee/surrender), channel divinity, spiritual weapon, mirror image.
+- Spell module (combatSpells.ts): canCastSpell validation (range/LOS/slots/silence), AoE geometry
+  (sphere/cone/cube/line), per-spell hooks (magic-missile, scorching-ray, sleep, command, etc).
+- Enemy AI (combatAi.ts): aiStep() one-atomic-action design so player reaction prompts interrupt
+  enemy turns; 18 archetypes; honest info model (LOS, wound states not raw HP).
+- Key API facts for future reference:
+  - GameState in src/engine/stateTypes.ts; MapDef/authoring schema in src/data/mapTypes.ts
+    (terrain chars: . # , ~ T o Q = ^ _ +; doors/containers/traps/secrets/interactables/spawns/
+    encounters/npcs/transitions/entryPoints/lights/decor/regions).
+  - MapRuntime (engine/mapRuntime.ts) = MapDef + MapRuntimeState queries: blocksMove/blocksSight/
+    coverAt/isDifficult/moveCostFn/losBetween.
+  - CombatEngine hooks: buildFor, itemInstance, reactionMode, reactionGuards, onLog,
+    onCreatureUpdate, onZoneUpdate, onPhaseChange, onPendingReaction, onScriptEvent.
+  - AI loop: while phase active & current is enemy: aiStep(engine, cid) until 'done' (returns
+    'acted' when pending reaction pauses it). rollRecharges(engine, cid) at monster turn start.
+
 ### Session start (2026-07-14)
 - Repo was empty; branch `claude/hollow-oath-crpg-cgp2lf` pre-created by the environment. Node v22.22.2 / npm 10.9.7.
 - Network probe: kenney.nl ✅, opengameart.org ✅, incompetech.com ✅, freesound.org ✅, registry.npmjs.org ✅, fonts.googleapis.com ❌ (proxy 404 — will fetch OFL fonts from the google/fonts GitHub mirror instead).
