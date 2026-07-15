@@ -384,6 +384,16 @@ export class CombatEngine {
     return this.map.moveCostFn(c, this.living(), this.state.zones);
   }
 
+  /**
+   * True if `cell` is difficult terrain for the given creature (terrain/zone only,
+   * ignoring creatures) — i.e. it costs double movement. Accounts for fen-walkers
+   * and web-walkers, who ignore certain difficult terrain.
+   */
+  isDifficultTerrainFor(cid: string, cell: Pt): boolean {
+    const c = this.creature(cid);
+    return this.map.moveCostFn(c, this.living(), this.state.zones, { ignoreCreatures: true })(cell) === 2;
+  }
+
   reachableCells(cid: string): Map<string, number> {
     const c = this.creature(cid);
     const e = this.economy(cid);
@@ -456,6 +466,23 @@ export class CombatEngine {
       if (!this.standUp(cid)) { /* crawl at double cost handled by speedMultiplier */ }
     }
     this.moveSteps(cid, path, 1);
+    // record the route actually walked (may stop short of the path's end on an
+    // opportunity attack, a zone effect, or running out of movement) so the UI
+    // can animate the token along it instead of teleporting.
+    const cells: Pt[] = [];
+    for (const node of path) {
+      cells.push({ ...node.pos });
+      if (node.pos.x === c.pos.x && node.pos.y === c.pos.y) break;
+    }
+    this.lastMove = { id: cid, cells };
+  }
+
+  /** the cells the most recent move() call traversed, for the UI to animate; consumed once read */
+  lastMove: { id: string; cells: Pt[] } | null = null;
+  consumeLastMove(): { id: string; cells: Pt[] } | null {
+    const m = this.lastMove;
+    this.lastMove = null;
+    return m;
   }
 
   private moveSteps(cid: string, path: PathNode[], idx: number): void {

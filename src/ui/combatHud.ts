@@ -460,10 +460,11 @@ export class CombatHud {
 
   onCellHover(cell: Pt | null): void {
     const combat = this.combat();
-    if (!combat || !combat.isPlayerTurn()) return;
+    if (!combat || !combat.isPlayerTurn()) { this.app.scene.showTerrainTip(null); return; }
     const cur = combat.current();
-    if (!cur) return;
+    if (!cur) { this.app.scene.showTerrainTip(null); return; }
     if (this.targeting?.kind === 'spell') {
+      this.app.scene.showTerrainTip(null);
       const sp = spellById(this.targeting.spellId!);
       if (sp.targeting.kind === 'point' && cell) {
         const cells = combat.aoePreview(this.targeting.spellId!, cell);
@@ -479,6 +480,13 @@ export class CombatHud {
       } else {
         this.app.scene.showPath([]);
       }
+      // difficult-terrain hint above the hovered cell
+      this.app.scene.showTerrainTip(
+        combat.engine.isDifficultTerrainFor(cur.id, cell) ? cell : null,
+        'Difficult terrain — movement halved',
+      );
+    } else {
+      this.app.scene.showTerrainTip(null);
     }
   }
 

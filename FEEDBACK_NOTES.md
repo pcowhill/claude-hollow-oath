@@ -141,3 +141,50 @@ All 12 items were implemented. Nothing needed a follow-up question. Verified gre
 12. **"A" no longer pans the camera.** `A` is now reserved for "select all party";
     pan left with the arrow key, screen edges, or middle-mouse drag.
     (`src/render/isoScene.ts`)
+
+---
+
+# Feedback Round 3 — Change Notes
+
+All 6 items were implemented; none needed a follow-up question. Verified green:
+`tsc --noEmit`, `eslint` (0 warnings), 183 unit tests, production build, and the
+8 Playwright e2e flows, plus a scripted playthrough that drives the Fen Gate and
+the gate-dead combat to assert the fixes.
+
+1. **Black (unseen) tiles now render above the light sources.** The fog is split
+   into two layers: a light dimming for explored-but-out-of-view tiles that sits
+   *below* scenery (so remembered objects still draw on top), and an opaque black
+   cover for never-seen tiles that sits *above* the light glows. Panning over an
+   unexplored map no longer shows light sources scattered across the black.
+   (`src/render/isoScene.ts`)
+2. **The three "yellow tiles" near the Fen Gate door — explained and fixed.**
+   They were the gate's two brazier light-sources (and the graveyard light) at the
+   top of the map glowing through the black fog — the exact same root cause as #1.
+   With the fog fix they stay hidden until you actually explore up to the gate, so
+   they no longer appear as stray highlights. (No separate change; resolved by #1.)
+3. **Combat vision is now symmetric — if an enemy can see you, you can see it.**
+   The old behaviour let darkvision monsters (e.g. the Fen Gate skeletons, 60 ft
+   darkvision) snipe the party from beyond the party's own sight radius while
+   staying invisible. Now, during combat, any hostile that has line of sight to a
+   living party member is revealed to the party (its tile is un-fogged and its
+   token shown), so you can shoot back. This mirrors the engine's own targeting
+   rule exactly — the enemy AI decides it can attack you using line of sight, with
+   no extra range gate, so the reveal uses the same line-of-sight test. Revealed
+   enemies are targetable normally; a shot fired into darkness still takes the
+   usual disadvantage, but you are no longer helpless. Vision refreshes when combat
+   begins and after every enemy move, so foes appear/disappear as they step in and
+   out of sight. (`src/engine/gameController.ts`, `src/engine/combatController.ts`)
+4. **Party and enemies now walk their path in combat instead of teleporting.**
+   `engine.move` records the route actually walked (truncated at the real stopping
+   point if an opportunity attack, zone, or spent movement cuts it short), and both
+   the player-move path and each enemy AI move animate the token along those cells,
+   matching exploration movement. (`src/engine/combatEngine.ts`,
+   `src/engine/combatController.ts`, `src/render/isoScene.ts`, `src/ui/app.ts`)
+5. **Difficult terrain shows a hover hint in combat.** Hovering a tile that costs
+   the current creature double movement (marsh, rubble, webs, grease, …) pops a
+   small "Difficult terrain — movement halved" label above it. Fen-walkers and
+   web-walkers who ignore that terrain correctly get no hint.
+   (`src/engine/combatEngine.ts`, `src/render/isoScene.ts`, `src/ui/combatHud.ts`)
+6. **Tip windows are dismissed when you return to the main menu.** Any lingering
+   tutorial/tip toasts are cleared as the menu is shown, so they no longer hang
+   over it. (`src/ui/app.ts`, `src/ui/panels/panelHost.ts`)

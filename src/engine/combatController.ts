@@ -196,7 +196,7 @@ export class CombatController {
     this.aiRunning = true;
     rollRecharges(this.engine, c.id);
     const stepDelay = 420;
-    const step = () => {
+    const step = async () => {
       if (this.engine.state.phase !== 'active') { this.aiRunning = false; return; }
       if (this.engine.pending) {
         // waiting for player reaction; resolveReaction() will call pumpTurn again
@@ -210,6 +210,12 @@ export class CombatController {
         return;
       }
       const result = aiStep(this.engine, cur.id);
+      // animate any movement this step performed, so enemies walk their path too
+      const mv = this.engine.consumeLastMove();
+      if (mv && mv.id === cur.id && mv.cells.length > 1) await this.game.ui.animatePath(mv.id, mv.cells);
+      // an enemy that moved may have stepped into (or out of) the party's line of
+      // sight — refresh vision so the reveal keeps up
+      if (mv) this.game.recomputeFog();
       this.game.ui.updateCreatures();
       this.game.ui.updateCombatUi();
       if (result === 'done') {
@@ -250,7 +256,9 @@ export class CombatController {
     const path = this.engine.pathTo(c.id, dest);
     if (!path || path.length < 2) return;
     this.engine.move(c.id, path);
-    await this.game.ui.animateMove(c.id, [{ ...c.pos }]);
+    // Animate the token along the cells it actually walked (engine.move records them).
+    const mv = this.engine.consumeLastMove();
+    if (mv && mv.cells.length > 1) await this.game.ui.animatePath(mv.id, mv.cells);
     // party movement reveals new ground — refresh vision so approaching enemies appear
     if (c.side === 'party') this.game.recomputeFog();
     this.game.ui.updateCreatures();

@@ -61,6 +61,7 @@ export interface UiHost {
   updateProps(): void;
   updateZones(): void;
   animateMove(id: string, path: Pt[]): Promise<void>;
+  animatePath(id: string, cells: Pt[]): Promise<void>;
   playSfx(name: string): void;
 }
 
@@ -240,6 +241,21 @@ export class GameController {
             this.visibleCells.add(k);
             explored.add(k);
           }
+        }
+      }
+    }
+    // In combat, an enemy that can see a party member (has line of sight to them)
+    // is revealed to the party as well — "if they can shoot you, you can see and
+    // shoot back." This removes the unfair asymmetry where darkvision monsters snipe
+    // from beyond the party's sight radius while staying invisible to them.
+    if (this.mode === 'combat' && this.combat) {
+      const zones = this.combat.engine.state.zones;
+      const party = [...this.partyCreatures.values()].filter((c) => !c.dead);
+      for (const foe of this.combat.engine.living('enemy')) {
+        if (party.some((pc) => this.map.losBetween(foe.pos, pc.pos, [], zones).visible)) {
+          const k = ptKey(foe.pos);
+          this.visibleCells.add(k);
+          explored.add(k);
         }
       }
     }
@@ -602,6 +618,9 @@ export class GameController {
     this.mode = 'combat';
     this.combat = new CombatController(this, enc);
     this.combat.begin();
+    // reveal enemies that can already see the party, so the fight opens fairly
+    // (no snipers shooting from tiles the party can't see)
+    this.recomputeFog();
     this.ui.onModeChange('combat');
   }
 

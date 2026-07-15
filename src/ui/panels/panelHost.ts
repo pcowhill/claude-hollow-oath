@@ -150,6 +150,11 @@ export class PanelHost {
     });
   }
 
+  /** dismiss any lingering tutorial/tip toasts (e.g. when leaving to the main menu) */
+  clearTutorialToasts(): void {
+    document.querySelectorAll('.tutorial-toast').forEach((el) => el.remove());
+  }
+
   showTutorialToast(title: string, body: string): void {
     const el = document.createElement('div');
     el.className = 'tutorial-toast panel';

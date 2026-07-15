@@ -44,6 +44,9 @@ const DEPTH_ZONE = 5;
 const DEPTH_OVERLAY = 6;
 const DEPTH_OBJ_BASE = 10;
 const DEPTH_LIGHT = 89000;
+// Never-seen (black) tiles draw ABOVE the light glows so unexplored light
+// sources don't bleed through the fog as scattered bright/coloured patches.
+const DEPTH_HIDDEN_FOG = 90000;
 const DEPTH_FX = 91000;
 
 export class IsoScene extends Phaser.Scene {
@@ -59,11 +62,15 @@ export class IsoScene extends Phaser.Scene {
   private fogTargets: { img: Phaser.GameObjects.Image; x: number; y: number; secretId?: string }[] = [];
   private tokenContainers = new Map<string, Phaser.GameObjects.Container>();
   private fogGfx!: Phaser.GameObjects.Graphics;
+  /** black cover for never-seen tiles, drawn above the lights */
+  private hiddenFogGfx!: Phaser.GameObjects.Graphics;
   private overlayGfx!: Phaser.GameObjects.Graphics;
   private pathGfx!: Phaser.GameObjects.Graphics;
   private zoneImgs: Phaser.GameObjects.Image[] = [];
   private lightImgs: Phaser.GameObjects.Image[] = [];
   private hoverMarker!: Phaser.GameObjects.Image;
+  /** small floating label above the hovered cell (e.g. difficult-terrain hint in combat) */
+  private terrainTip!: Phaser.GameObjects.Text;
   private visibleCells = new Set<string>();
   private exploredCells = new Set<string>();
   private seed = 'seed';
@@ -121,8 +128,13 @@ export class IsoScene extends Phaser.Scene {
     this.overlayGfx = this.add.graphics().setDepth(DEPTH_OVERLAY);
     this.pathGfx = this.add.graphics().setDepth(DEPTH_OVERLAY + 1);
     this.fogGfx = this.add.graphics().setDepth(DEPTH_GROUND_FOG);
+    this.hiddenFogGfx = this.add.graphics().setDepth(DEPTH_HIDDEN_FOG);
     const hoverKey = this.factory.overlayDiamond('hover', '#e8d9b8', 0.18, 'rgba(232,217,184,0.8)');
     this.hoverMarker = this.add.image(0, 0, hoverKey).setOrigin(0.5, 0.5).setDepth(DEPTH_OVERLAY + 2).setVisible(false);
+    this.terrainTip = this.add.text(0, 0, '', {
+      fontFamily: 'Alegreya, serif', fontSize: '13px', color: '#e8d9b8', align: 'center',
+      backgroundColor: 'rgba(10,12,14,0.9)', padding: { x: 8, y: 4 },
+    }).setOrigin(0.5, 1).setDepth(DEPTH_FX).setVisible(false);
 
     // camera bounds
     const w = (mapDef.width + mapDef.height) * (TILE_W / 2) + TILE_W * 2;
@@ -361,23 +373,28 @@ export class IsoScene extends Phaser.Scene {
     const amb = this.mapDef.ambientLight;
     const exploredAlpha = 0.62;
     const hiddenAlpha = amb === 'bright' ? 0.94 : 0.97;
-    // Ground fog sits BELOW every object, so it only darkens the floor of cells
-    // the party can't currently see — objects on visible cells always draw on top.
+    // Two fog layers. Explored-but-out-of-view cells get a light dimming that sits
+    // BELOW every object (so remembered scenery stays on top). Never-seen cells get
+    // an opaque black cover that sits ABOVE the lights, so unexplored light sources
+    // (e.g. the Fen Gate braziers) don't glow through as scattered bright patches.
     this.fogGfx.clear();
+    this.hiddenFogGfx.clear();
     for (let y = 0; y < this.mapDef.height; y++) {
       for (let x = 0; x < this.mapDef.width; x++) {
         if (this.terrainCharAt(x, y) === ' ') continue;
         const k = `${x},${y}`;
         if (visible.has(k)) continue;
+        const seen = explored.has(k);
+        const g = seen ? this.fogGfx : this.hiddenFogGfx;
         const s = this.toScreen({ x, y });
-        this.fogGfx.fillStyle(0x05070a, explored.has(k) ? exploredAlpha : hiddenAlpha);
-        this.fogGfx.beginPath();
-        this.fogGfx.moveTo(s.x, s.y - 1);
-        this.fogGfx.lineTo(s.x + TILE_W / 2 + 1, s.y + TILE_H / 2);
-        this.fogGfx.lineTo(s.x, s.y + TILE_H + 1);
-        this.fogGfx.lineTo(s.x - TILE_W / 2 - 1, s.y + TILE_H / 2);
-        this.fogGfx.closePath();
-        this.fogGfx.fillPath();
+        g.fillStyle(0x05070a, seen ? exploredAlpha : hiddenAlpha);
+        g.beginPath();
+        g.moveTo(s.x, s.y - 1);
+        g.lineTo(s.x + TILE_W / 2 + 1, s.y + TILE_H / 2);
+        g.lineTo(s.x, s.y + TILE_H + 1);
+        g.lineTo(s.x - TILE_W / 2 - 1, s.y + TILE_H / 2);
+        g.closePath();
+        g.fillPath();
       }
     }
     // Objects (walls, trees, cover, containers, interactables, decor) render only
@@ -535,6 +552,28 @@ export class IsoScene extends Phaser.Scene {
     });
   }
 
+  /**
+   * Combat movement: the logic layer has already snapped the token to its final
+   * cell, so reset it to the start of the route and tween forward through every
+   * cell walked, letting the player see the path taken (matching exploration).
+   */
+  animatePath(id: string, cells: Pt[], msPerTile = 150): Promise<void> {
+    const cont = this.tokenContainers.get(id);
+    if (!cont || cells.length === 0) return Promise.resolve();
+    const start = this.toScreen(cells[0]!);
+    cont.setPosition(start.x, start.y + TILE_H / 2);
+    cont.setDepth(this.depthFor(cells[0]!, 5));
+    return this.animateMove(id, cells.slice(1), msPerTile);
+  }
+
+  /** show a floating hint above a cell (combat difficult-terrain, etc.); null hides it */
+  showTerrainTip(cell: Pt | null, text = ''): void {
+    if (!this.terrainTip) return;
+    if (!cell) { this.terrainTip.setVisible(false); return; }
+    const s = this.toScreen(cell);
+    this.terrainTip.setText(text).setPosition(s.x, s.y - Math.round(TILE_H * 0.6)).setVisible(true);
+  }
+
   bounceToken(id: string): void {
     const cont = this.tokenContainers.get(id);
     if (!cont || this.reducedMotion) return;
@@ -612,6 +651,7 @@ export class IsoScene extends Phaser.Scene {
   clearOverlays(): void {
     this.overlayGfx?.clear();
     this.pathGfx?.clear();
+    this.terrainTip?.setVisible(false);
   }
 
   showGridLines(show: boolean): void {

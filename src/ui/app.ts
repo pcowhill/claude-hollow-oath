@@ -103,6 +103,8 @@ export class GameApp implements UiHost {
 
   showMainMenu(): void {
     this.screen = 'menu';
+    // dismiss any lingering tutorial/tip toasts so they don't hang over the menu
+    this.panels.clearTutorialToasts();
     this.game.scene.sleep('iso');
     audio.playMusic('title');
     renderMainMenu(this);
@@ -287,6 +289,12 @@ export class GameApp implements UiHost {
 
   animateMove(id: string, path: Pt[]): Promise<void> {
     const p = this.moveQueue.then(() => this.scene.animateMove(id, path, this.controller.mode === 'combat' ? 150 : 105));
+    this.moveQueue = p.catch(() => undefined);
+    return p;
+  }
+
+  animatePath(id: string, cells: Pt[]): Promise<void> {
+    const p = this.moveQueue.then(() => this.scene.animatePath(id, cells, 150));
     this.moveQueue = p.catch(() => undefined);
     return p;
   }
