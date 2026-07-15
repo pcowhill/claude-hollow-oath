@@ -111,7 +111,7 @@ export const COMPANIONS: CompanionDef[] = [
     classId: 'wizard', subclassId: 'evoker',
     speciesId: 'elf', lineageId: 'high-elf', backgroundId: 'sage',
     pronouns: 'he',
-    portrait: 'portrait-elowen', tokenIcon: 'wizard-cowl', tokenColor: '#4a5a8f',
+    portrait: 'portrait-elowen', tokenIcon: 'wizard', tokenColor: '#4a5a8f',
     bio: 'Came to Greyfen thirty years ago to spend one season studying the Covenant, and stayed — first for the research, then for the town, then because leaving would have meant admitting which of his footnotes had teeth. The town archivist, the academy\'s forgotten man, and the only person alive who has read the founders\' accord in the original hand. One of his students read his marginalia twelve years ago. Her name was Ilvane.',
     personality: 'Precise, courteous, quietly vain about his handwriting. Treats evidence as sacred and hunches as loaded weapons. His guilt is filed, cross-referenced, and never discussed.',
     baseAbilities: { str: 8, dex: 14, con: 13, int: 15, wis: 12, cha: 10 },

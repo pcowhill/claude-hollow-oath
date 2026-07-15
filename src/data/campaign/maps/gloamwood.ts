@@ -216,7 +216,7 @@ export const GLOAMWOOD: MapDef = {
   ],
   npcs: [
     {
-      id: 'vessa', name: 'Vessa Marrow', pos: { x: 42, y: 10 }, token: 'crone', portrait: 'portrait-vessa',
+      id: 'vessa', name: 'Vessa Marrow', pos: { x: 42, y: 10 }, token: 'hag', portrait: 'portrait-vessa',
       dialogueId: 'vessa-hollow', shopId: 'vessa-trades',
       conditions: [{ kind: 'not-flag', key: 'vessa-hostile' }, { kind: 'not-flag', key: 'vessa-gone' }],
     },

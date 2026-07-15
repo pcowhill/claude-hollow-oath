@@ -68,11 +68,11 @@ export class Hud {
       return `
         <div class="party-card ${selected ? 'selected' : ''} ${cr.hp <= 0 ? 'downed' : ''}" data-char="${id}">
           ${pending}
-          ${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor)}
           <div class="pc-name">${b.name}</div>
-          <div class="pc-bar hp"><div style="width:${hpFrac * 100}%"></div><span>${cr.hp}/${cr.stats.maxHp}${cr.tempHp ? ` +${cr.tempHp}` : ''}</span></div>
+          <div class="pc-portrait">${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor)}</div>
           ${renderSlotPips(cr)}
           <div class="pc-conds">${conds}</div>
+          <div class="pc-bar hp"><div style="width:${hpFrac * 100}%"></div><span>${cr.hp}/${cr.stats.maxHp}${cr.tempHp ? ` +${cr.tempHp}` : ''}</span></div>
         </div>`;
     }).join('');
   }

@@ -93,8 +93,9 @@ export class CombatHud {
 
   private renderTurnBanner(): void {
     const combat = this.combat()!;
-    const cur = combat.current();
     const el = this.root!.querySelector('#turn-banner')!;
+    if (combat.concludePending) { el.innerHTML = '<div class="tb-inner victory">Victory</div>'; return; }
+    const cur = combat.current();
     if (!cur) { el.innerHTML = ''; return; }
     const isPlayer = combat.isPlayerTurn();
     el.innerHTML = `<div class="tb-inner ${isPlayer ? 'player' : 'enemy'}">${cur.name}${isPlayer ? ' — your move' : ''}</div>`;
@@ -105,6 +106,14 @@ export class CombatHud {
   private renderActionBar(): void {
     const combat = this.combat()!;
     const el = this.root!.querySelector('#action-bar')!;
+    if (combat.concludePending) {
+      el.innerHTML = `<div class="ab-victory">
+        <span class="ab-victory-label">${icon('crown')} Victory</span>
+        <span class="muted">Read the combat log at your leisure.</span>
+        <button class="btn primary" data-abact="conclude">Conclude Battle</button>
+      </div>`;
+      return;
+    }
     const cur = combat.current();
     if (!cur || !combat.isPlayerTurn()) {
       el.innerHTML = `<div class="ab-waiting">${cur ? `${cur.name} is acting...` : ''}</div>`;
@@ -276,6 +285,7 @@ export class CombatHud {
     if (!act) return;
     this.app.playSfx('ui-click');
     switch (act) {
+      case 'conclude': combat.concludeCombat(); break;
       case 'end-turn': this.cancelTargeting(); combat.endTurn(); break;
       case 'attack': this.startTargeting({ kind: 'attack', slot: (t.dataset.slot as 'mainHand') ?? 'mainHand', targets: [], maxTargets: 1, label: 'Choose a target' }); break;
       case 'spell': this.startSpellTargeting(t.dataset.id!); break;
@@ -383,6 +393,10 @@ export class CombatHud {
     const t = this.targeting;
     switch (t.kind) {
       case 'attack': {
+        if (target.id === combat.current()?.id || target.side === 'party' || target.side === 'ally') {
+          this.app.notify('You can only attack enemies.', 'info');
+          break;
+        }
         combat.attack(id, t.slot ?? 'mainHand');
         this.cancelTargeting();
         break;
