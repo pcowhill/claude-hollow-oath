@@ -1,8 +1,27 @@
 /** Rest panel: short rest with hit dice spending; long rest at camp. */
 import type { PanelDef } from './panelHost';
+import type { GameApp } from '../app';
 import { icon } from '../icons';
 
 const spendPlan: Record<string, number> = {};
+// when true, the short-rest confirmation (some characters aren't spending Hit Dice) is showing
+let confirmingShort = false;
+
+/** party members who could heal with a Hit Die but aren't spending any */
+function underusedHitDice(app: GameApp): { id: string; name: string }[] {
+  const c = app.controller;
+  const out: { id: string; name: string }[] = [];
+  for (const id of app.gs.party) {
+    const b = app.gs.builds[id];
+    const cr = c.partyCreatures.get(id);
+    const hd = app.gs.hitDice[id];
+    if (!b || !cr || !hd) continue;
+    if (hd.remaining > 0 && (spendPlan[id] ?? 0) === 0 && cr.hp < cr.stats.maxHp) {
+      out.push({ id, name: b.name });
+    }
+  }
+  return out;
+}
 
 export const restPanel: PanelDef = {
   width: '640px',
@@ -13,6 +32,29 @@ export const restPanel: PanelDef = {
     const long = c.canLongRest();
     const rations = app.gs.inventory.filter((i) => i.defId === 'rations').reduce((a, i) => a + i.qty, 0);
     const supplies = app.gs.inventory.filter((i) => i.defId === 'camp-supplies').reduce((a, i) => a + i.qty, 0);
+
+    // never show the confirm screen if there's nothing left to confirm (e.g. reopened)
+    if (confirmingShort && underusedHitDice(app).length === 0) confirmingShort = false;
+    if (confirmingShort) {
+      const list = underusedHitDice(app);
+      return `
+        <div class="rest-section">
+          <h3>${icon('camp')} Short Rest — spend Hit Dice?</h3>
+          <p>These party members are still hurt and have Hit Dice they haven't spent. Once you rest, the hour is gone — spend them now if you want the healing:</p>
+          <ul class="rest-warn-list">
+            ${list.map((m) => {
+              const cr = c.partyCreatures.get(m.id)!;
+              const hd = app.gs.hitDice[m.id]!;
+              return `<li><b>${m.name}</b> — HP ${cr.hp}/${cr.stats.maxHp}, ${hd.remaining}/${hd.max} Hit Dice unspent</li>`;
+            }).join('')}
+          </ul>
+          <div class="row" style="gap:10px;margin-top:12px">
+            <button class="btn" data-confirm-back="1">← Go Back &amp; Add Hit Dice</button>
+            <button class="btn primary" data-confirm-short="1">Rest Without Them</button>
+          </div>
+        </div>`;
+    }
+
     const rows = app.gs.party.map((id) => {
       const b = app.gs.builds[id];
       const cr = c.partyCreatures.get(id);
@@ -46,6 +88,12 @@ export const restPanel: PanelDef = {
   },
   bind(app, root, _p, rerender) {
     app.showTutorial('rest');
+    const doShortRest = (): void => {
+      app.controller.shortRest({ ...spendPlan });
+      for (const k of Object.keys(spendPlan)) delete spendPlan[k];
+      confirmingShort = false;
+      app.panels.closeAll();
+    };
     root.addEventListener('click', (e) => {
       const t = e.target as HTMLElement;
       const plus = t.closest<HTMLElement>('[data-plus]');
@@ -62,10 +110,12 @@ export const restPanel: PanelDef = {
         rerender();
         return;
       }
+      if (t.closest('[data-confirm-back]')) { confirmingShort = false; rerender(); return; }
+      if (t.closest('[data-confirm-short]')) { doShortRest(); return; }
       if (t.closest('[data-short]')) {
-        app.controller.shortRest({ ...spendPlan });
-        for (const k of Object.keys(spendPlan)) delete spendPlan[k];
-        app.panels.closeAll();
+        // If injured characters still have Hit Dice they aren't spending, confirm first.
+        if (underusedHitDice(app).length > 0) { confirmingShort = true; rerender(); return; }
+        doShortRest();
         return;
       }
       if (t.closest('[data-long]')) {

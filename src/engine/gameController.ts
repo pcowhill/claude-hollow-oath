@@ -93,6 +93,14 @@ export class GameController {
   attachState(gs: GameState): void {
     this.gs = gs;
     this.rngs = new RngSet(gs.seed, gs.rngStreams);
+    // Reset transient runtime state so a freshly loaded game/showcase starts clean.
+    // Otherwise a combat or dialogue left running from the previous state keeps
+    // `mode` off 'exploration', which silently blocks all party movement.
+    this.mode = 'exploration';
+    this.moving = false;
+    this.combat = null;
+    this.dialogue = null;
+    this.dialogueNpcId = null;
     this.loadMap(gs.currentMap, null, true);
   }
 
@@ -259,7 +267,29 @@ export class GameController {
         }
       }
     }
-    // static lights reveal themselves when in LOS-ish range (lit windows glow through fog lightly)
+    // Reveal walls / trees / cover that border a seen tile. A wall blocks sight, so
+    // its own cell is never directly "seen" — infer it from its seen neighbours, so
+    // the edges of rooms and the palisade render instead of vanishing into the black.
+    const W = this.map.def.width, H = this.map.def.height;
+    const borderReveal = (seed: Set<string>, into: Set<string>): void => {
+      const adds: string[] = [];
+      for (const k of seed) {
+        const ci = k.indexOf(',');
+        const x = +k.slice(0, ci), y = +k.slice(ci + 1);
+        for (let dy = -1; dy <= 1; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            if (!dx && !dy) continue;
+            const nx = x + dx, ny = y + dy;
+            if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+            if (this.map.blocksMove({ x: nx, y: ny })) adds.push(`${nx},${ny}`);
+          }
+        }
+      }
+      for (const a of adds) into.add(a);
+    };
+    borderReveal(this.visibleCells, this.visibleCells); // walls next to visible tiles are visible
+    for (const k of this.visibleCells) explored.add(k);
+    borderReveal(explored, explored);                   // walls next to remembered tiles stay remembered
     this.map.state.explored = encodeExplored(explored);
     this.ui.updateFog();
     // passive perception against hidden things
@@ -646,12 +676,46 @@ export class GameController {
 
   // ------------------------------------------------------------ interactions
 
+  /** a walkable, unoccupied tile adjacent to `pos`, nearest to the party leader */
+  private freeAdjacent(pos: Pt): Pt | null {
+    const leader = this.leaderCreature();
+    const cands: Pt[] = [];
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const p = { x: pos.x + dx, y: pos.y + dy };
+        if (p.x < 0 || p.y < 0 || p.x >= this.map.def.width || p.y >= this.map.def.height) continue;
+        if (this.map.blocksMove(p)) continue;
+        if (this.allCreatures().some((c) => !c.dead && ptEq(c.pos, p))) continue;
+        cands.push(p);
+      }
+    }
+    if (leader) cands.sort((a, b) => chebyshev(leader.pos, a) - chebyshev(leader.pos, b));
+    return cands[0] ?? null;
+  }
+
+  /**
+   * Exploration: if nobody's adjacent to `pos`, walk the party to an adjacent tile,
+   * then run `then` (which typically re-invokes the interaction). If no adjacent tile
+   * is reachable, report "Too far away." Lets a single click on a nearby door/NPC/
+   * object move up to it and interact, instead of demanding you already be adjacent.
+   */
+  private approachThen(pos: Pt, then: () => void): void {
+    if (this.mode !== 'exploration' || this.moving) return;
+    const target = this.freeAdjacent(pos);
+    if (!target) { this.ui.notify('Too far away.', 'info'); return; }
+    void this.moveParty(target).then(() => {
+      if (this.someoneAdjacent(pos)) then();
+      else this.ui.notify('Too far away.', 'info');
+    });
+  }
+
   interactDoor(doorId: string): void {
     if (this.mode !== 'exploration') { this.combat?.interactDoor(doorId); return; }
     const door = this.map.def.doors.find((d) => d.id === doorId);
     if (!door) return;
     const near = this.someoneAdjacent(door.pos);
-    if (!near) { this.ui.notify('Too far away.', 'info'); return; }
+    if (!near) { this.approachThen(door.pos, () => this.interactDoor(doorId)); return; }
     if (this.map.isDoorLocked(doorId)) {
       this.tryUnlock(doorId, door.locked!, `the ${door.label ?? 'door'}`);
       return;
@@ -707,7 +771,7 @@ export class GameController {
     const cont = this.map.def.containers.find((c) => c.id === containerId);
     if (!cont) return;
     if (this.mode !== 'exploration') return;
-    if (!this.someoneAdjacent(cont.pos)) { this.ui.notify('Too far away.', 'info'); return; }
+    if (!this.someoneAdjacent(cont.pos)) { this.approachThen(cont.pos, () => this.interactContainer(containerId)); return; }
     if (cont.hiddenBySecretId && !this.map.state.discoveredSecrets.includes(cont.hiddenBySecretId)) return;
     // trap?
     if (cont.trapId && !this.map.state.disarmedTraps.includes(cont.trapId) && !this.map.state.triggeredTraps.includes(cont.trapId)) {
@@ -753,7 +817,7 @@ export class GameController {
     if (!it) return;
     if (this.mode !== 'exploration') return;
     if (!evalConditions(this.gs, it.conditions)) return;
-    if (!this.someoneAdjacent(it.pos)) { this.ui.notify('Too far away.', 'info'); return; }
+    if (!this.someoneAdjacent(it.pos)) { this.approachThen(it.pos, () => this.interactObject(interactableId)); return; }
     if (it.oneShot && this.gs.flags[`used:${it.id}`]) { this.ui.notify('Nothing more to do here.', 'info'); return; }
     this.runScript(it.script, it);
   }
@@ -762,7 +826,7 @@ export class GameController {
     const npc = this.npcs.find((n) => n.id === npcId);
     if (!npc) return;
     const nearOk = [...this.partyCreatures.values()].some((c) => !c.dead && chebyshev(c.pos, npc.pos) <= 2);
-    if (!nearOk) { this.ui.notify('Move closer to talk.', 'info'); return; }
+    if (!nearOk) { this.approachThen(npc.pos, () => this.talkToNpc(npcId)); return; }
     this.startDialogue(npc.dialogueId, npcId);
   }
 
@@ -963,15 +1027,21 @@ export class GameController {
     if (!check.ok) { this.ui.notify(check.reason!, 'info'); return; }
     removeItemFromInventory(this.gs, 'camp-supplies', 1);
     this.gs.shortRestsSinceLong = 0;
+    // Clear any temporary max-HP / ability reductions in vitals first, then rebuild
+    // the party creatures at their true maxima BEFORE applying the rest, so the
+    // restored HP and slots survive. (Previously the rest healed a transient creature
+    // that a later rebuildPartyCreatures() immediately overwrote from stale vitals,
+    // so a Long Rest restored no hit points.)
+    for (const id of this.gs.party) {
+      const v = this.gs.vitals[id];
+      if (v) { v.maxHpReduction = 0; v.abilityDamage = {}; }
+    }
+    this.rebuildPartyCreatures();
     for (const [id, c] of this.partyCreatures) {
       const hd = this.gs.hitDice[id];
       applyLongRest(c, hd ? hd : undefined);
-      const v = this.gs.vitals[id];
-      if (v) {
-        v.maxHpReduction = 0;
-        v.abilityDamage = {};
-      }
     }
+    this.syncVitals();
     // camp roster heals too
     for (const id of this.gs.campRoster) {
       const v = this.gs.vitals[id];
@@ -991,8 +1061,6 @@ export class GameController {
       }
     }
     applyEffects(this.gs, [{ kind: 'advance-time', to: 'morning' }], this.effectHost);
-    this.rebuildPartyCreatures();
-    this.syncVitals();
     this.ui.updateHud();
     this.ui.updateCreatures();
     this.ui.notify('The party rests through the night. (Long Rest)', 'info');

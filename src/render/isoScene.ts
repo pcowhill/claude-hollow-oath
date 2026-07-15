@@ -44,9 +44,10 @@ const DEPTH_ZONE = 5;
 const DEPTH_OVERLAY = 6;
 const DEPTH_OBJ_BASE = 10;
 const DEPTH_LIGHT = 89000;
-// Never-seen (black) tiles draw ABOVE the light glows so unexplored light
-// sources don't bleed through the fog as scattered bright/coloured patches.
-const DEPTH_HIDDEN_FOG = 90000;
+// Never-seen (black) tiles sit just below the object sprites, so once a wall or
+// tree bordering a seen tile is revealed it draws on TOP of the surrounding black
+// (light bleed onto unexplored tiles is prevented by hiding lights there instead).
+const DEPTH_HIDDEN_FOG = 4;
 const DEPTH_FX = 91000;
 
 export class IsoScene extends Phaser.Scene {
@@ -67,7 +68,8 @@ export class IsoScene extends Phaser.Scene {
   private overlayGfx!: Phaser.GameObjects.Graphics;
   private pathGfx!: Phaser.GameObjects.Graphics;
   private zoneImgs: Phaser.GameObjects.Image[] = [];
-  private lightImgs: Phaser.GameObjects.Image[] = [];
+  /** light glow sprites paired with their grid cell, so we can hide unexplored ones */
+  private lightImgs: { img: Phaser.GameObjects.Image; x: number; y: number }[] = [];
   private hoverMarker!: Phaser.GameObjects.Image;
   /** small floating label above the hovered cell (e.g. difficult-terrain hint in combat) */
   private terrainTip!: Phaser.GameObjects.Text;
@@ -78,6 +80,8 @@ export class IsoScene extends Phaser.Scene {
   private reducedMotion = false;
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
   private dragging = false;
+  /** true when the current press began over an interactive object (token/door/…) */
+  private pressedOnObject = false;
   private dragStart = { x: 0, y: 0, sx: 0, sy: 0 };
 
   constructor() { super({ key: 'iso' }); }
@@ -361,7 +365,8 @@ export class IsoScene extends Phaser.Scene {
           duration: 380 + ((l.pos.x * 13) % 240), yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
         });
       }
-      this.lightImgs.push(img);
+      img.setVisible(false); // revealed by setFog once its tile is explored
+      this.lightImgs.push({ img, x: l.pos.x, y: l.pos.y });
     }
   }
 
@@ -418,6 +423,9 @@ export class IsoScene extends Phaser.Scene {
       if (visible.has(k)) img.clearTint();
       else img.setTint(0x6a6f75);
     }
+    // Lights only glow once their tile has been explored, so that light sources on
+    // unseen tiles don't bleed through the black fog as scattered bright patches.
+    for (const l of this.lightImgs) l.img.setVisible(explored.has(`${l.x},${l.y}`));
     // token visibility
     for (const [, cont] of this.tokenContainers) {
       const data = cont.getData('rc') as RenderCreature | undefined;
@@ -713,7 +721,10 @@ export class IsoScene extends Phaser.Scene {
       const target = Phaser.Math.Clamp(cam.zoom - dy * 0.001, 0.7, 2.2);
       cam.setZoom(target);
     });
-    this.input.on('pointerdown', (ptr: Phaser.Input.Pointer) => {
+    this.input.on('pointerdown', (ptr: Phaser.Input.Pointer, currentlyOver: unknown[]) => {
+      // remember whether the press started on an interactive object, so a click that
+      // attacks/selects a token doesn't also register as a map move on release
+      this.pressedOnObject = (currentlyOver as unknown[]).length > 0;
       if (ptr.middleButtonDown()) {
         this.dragging = true;
         this.dragStart = { x: ptr.x, y: ptr.y, sx: this.cameras.main.scrollX, sy: this.cameras.main.scrollY };
@@ -721,7 +732,9 @@ export class IsoScene extends Phaser.Scene {
     });
     this.input.on('pointerup', (ptr: Phaser.Input.Pointer, over: unknown[]) => {
       const wasDragging = this.dragging;
+      const pressedObj = this.pressedOnObject;
       this.dragging = false;
+      this.pressedOnObject = false;
       // Ignore releases whose press began on a DOM overlay (menu/dialogue button):
       // closing a panel must not fall through into a map move.
       if (ptr.downElement && ptr.downElement !== this.game.canvas) return;
@@ -732,7 +745,11 @@ export class IsoScene extends Phaser.Scene {
         this.game.events.emit('cell-right-click', cell);
         return;
       }
-      if (ptr.button === 0 && (over as unknown[]).length === 0) {
+      // Suppress the move if the press began on (or released over) an interactive
+      // object. Checking the press guards the case where the object was destroyed
+      // before release — e.g. an enemy killed by the attack — which otherwise let
+      // the click linger onto the now-empty tile and moved the party there.
+      if (ptr.button === 0 && !pressedObj && (over as unknown[]).length === 0) {
         const world = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
         const cell = this.toGrid(world.x, world.y);
         this.game.events.emit('cell-click', cell, ptr.event.shiftKey);

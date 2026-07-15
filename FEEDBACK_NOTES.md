@@ -188,3 +188,68 @@ the gate-dead combat to assert the fixes.
 6. **Tip windows are dismissed when you return to the main menu.** Any lingering
    tutorial/tip toasts are cleared as the menu is shown, so they no longer hang
    over it. (`src/ui/app.ts`, `src/ui/panels/panelHost.ts`)
+
+---
+
+# Feedback Round 4 — Change Notes
+
+All 11 items were implemented; none needed a follow-up question. Verified green:
+`tsc --noEmit`, `eslint` (0 warnings), 184 unit tests (a new `tests/newgame.test.ts`),
+production build, and the 8 Playwright e2e flows — plus a scripted verification pass
+driving long rest, showcase reload, the Fen Gate fog, the short-rest confirm, the
+Stand Up button, walk-then-interact, and glossary focus.
+
+1. **Long Rest now restores HP.** `longRest()` healed a transient creature that a
+   later `rebuildPartyCreatures()` immediately overwrote from stale vitals, so a
+   Long Rest restored no hit points. It now clears reductions, rebuilds at true
+   maxima, applies the rest, and persists it — HP (and slots) come back to full.
+   (`src/engine/gameController.ts`)
+2. **Leaving camp.** The camp's exit is the footprint "Break camp and return to
+   the road" marker at the bottom of the clearing (the map has no walk-off edge).
+   With #9 below you can now click it from a tile or two away and the party walks
+   over and leaves — you no longer have to be standing right on it. (Long Rest also
+   no longer leaves the game in a state that blocks movement — see #1.)
+   (`src/data/campaign/maps/camp.ts` exit is unchanged; reachability via #9.)
+3. **Short Rest confirms unspent Hit Dice.** Taking a Short Rest while injured
+   characters still have Hit Dice they haven't spent now pops a confirmation that
+   lists them, with "← Go Back & Add Hit Dice" and "Rest Without Them".
+   (`src/ui/panels/restPanel.ts`)
+4. **Stand Up from Prone.** Standing from Prone (½ your Speed) was only reachable
+   by moving while prone. There's now an explicit **Stand Up** button on the combat
+   action bar whenever the acting creature is Prone.
+   (`src/ui/combatHud.ts`, `src/engine/combatController.ts`)
+5. **Glossary search keeps focus.** Each keystroke used to trigger a full panel
+   rerender that swapped the input element out and dropped focus (so you could only
+   type one letter). The search now updates just the results list in place.
+   (`src/ui/panels/glossaryPanel.ts`)
+6. **Attacking an enemy no longer moves you onto its tile.** When an attack killed
+   an enemy, its token was destroyed before the mouse release, so the release fell
+   through to a map move onto the now-empty tile (worse when holding the button).
+   The scene now remembers whether the press began on an interactive object and
+   suppresses the move on release. (`src/render/isoScene.ts`)
+7. **Spell slots.** Investigation showed slots ARE consumed correctly and the party
+   rail pips DO update (3→2 on a cast, verified). The confusion was upcasting: once
+   level-1 slots run out a cleric keeps casting from level-2 slots (correct D&D),
+   while the spell button still read "No level-1 slots" and looked disabled. The
+   button now judges castability across all slot levels (and free uses), so it's
+   only shown disabled — with an accurate reason — when truly out of every slot.
+   (`src/ui/combatHud.ts`)
+8. **Fog of war.** (a) Walls/trees/cover bordering a seen tile are now revealed even
+   though the wall itself blocks line of sight (inferred from seen neighbours), so
+   room edges and the palisade render instead of vanishing. (b) The never-seen black
+   now sits just below the object sprites, so a revealed wall draws on top of the
+   surrounding black instead of being clipped; light bleed onto unexplored tiles is
+   prevented by hiding light sources until their tile is explored.
+   (`src/engine/gameController.ts`, `src/render/isoScene.ts`)
+9. **Walk up to things to use them.** Outside combat, clicking a door / container /
+   object / NPC you're not adjacent to now walks the party to an adjacent tile and
+   then interacts, instead of reporting "Too far away."
+   (`src/engine/gameController.ts`)
+10. **New game starts at the Fen Gate south entry.** A new game placed the party at
+    the (2,2) top-left fallback because starting positions were empty; it now starts
+    at the Fen Gate's south entry (the caravan road at the bottom) — the same spot
+    you arrive at from camp. (`src/engine/newGame.ts`, `tests/newgame.test.ts`)
+11. **Movement after a chapter jump.** Loading a showcase/save while a combat or
+    dialogue was still "running" left `mode` off 'exploration', which silently
+    blocked all party movement. `attachState` now resets the transient
+    mode/combat/dialogue/moving state on load. (`src/engine/gameController.ts`)

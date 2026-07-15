@@ -3,6 +3,7 @@ import type { CharacterBuild } from '../rules/build';
 import { classById } from '../data/classes';
 import { backgroundById } from '../data/backgrounds';
 import { companionById } from '../data/campaign/companions';
+import { getMapDef } from '../data/campaign/maps';
 import { itemById } from '../data/items';
 import type { EquipSlots } from '../rules/types';
 import type { Difficulty, GameState } from './stateTypes';
@@ -93,7 +94,12 @@ export function createNewGame(protagonist: CharacterBuild, difficulty: Difficult
     vitals: {},
     hitDice: { [protagonist.id]: { ...protagonist.hitDice } },
     currentMap: 'fen-gate',
-    partyPositions: {},
+    // start at the Fen Gate's south entry (the caravan road, bottom of the map) —
+    // the same spot you arrive at when entering from camp — not the (2,2) fallback.
+    partyPositions: (() => {
+      const south = getMapDef('fen-gate').entryPoints['south'];
+      return south?.[0] ? { [protagonist.id]: { ...south[0] } } : {};
+    })(),
     maps: {},
     quests: {},
     clues: [],

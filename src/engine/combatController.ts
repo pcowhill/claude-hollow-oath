@@ -332,6 +332,17 @@ export class CombatController {
     this.game.ui.updateCombatUi();
   }
 
+  standUp(): void {
+    const c = this.current();
+    if (!c || !this.isPlayerTurn() || this.engine.pending) return;
+    if (!this.engine.standUp(c.id)) {
+      this.game.ui.notify('Not enough movement remaining to stand up.', 'info');
+      return;
+    }
+    this.game.ui.updateCreatures();
+    this.game.ui.updateCombatUi();
+  }
+
   cunning(kind: 'dash' | 'disengage' | 'hide'): void {
     const c = this.current();
     if (!c || !this.isPlayerTurn()) return;
