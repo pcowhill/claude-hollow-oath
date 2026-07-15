@@ -155,6 +155,10 @@ export class CombatHud {
     }
     // class actions
     buttons.push(...this.classActionButtons(cur));
+    // stand up from prone (costs half movement) — shown only while Prone
+    if (cur.conditions.some((ci) => ci.name === 'prone')) {
+      buttons.push(`<button class="ab-btn" data-abact="stand-up" data-tt="<div class='tt-title'>Stand Up</div><div class='tt-line'>Rise from Prone. Costs half your Speed in movement for this turn.</div>">${icon('run')}<span>Stand Up</span></button>`);
+    }
     // standard actions
     buttons.push(`<button class="ab-btn" data-abact="dash" data-tt="<div class='tt-title'>Dash (Action)</div><div class='tt-line'>Gain extra movement equal to your Speed.</div>">${icon('sprint')}<span>Dash</span></button>`);
     buttons.push(`<button class="ab-btn" data-abact="disengage" data-tt="<div class='tt-title'>Disengage (Action)</div><div class='tt-line'>Your movement provokes no Opportunity Attacks this turn.</div>">${icon('footprint')}<span>Diseng.</span></button>`);
@@ -204,10 +208,32 @@ export class CombatHud {
     } catch { return ''; }
   }
 
+  /**
+   * Castability that accounts for upcasting: a levelled spell is castable if ANY
+   * slot at or above its level is free (or a free-use resource is available), not
+   * only its base level — so the button isn't shown disabled with a "No level-1
+   * slots" tooltip while a click would still cast it from a higher slot.
+   */
+  private spellCastability(cur: Creature, sp: ReturnType<typeof spellById>): { ok: boolean; reason?: string } {
+    const combat = this.combat()!;
+    if (sp.level === 0) return combat.canCast(sp.id, { targets: [cur.id], point: cur.pos });
+    const slots = cur.spellSlots ?? {};
+    for (let lvl = sp.level; lvl <= 9; lvl++) {
+      if (slots[lvl] && slots[lvl]!.current > 0) {
+        return combat.canCast(sp.id, { targets: [cur.id], point: cur.pos, slotLevel: lvl });
+      }
+    }
+    // free-use fallbacks (mirror startSpellTargeting)
+    if (sp.id === 'hunters-mark' && (cur.resources['favored-enemy']?.current ?? 0) > 0) return { ok: true };
+    const lineage = cur.resources['lineage-spell'];
+    const feat = cur.resources['feat-spell'];
+    if (((lineage?.current ?? 0) > 0 && this.app.gs.builds[cur.id]?.lineageId) || (feat?.current ?? 0) > 0) return { ok: true };
+    return { ok: false, reason: 'No spell slots remaining.' };
+  }
+
   private spellButton(cur: Creature, spellId: string): string {
     const sp = spellById(spellId);
-    const combat = this.combat()!;
-    const can = combat.canCast(spellId, { targets: [cur.id], point: cur.pos, slotLevel: sp.level || undefined });
+    const can = this.spellCastability(cur, sp);
     const active = this.targeting?.kind === 'spell' && this.targeting.spellId === spellId;
     const slotNote = sp.level > 0 ? `<div class='tt-line muted'>Level ${sp.level}${sp.concentration ? ' · Concentration' : ''}${sp.ritual ? ' · Ritual' : ''}</div>` : `<div class='tt-line muted'>Cantrip${sp.concentration ? ' · Concentration' : ''}</div>`;
     const cost = sp.castingTime === 'bonus' ? 'Bonus Action' : sp.castingTime === 'reaction' ? 'Reaction' : 'Action';
@@ -294,6 +320,7 @@ export class CombatHud {
       case 'disengage': combat.simpleAction('disengage'); break;
       case 'dodge': combat.simpleAction('dodge'); break;
       case 'hide': combat.simpleAction('hide'); break;
+      case 'stand-up': combat.standUp(); break;
       case 'shove': this.startTargeting({ kind: 'shove-prone', targets: [], maxTargets: 1, label: 'Shove: choose an adjacent enemy (left-click: prone, it can be toggled after)' }); break;
       case 'grapple': this.startTargeting({ kind: 'grapple', targets: [], maxTargets: 1, label: 'Grapple: choose an adjacent enemy' }); break;
       case 'help': this.startTargeting({ kind: 'help', targets: [], maxTargets: 1, label: 'Help: choose an ally' }); break;
