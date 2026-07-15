@@ -39,10 +39,10 @@ export interface PropSprite {
 }
 
 const DEPTH_GROUND = 0;
+const DEPTH_GROUND_FOG = 3; // fog darkens the ground but sits BELOW all objects
 const DEPTH_ZONE = 5;
 const DEPTH_OVERLAY = 6;
 const DEPTH_OBJ_BASE = 10;
-const DEPTH_FOG = 90000;
 const DEPTH_LIGHT = 89000;
 const DEPTH_FX = 91000;
 
@@ -55,6 +55,8 @@ export class IsoScene extends Phaser.Scene {
   private groundLayer!: Phaser.GameObjects.Group;
   private objSprites = new Map<string, Phaser.GameObjects.Image>();
   private doorSprites = new Map<string, Phaser.GameObjects.Image>();
+  /** every scenery sprite paired with its grid cell, for per-cell fog dimming */
+  private fogTargets: { img: Phaser.GameObjects.Image; x: number; y: number; secretId?: string }[] = [];
   private tokenContainers = new Map<string, Phaser.GameObjects.Container>();
   private fogGfx!: Phaser.GameObjects.Graphics;
   private overlayGfx!: Phaser.GameObjects.Graphics;
@@ -104,6 +106,7 @@ export class IsoScene extends Phaser.Scene {
     this.objSprites.clear();
     this.doorSprites.clear();
     this.tokenContainers.clear();
+    this.fogTargets = [];
     this.zoneImgs = [];
     this.lightImgs = [];
     this.visibleCells.clear();
@@ -117,7 +120,7 @@ export class IsoScene extends Phaser.Scene {
 
     this.overlayGfx = this.add.graphics().setDepth(DEPTH_OVERLAY);
     this.pathGfx = this.add.graphics().setDepth(DEPTH_OVERLAY + 1);
-    this.fogGfx = this.add.graphics().setDepth(DEPTH_FOG);
+    this.fogGfx = this.add.graphics().setDepth(DEPTH_GROUND_FOG);
     const hoverKey = this.factory.overlayDiamond('hover', '#e8d9b8', 0.18, 'rgba(232,217,184,0.8)');
     this.hoverMarker = this.add.image(0, 0, hoverKey).setOrigin(0.5, 0.5).setDepth(DEPTH_OVERLAY + 2).setVisible(false);
 
@@ -195,14 +198,17 @@ export class IsoScene extends Phaser.Scene {
           const key = this.factory.wall(this.biome, this.variantAt(x, y));
           const img = this.add.image(s.x, s.y - WALL_H, key).setOrigin(0.5, 0).setDepth(this.depthFor(p, 2));
           this.objSprites.set(`wall-${x}-${y}`, img);
+          this.fogTargets.push({ img, x, y });
         } else if (ch === 'T') {
           const key = this.factory.tree(this.biome, this.variantAt(x, y));
           const img = this.add.image(s.x + ((x * 31 + y * 17) % 10) - 5, s.y + TILE_H / 2, key).setOrigin(0.5, 0.94).setDepth(this.depthFor(p, 3));
           this.objSprites.set(`tree-${x}-${y}`, img);
+          this.fogTargets.push({ img, x, y });
         } else if (ch === 'o' || ch === 'Q') {
           const key = this.factory.cover(this.biome, ch === 'Q', this.variantAt(x, y));
           const img = this.add.image(s.x, s.y + TILE_H / 2, key).setOrigin(0.5, 0.92).setDepth(this.depthFor(p, 1));
           this.objSprites.set(`cov-${x}-${y}`, img);
+          this.fogTargets.push({ img, x, y });
         }
       }
     }
@@ -252,6 +258,7 @@ export class IsoScene extends Phaser.Scene {
         this.game.events.emit('container-click', c.id);
       });
       this.objSprites.set(`cont-${c.id}`, img);
+      this.fogTargets.push({ img, x: c.pos.x, y: c.pos.y, secretId: c.hiddenBySecretId });
       if (c.hiddenBySecretId && !this.mapState.discoveredSecrets.includes(c.hiddenBySecretId)) img.setVisible(false);
     }
     // interactables
@@ -265,6 +272,7 @@ export class IsoScene extends Phaser.Scene {
         this.game.events.emit('interactable-click', it.id);
       });
       this.objSprites.set(`int-${it.id}`, img);
+      this.fogTargets.push({ img, x: it.pos.x, y: it.pos.y, secretId: it.hiddenBySecretId });
       if (it.hiddenBySecretId && !this.mapState.discoveredSecrets.includes(it.hiddenBySecretId)) img.setVisible(false);
     }
     // decor
@@ -275,6 +283,7 @@ export class IsoScene extends Phaser.Scene {
       if (dec.scale) img.setScale(dec.scale);
       if (dec.tint) img.setTint(dec.tint);
       this.objSprites.set(`dec-${dec.pos.x}-${dec.pos.y}-${dec.sprite}`, img);
+      if (!dec.tint) this.fogTargets.push({ img, x: dec.pos.x, y: dec.pos.y });
     }
     // transitions: draw a marker
     for (const t of this.mapDef.transitions) {
@@ -352,6 +361,8 @@ export class IsoScene extends Phaser.Scene {
     const amb = this.mapDef.ambientLight;
     const exploredAlpha = 0.62;
     const hiddenAlpha = amb === 'bright' ? 0.94 : 0.97;
+    // Ground fog sits BELOW every object, so it only darkens the floor of cells
+    // the party can't currently see — objects on visible cells always draw on top.
     this.fogGfx.clear();
     for (let y = 0; y < this.mapDef.height; y++) {
       for (let x = 0; x < this.mapDef.width; x++) {
@@ -367,8 +378,28 @@ export class IsoScene extends Phaser.Scene {
         this.fogGfx.lineTo(s.x - TILE_W / 2 - 1, s.y + TILE_H / 2);
         this.fogGfx.closePath();
         this.fogGfx.fillPath();
-        // hide walls in unexplored regions look: handled by darkness alpha
       }
+    }
+    // Objects (walls, trees, cover, containers, interactables, decor) render only
+    // once their tile has been seen: hidden on never-seen (black) tiles, greyed on
+    // remembered (out-of-vision) tiles, full colour in active vision — always on
+    // top of the fogged floor around them.
+    for (const ft of this.fogTargets) {
+      const k = `${ft.x},${ft.y}`;
+      const secretHidden = ft.secretId ? !this.mapState.discoveredSecrets.includes(ft.secretId) : false;
+      if (secretHidden || !explored.has(k)) { ft.img.setVisible(false); continue; }
+      ft.img.setVisible(true);
+      if (visible.has(k)) ft.img.clearTint();
+      else ft.img.setTint(0x6a6f75);
+    }
+    for (const d of this.mapDef.doors) {
+      const img = this.doorSprites.get(d.id);
+      if (!img) continue;
+      const k = `${d.pos.x},${d.pos.y}`;
+      if (!explored.has(k)) { img.setVisible(false); continue; }
+      img.setVisible(true);
+      if (visible.has(k)) img.clearTint();
+      else img.setTint(0x6a6f75);
     }
     // token visibility
     for (const [, cont] of this.tokenContainers) {
@@ -420,17 +451,19 @@ export class IsoScene extends Phaser.Scene {
           stroke: '#000000', strokeThickness: 3,
         }).setOrigin(0.5, 0.5).setName('label').setVisible(false);
         cont.add([sel, shadow, tok, hpBg, hp, label]);
-        cont.setSize(48 * scale, 60 * scale);
-        cont.setInteractive(new Phaser.Geom.Rectangle(-24 * scale, -44 * scale, 48 * scale, 56 * scale), Phaser.Geom.Rectangle.Contains);
-        cont.on('pointerdown', (ptr: Phaser.Input.Pointer) => {
+        // Make the token disc itself interactive (not the container): an Image's
+        // hit area is origin-aware and tracks the sprite exactly, so a click
+        // anywhere on the rendered circle registers — no up-and-left offset.
+        tok.setInteractive({ useHandCursor: true });
+        tok.on('pointerdown', (ptr: Phaser.Input.Pointer) => {
           this.game.events.emit('token-click', rc.id, ptr.rightButtonDown());
         });
-        cont.on('pointerover', () => {
-          (cont!.getByName('label') as Phaser.GameObjects.Text).setVisible(true);
+        tok.on('pointerover', () => {
+          label.setVisible(true);
           this.game.events.emit('token-hover', rc.id, true);
         });
-        cont.on('pointerout', () => {
-          (cont!.getByName('label') as Phaser.GameObjects.Text).setVisible(false);
+        tok.on('pointerout', () => {
+          label.setVisible(false);
           this.game.events.emit('token-hover', rc.id, false);
         });
         this.tokenContainers.set(rc.id, cont);
@@ -647,16 +680,21 @@ export class IsoScene extends Phaser.Scene {
       }
     });
     this.input.on('pointerup', (ptr: Phaser.Input.Pointer, over: unknown[]) => {
+      const wasDragging = this.dragging;
       this.dragging = false;
+      // Ignore releases whose press began on a DOM overlay (menu/dialogue button):
+      // closing a panel must not fall through into a map move.
+      if (ptr.downElement && ptr.downElement !== this.game.canvas) return;
+      if (wasDragging) return;
       if (ptr.button === 2) {
         const world = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
-        const cell = this.toGrid(world.x, world.y - TILE_H / 2);
+        const cell = this.toGrid(world.x, world.y);
         this.game.events.emit('cell-right-click', cell);
         return;
       }
       if (ptr.button === 0 && (over as unknown[]).length === 0) {
         const world = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
-        const cell = this.toGrid(world.x, world.y - TILE_H / 2);
+        const cell = this.toGrid(world.x, world.y);
         this.game.events.emit('cell-click', cell, ptr.event.shiftKey);
       }
     });
@@ -670,7 +708,7 @@ export class IsoScene extends Phaser.Scene {
         return;
       }
       const world = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
-      const cell = this.toGrid(world.x, world.y - TILE_H / 2);
+      const cell = this.toGrid(world.x, world.y);
       if (cell.x >= 0 && cell.y >= 0 && cell.x < this.mapDef.width && cell.y < this.mapDef.height && this.terrainCharAt(cell.x, cell.y) !== ' ') {
         const s = this.toScreen(cell);
         this.hoverMarker.setPosition(s.x, s.y + TILE_H / 2).setVisible(true);
@@ -701,7 +739,9 @@ export class IsoScene extends Phaser.Scene {
     const k = this.keys;
     if (!k) return;
     let dx = 0, dy = 0;
-    if (k.A?.isDown || k.LEFT?.isDown) dx -= speed;
+    // 'A' is reserved for "select all party" — pan left with the arrow key,
+    // screen edges, or middle-mouse drag instead.
+    if (k.LEFT?.isDown) dx -= speed;
     if (k.D?.isDown || k.RIGHT?.isDown) dx += speed;
     if (k.W?.isDown || k.UP?.isDown) dy -= speed;
     if (k.S?.isDown || k.DOWN?.isDown) dy += speed;

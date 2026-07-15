@@ -251,6 +251,8 @@ export class CombatController {
     if (!path || path.length < 2) return;
     this.engine.move(c.id, path);
     await this.game.ui.animateMove(c.id, [{ ...c.pos }]);
+    // party movement reveals new ground — refresh vision so approaching enemies appear
+    if (c.side === 'party') this.game.recomputeFog();
     this.game.ui.updateCreatures();
     this.game.ui.updateCombatUi();
   }
@@ -259,7 +261,17 @@ export class CombatController {
     const c = this.current();
     if (!c || !this.isPlayerTurn() || this.engine.pending) return;
     const e = this.engine.economy(c.id);
-    if (e.attacksRemaining === 0 && !e.actionUsed) this.engine.attackAction(c.id);
+    // Gate on the action economy so a hero can't attack repeatedly without spending
+    // their Action: one attack per Action (plus multiattack / Action Surge grants).
+    if (slot === 'offHand') {
+      if (e.bonusUsed) { this.game.ui.notify('No Bonus Action left for an off-hand attack.', 'info'); return; }
+    } else if (e.attacksRemaining <= 0) {
+      if (e.actionUsed && e.extraActions <= 0) {
+        this.game.ui.notify('No attacks left this turn.', 'info');
+        return;
+      }
+      this.engine.attackAction(c.id); // spend the Action, granting this turn's attack(s)
+    }
     const maneuverId = this.pendingManeuver ?? undefined;
     this.pendingManeuver = null;
     this.engine.attackWith(c.id, targetId, slot, { maneuverId });
@@ -506,6 +518,9 @@ export class CombatController {
 
   // ------------------------------------------------------------ end of combat
 
+  /** true once the fight is won and spoils are resolved, but the player hasn't dismissed the log yet */
+  concludePending = false;
+
   private onPhaseChange(): void {
     const phase = this.engine.state.phase;
     if (phase === 'victory') {
@@ -513,6 +528,13 @@ export class CombatController {
     } else if (phase === 'defeat') {
       setTimeout(() => this.handleDefeat(), 800);
     }
+  }
+
+  /** dismiss the post-victory log and return to exploration */
+  concludeCombat(): void {
+    if (!this.concludePending) return;
+    this.concludePending = false;
+    this.game.endCombat(true);
   }
 
   private handleVictory(): void {
@@ -566,7 +588,11 @@ export class CombatController {
       audio.sfx('coins');
     }
     g.gs.defeatsSinceHelp = 0;
-    g.endCombat(true);
+    // Hold at a "victory — review the log" state; the player clicks Conclude to
+    // return to exploration once they've finished reading the combat log.
+    this.concludePending = true;
+    g.ui.logEvent('Victory. The field is yours — review the log, then conclude the battle.');
+    g.ui.updateCombatUi();
   }
 
   private handleDefeat(): void {

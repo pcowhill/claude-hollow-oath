@@ -71,7 +71,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'whose-funeral': {
         speaker: 'Korrin Vale',
-        text: 'Joram Harrow. Tanner. Good man, dull as a rainy week, dead of a bad chest — which is the only ordinary thing to happen in Greyfen this month. It\'s the third try at burying him.\n\nShe lets that sit, watching your face.\n\nFirst two rites didn\'t take. Dead don\'t stay put here lately. So they bury him at night now, with half the militia standing round the hole, and everyone pretending that\'s normal.',
+        text: 'Joram Harrow. Tanner. Good man, dull as a rainy week, dead of a bad chest — which is the only ordinary thing to happen in Greyfen this month. It\'s the third try at burying him.\n\n*She lets that sit, watching your face.*\n\nFirst two rites didn\'t take. Dead don\'t stay put here lately. So they bury him at night now, with half the militia standing round the hole, and everyone pretending that\'s normal.',
         options: [
           { text: '"Didn\'t take? Rites don\'t just fail."', next: 'rites-fail' },
           { text: '"And you believe all this?"', next: 'believe' },
@@ -79,7 +79,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       alone: {
         speaker: 'Korrin Vale',
-        text: 'Because the Fenwardens are short-handed, and I\'m not a Fenwarden anymore, which makes me exactly the right person to stand in the cold doing their job.\n\nShe shrugs, iron-calm.\n\nLong story. Ends with me guarding carts. Middle part\'s classified, according to people who classify their own mistakes.',
+        text: 'Because the Fenwardens are short-handed, and I\'m not a Fenwarden anymore, which makes me exactly the right person to stand in the cold doing their job.\n\n*She shrugs, iron-calm.*\n\nLong story. Ends with me guarding carts. Middle part\'s classified, according to people who classify their own mistakes.',
         options: [
           { text: '"What happened between you and the Wardens?"', next: 'wardens-history' },
           { text: '"Fair enough. What\'s with the midnight funeral?"', next: 'whose-funeral' },
@@ -87,7 +87,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'alone-soldier': {
         speaker: 'Korrin Vale',
-        text: 'Her eyes flick over you — the stance, the wear on your gear — and something eases a notch.\n\nGood eye. Rotation\'s short because the Warden-Captain has every warm body walking the wardstone ring and the graveyard, and pride keeps her from hiring back the sergeant she sacked. That\'s me, for clarity. So the gate gets one stubborn civilian with a crossbow.',
+        text: '*Her eyes flick over you — the stance, the wear on your gear — and something eases a notch.*\n\nGood eye. Rotation\'s short because the Warden-Captain has every warm body walking the wardstone ring and the graveyard, and pride keeps her from hiring back the sergeant she sacked. That\'s me, for clarity. So the gate gets one stubborn civilian with a crossbow.',
         options: [
           { text: '"Sacked for what?"', next: 'wardens-history' },
           { text: '"Then let\'s not leave the gate weaker. What\'s the situation?"', next: 'whose-funeral', effects: [{ kind: 'approval', companionId: 'korrin', delta: 2, reason: 'thinking like a soldier' }] },
@@ -95,7 +95,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'wardens-history': {
         speaker: 'Korrin Vale',
-        text: 'Twelve years in the grey cloak. Then I noticed the far wardstone patrols were signed off by people who never left the barracks, said so in writing, and got handed my discharge for "insubordination" the same week.\n\nA humorless half-smile.\n\nThe stones out there haven\'t been checked in months. Everyone official says I\'m a liar. The dead climbing out of their graves say otherwise, but nobody interviews them.',
+        text: 'Twelve years in the grey cloak. Then I noticed the far wardstone patrols were signed off by people who never left the barracks, said so in writing, and got handed my discharge for "insubordination" the same week.\n\n*A humorless half-smile.*\n\nThe stones out there haven\'t been checked in months. Everyone official says I\'m a liar. The dead climbing out of their graves say otherwise, but nobody interviews them.',
         options: [
           { text: '"Somebody should check those stones."', next: 'somebody-should', effects: [{ kind: 'approval', companionId: 'korrin', delta: 2, reason: 'taking her seriously' }] },
           { text: '"Maybe you were wrong about the ledgers."', next: 'maybe-wrong' },
@@ -103,12 +103,12 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'somebody-should': {
         speaker: 'Korrin Vale',
-        text: 'Somebody keeps saying that. Somebody is currently guarding a gate.\n\nShe studies you a long moment.\n\nYou look like trouble that travels well. If you\'re staying in Greyfen — and the roads south being what they are, you\'re staying — maybe we\'ll talk again.',
+        text: 'Somebody keeps saying that. Somebody is currently guarding a gate.\n\n*She studies you a long moment.*\n\nYou look like trouble that travels well. If you\'re staying in Greyfen — and the roads south being what they are, you\'re staying — maybe we\'ll talk again.',
         options: [{ text: '"Maybe we will."', next: 'funeral-scream' }],
       },
       'maybe-wrong': {
         speaker: 'Korrin Vale',
-        text: 'Maybe. I\'ve been wrong before — there was a Tuesday in \'41.\n\nShe doesn\'t smile.\n\nI copied those ledgers by hand for nine years. I know whose ink dries how. I wasn\'t wrong.',
+        text: 'Maybe. I\'ve been wrong before — there was a Tuesday in \'41.\n\n*She doesn\'t smile.*\n\nI copied those ledgers by hand for nine years. I know whose ink dries how. I wasn\'t wrong.',
         options: [{ text: '"Noted."', next: 'funeral-scream' }],
       },
       believe: {
@@ -118,7 +118,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'rites-fail': {
         speaker: 'Korrin Vale',
-        text: 'They do here. Since about a season ago. Rites fail, names weather off stones overnight, old Aldous forgets his own workshop, and the Warden-Captain says it\'s all coincidence with the straightest face in the fen.\n\nShe adjusts her grip on the crossbow, unhurried.\n\nAsk me, something under this town has stopped holding its end of a bargain. Or somebody\'s helping it stop.',
+        text: 'They do here. Since about a season ago. Rites fail, names weather off stones overnight, old Aldous forgets his own workshop, and the Warden-Captain says it\'s all coincidence with the straightest face in the fen.\n\n*She adjusts her grip on the crossbow, unhurried.*\n\nAsk me, something under this town has stopped holding its end of a bargain. Or somebody\'s helping it stop.',
         options: [{ text: '"That\'s quite a theory."', next: 'funeral-scream' }],
       },
       'open-demand': {
@@ -131,12 +131,12 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'intimidate-ok': {
         speaker: 'Korrin Vale',
-        text: 'She looks you over — slow, professional, unimpressed but arithmetic.\n\nOne of me. Several of you. And I\'m not dying for an ordinance I think is stupid.\n\nShe steps back and thumbs toward the bar.\n\nGate\'s yours when the funeral clears the road. But you and I will remember this conversation differently, I expect.',
+        text: '*She looks you over — slow, professional, unimpressed but arithmetic.*\n\nOne of me. Several of you. And I\'m not dying for an ordinance I think is stupid.\n\n*She steps back and thumbs toward the bar.*\n\nGate\'s yours when the funeral clears the road. But you and I will remember this conversation differently, I expect.',
         options: [{ text: 'Wait for the funeral to end.', next: 'funeral-scream', effects: [{ kind: 'approval', companionId: 'korrin', delta: -3, reason: 'strong-arming a guard doing her job' }, { kind: 'npc-memory', npcId: 'korrin-npc', memory: 'threatened-at-gate' }] }],
       },
       'intimidate-fail': {
         speaker: 'Korrin Vale',
-        text: 'She doesn\'t even shift her weight.\n\nNo.\n\nA beat.\n\nAnything else? I\'m listening. It\'s a slow night. Well — it was.',
+        text: '*She doesn\'t even shift her weight.*\n\nNo.\n\n*A beat.*\n\nAnything else? I\'m listening. It\'s a slow night. Well — it was.',
         options: [{ text: '"...Tell me about the funeral, then."', next: 'whose-funeral' }],
       },
       'funeral-scream': {
@@ -148,7 +148,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'join-fight': {
         speaker: 'Korrin Vale',
-        text: 'The dead are up! Watch the mud — it slows the living just fine.\n\nShe glances at you exactly once.\n\nYou fight, I\'ll fight with you. Sort out what we are to each other after.',
+        text: 'The dead are up! Watch the mud — it slows the living just fine.\n\n*She glances at you exactly once.*\n\nYou fight, I\'ll fight with you. Sort out what we are to each other after.',
         options: [
           { text: 'To the graveyard.', next: '#end', effects: [
             { kind: 'set-flag', key: 'fg-funeral-broken', value: true },
@@ -161,7 +161,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'after-fight': {
         speaker: 'Korrin Vale',
-        text: 'Well. That\'s the recruitment speech handled, I suppose.\n\nShe cranks her crossbow with a soldier\'s economy, eyes on the settled graves.\n\nSkeletons don\'t climb without a reason. I want to know who gave them one. You\'re heading into Greyfen — I\'m coming. Objections?',
+        text: 'Well. That\'s the recruitment speech handled, I suppose.\n\n*She cranks her crossbow with a soldier\'s economy, eyes on the settled graves.*\n\nSkeletons don\'t climb without a reason. I want to know who gave them one. You\'re heading into Greyfen — I\'m coming. Objections?',
         options: [
           { text: '"Glad to have you."', next: '#end', effects: [{ kind: 'approval', companionId: 'korrin', delta: 2, reason: 'welcomed aboard' }] },
           { text: '"Just don\'t slow us down."', next: '#end' },
@@ -189,7 +189,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       start: {
         speaker: 'Tobin Rusk',
         portrait: 'portrait-tobin',
-        text: 'The old gravedigger plants his spade and leans on it, breathing hard, looking at the re-stilled earth with an expression halfway between grief and professional insult.\n\nForty years I\'ve put Greyfen to bed. Forty years they stayed tucked in. Now look.\n\nHe nods at the nearest headstone. Where a name should be carved, there\'s only a gouged blank.',
+        text: '*The old gravedigger plants his spade and leans on it, breathing hard, looking at the re-stilled earth with an expression halfway between grief and professional insult.*\n\nForty years I\'ve put Greyfen to bed. Forty years they stayed tucked in. Now look.\n\n*He nods at the nearest headstone. Where a name should be carved, there\'s only a gouged blank.*',
         interjections: [
           { companionId: 'korrin', text: 'Korrin crouches by the stone, running a thumb along the gouge. "Tool marks. This wasn\'t weather."' },
         ],
@@ -201,7 +201,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'who-buried': {
         speaker: 'Tobin Rusk',
-        text: 'Joram Harrow, third attempt, may he please — PLEASE — rest. His widow Senna\'s taken it hard. Would you not, if your man kept... coming back wrong?\n\nHe spits, carefully away from the graves.\n\nIt\'s the names, I say. Stone loses its name, the ground loses its grip. Nobody listens to gravediggers.',
+        text: 'Joram Harrow, third attempt, may he please — PLEASE — rest. His widow Senna\'s taken it hard. Would you not, if your man kept... coming back wrong?\n\n*He spits, carefully away from the graves.*\n\nIt\'s the names, I say. Stone loses its name, the ground loses its grip. Nobody listens to gravediggers.',
         options: [
           { text: '"I\'m listening. Tell me about the names."', next: 'names', effects: [{ kind: 'approval', companionId: 'korrin', delta: 1, reason: 'listening to a workman' }] },
           { text: '"Superstition. There\'ll be a plainer cause."', next: 'superstition' },
@@ -217,7 +217,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       superstition: {
         speaker: 'Tobin Rusk',
-        text: 'Aye, that\'s what the clever ones say.\n\nHe looks at you, then at the grave that just tried to open itself, then back at you, letting the arithmetic do its own talking.',
+        text: 'Aye, that\'s what the clever ones say.\n\n*He looks at you, then at the grave that just tried to open itself, then back at you, letting the arithmetic do its own talking.*',
         options: [
           { text: '"...Point taken. Tell me about the names."', next: 'names' },
         ],
@@ -243,7 +243,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       'quest-start': {
         speaker: 'Tobin Rusk',
-        text: 'You want the whole sorry picture, take it to the Warden-Captain — Maera Kask, in the muster hall. She\'s hiring outsiders for the grave-watch, quiet-like, since her own people are stretched thin as winter broth. Or talk to Mother Reed at the Mission. Or both, and watch them disagree.\n\nHe hefts his spade.\n\nMe, I\'ve got a man to bury. Fourth time lucky.',
+        text: 'You want the whole sorry picture, take it to the Warden-Captain — Maera Kask, in the muster hall. She\'s hiring outsiders for the grave-watch, quiet-like, since her own people are stretched thin as winter broth. Or talk to Mother Reed at the Mission. Or both, and watch them disagree.\n\n*He hefts his spade.*\n\nMe, I\'ve got a man to bury. Fourth time lucky.',
         options: [
           { text: '"We\'ll find who\'s doing this, Tobin."', next: '#end', effects: [
             { kind: 'quest', questId: 'main-hollow-oath', op: 'show-objective', objectiveId: 'investigate-graves' },
@@ -262,7 +262,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Militiaman Derk',
-        text: 'A young militiaman grips his spear like it might wriggle free. His eyes keep sliding toward the graveyard.\n\nGate\'s closed for the burying. Captain\'s orders. Please don\'t make it a thing.',
+        text: '*A young militiaman grips his spear like it might wriggle free. His eyes keep sliding toward the graveyard.*\n\nGate\'s closed for the burying. Captain\'s orders. Please don\'t make it a thing.',
         options: [
           { text: '"Steady, soldier. Long night?"', next: 'long-night' },
           { text: 'Leave him be.', next: '#end' },
@@ -275,7 +275,7 @@ export const OPENING_DIALOGUES: Record<string, DialogueDef> = {
       },
       after: {
         speaker: 'Militiaman Derk',
-        text: 'He stares at the settled graves, knuckles white on the spear, then at you with something like religion.\n\nThat was — you just — I\'m going to buy you a drink. Several drinks. Once my hands work again.',
+        text: '*He stares at the settled graves, knuckles white on the spear, then at you with something like religion.*\n\nThat was — you just — I\'m going to buy you a drink. Several drinks. Once my hands work again.',
         options: [{ text: '"Breathe, Derk."', next: '#end' }],
       },
     },

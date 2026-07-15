@@ -5,12 +5,22 @@ import { GameApp } from './ui/app';
 import { loadIconManifest, allIconConcepts, iconUrl } from './ui/icons';
 import { initTooltips } from './ui/tooltip';
 
+/** Token silhouettes bundled from game-icons.net but not in the icon manifest. */
+const TOKEN_EXTRAS = ['visored-helm', 'barbute', 'hood'];
+
 class BootScene extends Phaser.Scene {
   constructor() { super({ key: 'boot' }); }
   preload(): void {
     // preload token silhouette icons as small rasterized SVGs
     for (const concept of allIconConcepts()) {
       this.load.svg(`icon-${concept}`, iconUrl(concept), { width: 64, height: 64 });
+    }
+    // A few character-token silhouettes are bundled from game-icons.net (CC BY 3.0)
+    // but sit outside the searchable icon manifest — preload them so map tokens
+    // (Korrin's visored helm, Kask's barbute, Pip's hood) render, not just their
+    // dialogue portraits.
+    for (const concept of TOKEN_EXTRAS) {
+      this.load.svg(`icon-${concept}`, `./assets/icons/${concept}.svg`, { width: 64, height: 64 });
     }
   }
   create(): void {

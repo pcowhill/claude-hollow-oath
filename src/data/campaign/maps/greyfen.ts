@@ -149,7 +149,7 @@ export const GREYFEN: MapDef = {
     { id: 'yara', name: 'Yara Stitch', pos: { x: 38, y: 17 }, token: 'anvil', dialogueId: 'yara-works', shopId: 'yara-armory' },
     { id: 'odo', name: 'Odo Brack', pos: { x: 12, y: 33 }, token: 'cultist', dialogueId: 'odo-backroom', shopId: 'brack-back-room' },
     { id: 'tally', name: 'Gran Tally', pos: { x: 6, y: 34 }, token: 'character', dialogueId: 'gran-tally' },
-    { id: 'ulf', name: 'Ferryman Ulf', pos: { x: 8, y: 37 }, token: 'boat', dialogueId: 'ulf-ferry' },
+    { id: 'ulf', name: 'Ferryman Ulf', pos: { x: 8, y: 37 }, token: 'character', dialogueId: 'ulf-ferry' },
     { id: 'senna', name: 'Senna Harrow', pos: { x: 33, y: 30 }, token: 'character', dialogueId: 'senna-harrow' },
     { id: 'tobin2', name: 'Tobin Rusk', pos: { x: 41, y: 26 }, token: 'character', dialogueId: 'tobin-town' },
     { id: 'nim', name: 'Nim', pos: { x: 27, y: 34 }, token: 'character', dialogueId: 'nim-hideout' },

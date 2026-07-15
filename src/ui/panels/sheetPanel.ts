@@ -15,6 +15,33 @@ import { icon } from '../icons';
 import { portraitImg } from '../portraits';
 import { ttEscape } from '../tooltip';
 import { COMPANIONS } from '../../data/campaign/companions';
+import { GLOSSARY } from '../../data/glossary';
+
+/** Short in-world descriptions of each skill, for character-sheet tooltips. */
+const SKILL_TOOLTIPS: Record<string, string> = {
+  athletics: 'Climbing, swimming, jumping, and raw physical struggles like grappling or forcing a door.',
+  acrobatics: 'Keeping your feet on treacherous ground, balancing, tumbling, and slipping a grapple.',
+  sleightOfHand: 'Picking pockets, palming objects, planting evidence, and other deft-fingered trickery.',
+  stealth: 'Moving unseen and unheard: hiding, sneaking, and shadowing without being noticed.',
+  arcana: 'Recalling lore of spells, magic items, planes, and the workings of the arcane.',
+  history: 'Recalling past events, legends, kingdoms, wars, and the founders\' old accords.',
+  investigation: 'Deducing from clues, searching for hidden things, and reasoning out how something works.',
+  nature: 'Knowledge of terrain, plants, animals, weather, and the natural cycles of the fen.',
+  religion: 'Lore of deities, rites, holy symbols, the undead, and the practices of the faithful.',
+  animalHandling: 'Calming, reading, and directing beasts; sensing an animal\'s intentions.',
+  insight: 'Reading a creature\'s true intentions, moods, and lies from tells and body language.',
+  medicine: 'Stabilizing the dying, diagnosing ailments, and tending wounds without magic.',
+  perception: 'Spotting, hearing, and noticing — the passive and active awareness of your surroundings.',
+  survival: 'Tracking, foraging, navigating the wilds, and reading the signs the marsh leaves behind.',
+  deception: 'Convincing lies, disguises, misdirection, and keeping a straight face over a bluff.',
+  intimidation: 'Bending others to your will through threats, menace, and hostile displays.',
+  performance: 'Holding an audience with music, story, or spectacle.',
+  persuasion: 'Winning others over with tact, warmth, and good-faith argument.',
+};
+
+function masteryText(masteryProp: string): string {
+  return GLOSSARY.find((g) => g.id === `mastery-${masteryProp}`)?.text ?? '';
+}
 
 let activeChar = '';
 
@@ -53,7 +80,9 @@ export const sheetPanel: PanelDef = {
     const skillRows = (Object.keys(SKILL_NAMES) as SkillKey[]).map((s) => {
       const lvl = profs[s] ?? 0;
       const mod = abilityMod(abilities[SKILL_ABILITY[s]]) + (lvl === 1 ? 2 : lvl === 2 ? 4 : 0);
-      return `<div class="skill-row ${lvl > 0 ? 'prof' : ''}">
+      const profLabel = lvl === 2 ? 'Expertise (double proficiency)' : lvl === 1 ? 'Proficient' : 'Not proficient';
+      const tt = ttEscape(`<div class='tt-title'>${SKILL_NAMES[s]}</div><div class='tt-sub'>${ABILITY_NAMES[SKILL_ABILITY[s]]} · ${profLabel} · ${fmtMod(mod)}</div><div class='tt-line'>${SKILL_TOOLTIPS[s] ?? ''}</div>`);
+      return `<div class="skill-row ${lvl > 0 ? 'prof' : ''}" data-tt="${tt}">
         <span class="sk-pip">${lvl === 2 ? '◆' : lvl === 1 ? '●' : '○'}</span>
         <span>${SKILL_NAMES[s]}</span>
         <span class="muted">${ABILITY_NAMES[SKILL_ABILITY[s]].slice(0, 3).toUpperCase()}</span>
@@ -92,7 +121,12 @@ export const sheetPanel: PanelDef = {
     for (const w of b.weaponMasteries) {
       try {
         const it = itemById(w);
-        features.push(featureRow(`Weapon Mastery: ${it.name}`, `You can use the ${it.weapon?.mastery} mastery property with ${it.name.toLowerCase()}s.`, 'Mastery'));
+        const prop = it.weapon?.mastery;
+        const propName = prop ? prop[0]!.toUpperCase() + prop.slice(1) : '';
+        const desc = prop
+          ? `While wielding a ${it.name.toLowerCase()}, you gain its <b>${propName}</b> mastery property.<br><br><b>${propName}:</b> ${masteryText(prop)}`
+          : `You can use the mastery property of the ${it.name.toLowerCase()}.`;
+        features.push(featureRow(`Weapon Mastery: ${it.name}`, desc, `${propName} Mastery`));
       } catch { /* skip */ }
     }
 
@@ -116,15 +150,17 @@ export const sheetPanel: PanelDef = {
       ${b.pendingLevel ? `<div class="levelup-banner"><span>${icon('upgrade')} A new level awaits.</span><button class="btn primary" data-levelup="1">Level Up to ${(app.gs.flags['pending-level-target'] as number) ?? b.level + 1}</button><button class="btn ghost small" data-tt="<div class='tt-line'>You can level up any time from this sheet.</div>">Postpone</button></div>` : ''}
       <div class="sheet-layout">
         <div class="sheet-left">
-          ${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor, 'large')}
-          <div class="sheet-ident">
-            <div>${species.name}${lineage ? ` (${lineage.name})` : ''}</div>
-            <div>${cls.name}${b.subclassId ? ` — ${cls.subclass.name}` : ''} ${b.level}</div>
-            <div class="muted">${bg.name}</div>
+          <div class="sheet-ident-row">
+            ${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor, 'large')}
+            <div class="sheet-ident">
+              <div>${species.name}${lineage ? ` (${lineage.name})` : ''}</div>
+              <div>${cls.name}${b.subclassId ? ` — ${cls.subclass.name}` : ''} ${b.level}</div>
+              <div class="muted">${bg.name}</div>
+            </div>
           </div>
           <div class="stat-grid">
             <div class="stat-box" data-tt="${ttEscape(`<div class='tt-title'>Armor Class</div>${computeAc(b, equip, (id) => app.controller.itemInstance(id)).parts.map((p) => `<div class='tt-line'>${p.value >= 0 ? '+' : ''}${p.value} ${p.label}</div>`).join('')}`)}"><div>${icon('shield')} AC</div><b>${ac.total}</b></div>
-            <div class="stat-box"><div>${icon('heart')} HP</div><b>${vit ? `${vit.hp}/${vit.stats.maxHp}` : maxHpFor(b)}</b></div>
+            <div class="stat-box" data-tt="<div class='tt-title'>Hit Points</div><div class='tt-line'>Your health. At 0 HP you fall Unconscious and make death saving throws. Restored by healing, Hit Dice on a Short Rest, and fully on a Long Rest.</div>"><div>${icon('heart')} HP</div><b>${vit ? `${vit.hp}/${vit.stats.maxHp}` : maxHpFor(b)}</b></div>
             <div class="stat-box" data-tt="<div class='tt-line'>Base walking speed per combat round.</div>"><div>${icon('run')} Speed</div><b>${vit?.stats.speedFt ?? species.speedFt} ft</b></div>
             <div class="stat-box" data-tt="<div class='tt-line'>Added to attacks, saves, and skills you are proficient with.</div>"><div>${icon('d20')} Prof</div><b>+2</b></div>
             <div class="stat-box" data-tt="<div class='tt-line'>Hit Point Dice: spend during Short Rests to heal.</div>"><div>${icon('heal')} Hit Dice</div><b>${hd ? `${hd.remaining}/${hd.max} d${hd.die}` : '—'}</b></div>

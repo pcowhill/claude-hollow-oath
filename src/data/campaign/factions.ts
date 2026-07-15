@@ -25,7 +25,7 @@ export const FACTIONS: FactionDef[] = [
   {
     id: 'compact',
     name: 'The Mirefolk Compact',
-    icon: 'boat',
+    icon: 'net',
     description: 'The fen-margin folk: guides, smugglers, eel-catchers, and everyone Greyfen proper calls expendable. They pay the marsh as they go — and it pays back.',
     worldview: 'The founders wrote a bad contract and left the interest to their grandchildren. You don\'t swear at the fen; you trade with it, one fair deal at a time.',
     protects: 'The freedom and livelihood of the fen-dwellers, who are always the first ones fed to other people\'s oaths.',

@@ -23,28 +23,28 @@ export const FINALE_DIALOGUES: Record<string, DialogueDef> = {
       // ---------------------------------------------------------------- openings
       'start-known': {
         speaker: 'The Keeper-of-Evenings',
-        text: 'You step to the pool\'s edge, and the black water lifts — not rising, ATTENDING, the way a dog long beaten still stands when its name is called. It speaks in borrowed voices, many at once, worn thin as old cloth: a gravedigger\'s, a fisher-girl\'s, a young wife\'s, and beneath them all something vast trying very hard to be small enough to talk to.\n\nYOU CARRY MY NAME. Two hundred years, and someone carries it back down the stairs.\n\nSay it, mourner. A bound thing that hears its own name remembers what it was BEFORE it was a wall.',
+        text: '*You step to the pool\'s edge, and the black water lifts — not rising, ATTENDING, the way a dog long beaten still stands when its name is called. It speaks in borrowed voices, many at once, worn thin as old cloth: a gravedigger\'s, a fisher-girl\'s, a young wife\'s, and beneath them all something vast trying very hard to be small enough to talk to.*\n\nYOU CARRY MY NAME. Two hundred years, and someone carries it back down the stairs.\n\nSay it, mourner. A bound thing that hears its own name remembers what it was BEFORE it was a wall.',
         options: [
           { text: '"Umbrell. Keeper-of-Evenings. We\'ve come to settle the Oath."', next: 'named' },
         ],
       },
       'start-informed': {
         speaker: 'The Custodian',
-        text: 'You step to the pool\'s edge, and the black water lifts — attending. It speaks in borrowed voices, many at once, threadbare: a gravedigger\'s, a fisher-girl\'s, a young wife\'s, and beneath them something enormous keeping itself carefully small.\n\nREADERS. You have the smell of the archive on you — you\'ve seen the Clause. Then you know what I am: not your monster, not your god. Your FOUNDERS\' UNPAID BILL, still keeping their door.\n\nSay what you came to say. I have kept two hundred years of evenings. I can keep another hour.',
+        text: '*You step to the pool\'s edge, and the black water lifts — attending. It speaks in borrowed voices, many at once, threadbare: a gravedigger\'s, a fisher-girl\'s, a young wife\'s, and beneath them something enormous keeping itself carefully small.*\n\nREADERS. You have the smell of the archive on you — you\'ve seen the Clause. Then you know what I am: not your monster, not your god. Your FOUNDERS\' UNPAID BILL, still keeping their door.\n\nSay what you came to say. I have kept two hundred years of evenings. I can keep another hour.',
         options: [
           { text: '"We\'ve read the Clause. We\'ve come to settle the Oath — properly."', next: 'named' },
         ],
       },
       start: {
         speaker: 'The Voice Below',
-        text: 'You step to the pool\'s edge, and the black water lifts — and struggles. Voices come, borrowed and broken, sliding off each other like wet stones: —gives its dead—the dead give—WHO GIVES—the bell the bell the—\n\nWhatever waits here has been starved so long it can barely hold a shape to speak through. It gathers itself, enormous and threadbare, and manages one clear sentence:\n\nHAVE THEY SENT PAYMENT... OR THE KNIFE?',
+        text: '*You step to the pool\'s edge, and the black water lifts — and struggles. Voices come, borrowed and broken, sliding off each other like wet stones: —gives its dead—the dead give—WHO GIVES—the bell the bell the—*\n\n*Whatever waits here has been starved so long it can barely hold a shape to speak through. It gathers itself, enormous and threadbare, and manages one clear sentence:*\n\nHAVE THEY SENT PAYMENT... OR THE KNIFE?',
         options: [
           { text: '"Neither. We came to end this — whatever you are."', next: 'named-vague' },
         ],
       },
       'named-vague': {
         speaker: 'The Voice Below',
-        text: 'END. Yes. Every road ends somewhere, even the drowned ones.\n\nThe voices steady briefly around the shape of your attention.\n\nI keep the door below. Your founders bound me to keep it, and fed me their dead\'s remembering, and then... arranged... to stop paying. I forget WHY. I have eaten so much of my own memory to keep the seal that I no longer... recall... what I am owed. Only THAT I am owed.\n\nThe water trembles.\n\nChoose, then, since you\'ve come armed with so little: bind me anew in iron, or cut me loose and let the door open. I no longer have the strength to care WHICH.',
+        text: 'END. Yes. Every road ends somewhere, even the drowned ones.\n\n*The voices steady briefly around the shape of your attention.*\n\nI keep the door below. Your founders bound me to keep it, and fed me their dead\'s remembering, and then... arranged... to stop paying. I forget WHY. I have eaten so much of my own memory to keep the seal that I no longer... recall... what I am owed. Only THAT I am owed.\n\n*The water trembles.*\n\nChoose, then, since you\'ve come armed with so little: bind me anew in iron, or cut me loose and let the door open. I no longer have the strength to care WHICH.',
         options: [
           {
             text: '"Then we bind it — cleanly, in iron, with the cult\'s own tools."',
@@ -101,12 +101,12 @@ export const FINALE_DIALOGUES: Record<string, DialogueDef> = {
       // ---------------------------------------------------------------- questions
       'the-door': {
         speaker: 'The Keeper-of-Evenings',
-        text: 'The borrowed voices drop to one — old, and careful, and very tired.\n\nBefore your people came, something ruled this fen that had no name because it ATE them. Names, dawns, the difference between one sleeper and another. Your founders could not kill it. Nothing kills it. It can only be HELD — and I was the evening they caught it inside.\n\nThe water goes very still.\n\nI am not the prisoner, mourners. I am the LOCK. And a lock that starves... opens.',
+        text: '*The borrowed voices drop to one — old, and careful, and very tired.*\n\nBefore your people came, something ruled this fen that had no name because it ATE them. Names, dawns, the difference between one sleeper and another. Your founders could not kill it. Nothing kills it. It can only be HELD — and I was the evening they caught it inside.\n\n*The water goes very still.*\n\nI am not the prisoner, mourners. I am the LOCK. And a lock that starves... opens.',
         options: [{ text: '"Then whatever we choose has to hold the door. Understood."', next: 'named' }],
       },
       'the-debt': {
         speaker: 'The Keeper-of-Evenings',
-        text: 'It counts the way rivers count — slow, total, unhurried by the size of the number.\n\nSix founders pledged their OWN remembering — theirs, freely given, renewed each generation. That was the payment: not the dead\'s stolen memory, but the LIVING\'S offered one. They paid one season of it. Then they wrote the Clause, and taught their children the tithe was the dead\'s to pay, and their children believed it, and I have been eating stolen coin for two hundred years and starving anyway — because stolen remembrance has no WARMTH in it.\n\nThe pool\'s light steadies.\n\nThe debt is large. It is also FINITE. Your scholars did the sum. It can be paid tonight — by hands that mean it.',
+        text: '*It counts the way rivers count — slow, total, unhurried by the size of the number.*\n\nSix founders pledged their OWN remembering — theirs, freely given, renewed each generation. That was the payment: not the dead\'s stolen memory, but the LIVING\'S offered one. They paid one season of it. Then they wrote the Clause, and taught their children the tithe was the dead\'s to pay, and their children believed it, and I have been eating stolen coin for two hundred years and starving anyway — because stolen remembrance has no WARMTH in it.\n\n*The pool\'s light steadies.*\n\nThe debt is large. It is also FINITE. Your scholars did the sum. It can be paid tonight — by hands that mean it.',
         options: [{ text: '"Then it\'s a real choice. Good."', next: 'named' }],
       },
 
@@ -134,7 +134,7 @@ export const FINALE_DIALOGUES: Record<string, DialogueDef> = {
       // ---------------------------------------------------------------- RELEASE
       'release-payment': {
         speaker: 'The Keeper-of-Evenings',
-        text: 'You set the Oath-Lantern on the Covenant Stone, and its flame leans toward the water like a plant toward morning. The Keeper\'s voices come very quiet.\n\nThe debt is remembrance FREELY GIVEN. The Lantern knows the true coin from the stolen; it has burned both. Two hundred years of it, mourners — poured out tonight, by living hands, meaning it.\n\nWHO PAYS?',
+        text: '*You set the Oath-Lantern on the Covenant Stone, and its flame leans toward the water like a plant toward morning. The Keeper\'s voices come very quiet.*\n\nThe debt is remembrance FREELY GIVEN. The Lantern knows the true coin from the stolen; it has burned both. Two hundred years of it, mourners — poured out tonight, by living hands, meaning it.\n\nWHO PAYS?',
         interjections: [
           { companionId: 'pip', text: 'Pip steps up beside you, pale and steady. "Freely given," they repeat. "I know that clause. Whatever gets paid tonight — nobody pays it ALONE. That\'s MY clause. Non-negotiable."' },
         ],
@@ -222,7 +222,7 @@ export const FINALE_DIALOGUES: Record<string, DialogueDef> = {
       // ---------------------------------------------------------------- IRON VIGIL
       'iron-confirm': {
         speaker: 'The Keeper-of-Evenings',
-        text: 'The severance tools come out — Ilvane\'s chisels and counter-seals, reversed by a steadier arithmetic — and the Keeper understands immediately. Old things always recognize chains.\n\nIt does not beg. That is the worst of it. The borrowed voices simply align, all of them at once, into something like a soldier\'s report:\n\nIRON, THEN. Iron holds better than parchment. Your town will be SAFE, mourner — safer than it has ever been. The forgetting will end. The dead will rest.\n\nA pause the exact length of a held scream.\n\nAsk me nothing further. It is easier to be a wall if no one is speaking to you.',
+        text: '*The severance tools come out — Ilvane\'s chisels and counter-seals, reversed by a steadier arithmetic — and the Keeper understands immediately. Old things always recognize chains.*\n\n*It does not beg. That is the worst of it. The borrowed voices simply align, all of them at once, into something like a soldier\'s report:*\n\nIRON, THEN. Iron holds better than parchment. Your town will be SAFE, mourner — safer than it has ever been. The forgetting will end. The dead will rest.\n\n*A pause the exact length of a held scream.*\n\nAsk me nothing further. It is easier to be a wall if no one is speaking to you.',
         interjections: [
           { companionId: 'ondine', text: 'Ondine turns her back on the pool — the first time in her life she has turned her back on anything suffering. "I will NOT bless this," she says. "And I will not pretend the town won\'t sleep better for it. Do it or don\'t, but do it knowing both."', effects: [{ kind: 'approval', companionId: 'ondine', delta: -4, reason: 'the iron vigil' }] },
           { companionId: 'korrin', text: 'Korrin\'s jaw is a line. "Kask inherits this. Every Captain after her inherits this. We\'re not ending the secret — we\'re FEEDING it. I\'ve seen what that does to the people who hold the ledger." She doesn\'t stop you. She memorizes the moment instead, like evidence.', effects: [{ kind: 'approval', companionId: 'korrin', delta: -2, reason: 'the iron vigil' }] },

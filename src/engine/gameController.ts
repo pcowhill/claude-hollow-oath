@@ -928,6 +928,7 @@ export class GameController {
     applyEffects(this.gs, [{ kind: 'advance-time' }], this.effectHost);
     this.syncVitals();
     this.ui.updateHud();
+    this.ui.updateCreatures(); // refresh the HP bars floating above the map tokens
     this.ui.notify('The party catches its breath. (Short Rest)', 'info');
     audio.sfx('ui-confirm');
   }

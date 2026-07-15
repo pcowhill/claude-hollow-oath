@@ -67,18 +67,25 @@ export class PanelHost {
     });
     const body = this.el.querySelector<HTMLElement>('#panel-body')!;
     def.bind?.(this.app, body, params, () => this.rerender());
-    this.app.playSfx('ui-open');
+    this.app.playSfx('ui-page-turn');
   }
 
   rerender(): void {
     if (!this.active || !this.el) return;
     const def = PANELS[this.active];
     if (!def) return;
-    const body = this.el.querySelector<HTMLElement>('#panel-body');
+    const oldBody = this.el.querySelector<HTMLElement>('#panel-body');
     const header = this.el.querySelector<HTMLElement>('.modal-header h2');
-    if (body) {
-      body.innerHTML = def.render(this.app, this.params);
-      def.bind?.(this.app, body, this.params, () => this.rerender());
+    if (oldBody) {
+      // Replace the body element outright so listeners bound in def.bind() do
+      // not accumulate across rerenders (each rerender previously stacked a new
+      // click handler — the cause of the multiplying-saves bug).
+      const newBody = document.createElement('div');
+      newBody.className = oldBody.className;
+      newBody.id = 'panel-body';
+      newBody.innerHTML = def.render(this.app, this.params);
+      oldBody.replaceWith(newBody);
+      def.bind?.(this.app, newBody, this.params, () => this.rerender());
     }
     if (header) header.textContent = def.title(this.app, this.params);
   }
@@ -93,17 +100,27 @@ export class PanelHost {
   }
 
   closeAll(): void {
-    if (this.el) this.app.playSfx('ui-close');
+    const hadOverlay = !!this.el || !!this.lootEl;
+    if (this.el) this.app.playSfx('ui-page-turn');
     this.el?.remove();
     this.el = null;
     this.active = null;
+    this.lootEl?.remove();
+    this.lootEl = null;
+    // Swallow the click that closed this overlay so it doesn't fall through
+    // to the map and move the party to the tile under the cursor.
+    if (hadOverlay) this.app.markOverlayClosed();
   }
 
   // -------- loot modal (lightweight, separate from registry)
+  private lootEl: HTMLElement | null = null;
   openLoot(containerId: string, items: { defId: string; qty: number }[], gold: number): void {
     this.closeAll();
+    // guard against a duplicate loot window stacking on top of an existing one
+    this.lootEl?.remove();
     const el = document.createElement('div');
     el.className = 'modal-backdrop';
+    this.lootEl = el;
     const rows = items.map((i) => {
       const def = itemById(i.defId);
       return `<div class="loot-row">${icon(def.icon in LOOT_ICON_FALLBACK ? LOOT_ICON_FALLBACK[def.icon]! : safeIcon(def.icon))} ${def.name}${i.qty > 1 ? ` ×${i.qty}` : ''}</div>`;
@@ -121,13 +138,14 @@ export class PanelHost {
         </div>
       </div>`;
     this.app.overlayRoot.appendChild(el);
+    const closeLoot = (): void => { el.remove(); if (this.lootEl === el) this.lootEl = null; this.app.markOverlayClosed(); };
     el.addEventListener('click', (e) => {
       const t = e.target as HTMLElement;
       if (t.closest('[data-take]')) {
         this.app.controller.takeLoot(containerId);
-        el.remove();
+        closeLoot();
       } else if (t.closest('[data-close]') || t.classList.contains('modal-backdrop')) {
-        el.remove();
+        closeLoot();
       }
     });
   }
@@ -139,8 +157,8 @@ export class PanelHost {
       <div class="tut-head">${icon('tome')} ${title} <button class="close-x" data-close="1">×</button></div>
       <div class="tut-body">${body}</div>`;
     document.body.appendChild(el);
+    // Stays until dismissed — the reader closes it with the × when ready.
     el.querySelector('[data-close]')!.addEventListener('click', () => el.remove());
-    window.setTimeout(() => el.remove(), 22_000);
   }
 }
 

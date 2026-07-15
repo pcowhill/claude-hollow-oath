@@ -31,7 +31,8 @@ const STEPS: { id: Step; label: string }[] = [
   { id: 'review', label: 'Review' },
 ];
 
-const TOKEN_ICONS = ['fighter', 'rogue', 'cleric', 'wizard', 'ranger', 'warlock', 'barbute', 'hood', 'cowled' in {} ? 'cowled' : 'cultist', 'bowman', 'monk', 'paladin', 'bard', 'barbarian', 'character'];
+// Distinct, manifest-backed emblems (each renders a different silhouette).
+const TOKEN_ICONS = ['fighter', 'rogue', 'cleric', 'wizard', 'ranger', 'warlock', 'barbarian', 'bard', 'monk', 'paladin', 'druid', 'crown', 'skull', 'wolf', 'owl'];
 const TOKEN_COLORS = ['#a33c2e', '#3e7c4f', '#c9922a', '#4a5a8f', '#6b4a7a', '#2e7c7a', '#8f6b3f', '#7a3e5c'];
 
 const CLASS_PRESETS: Record<string, { abilities: Record<AbilityKey, number>; note: string }> = {
@@ -66,6 +67,8 @@ export class CharCreationScreen {
   featSpell: string | undefined;
   extraOriginFeat: string | undefined;
   tokenIcon = 'fighter';
+  /** true once the player has explicitly picked an emblem — stops class changes from overwriting it */
+  tokenChosen = false;
   tokenColor = TOKEN_COLORS[0]!;
   difficulty: Difficulty = 'adventurer';
   seed = '';
@@ -97,7 +100,8 @@ export class CharCreationScreen {
       this.spells = [];
     }
     this.invocations = this.classId === 'warlock' ? ['agonizing-blast'] : [];
-    this.tokenIcon = classIcon(this.classId);
+    // only follow the class default emblem until the player picks one of their own
+    if (!this.tokenChosen) this.tokenIcon = classIcon(this.classId);
     // background default ability bonus: +2 primary, +1 secondary among allowed
     this.defaultBackgroundBonus();
   }
@@ -314,6 +318,14 @@ export class CharCreationScreen {
         <span class="${remaining < 0 ? 'bad' : 'gold-text'}" data-tt="<div class='tt-line'>Raising a score costs more the higher it goes: 9-13 cost 1 each; 14 and 15 cost 2 each.</div>">Points left: <b>${remaining}</b> / ${POINT_BUY_TOTAL}</span>
       </div>
       <div class="pb-grid">
+        <div class="pb-row pb-head">
+          <span class="pb-name">Ability</span>
+          <span></span>
+          <span class="pb-score" data-tt="<div class='tt-line'>Your purchased score before any bonuses (8–15).</div>">Score</span>
+          <span></span>
+          <span class="pb-bonus" data-tt="<div class='tt-line'>Bonus added by your background (shown in gold).</div>">Backgr.</span>
+          <span class="pb-final" data-tt="<div class='tt-line'>Final score and its modifier.</div>">Total</span>
+        </div>
         ${ABILITIES.map((a) => {
           const bonus = this.bgBonus[a] ?? 0;
           return `<div class="pb-row">
@@ -436,7 +448,7 @@ export class CharCreationScreen {
       <h2>The Ledger of ${b.name}</h2>
       ${problems.length ? `<div class="equip-warnings">${problems.map((p) => `<div class="warn-line">⚠ ${p}</div>`).join('')}</div>` : '<p class="flavor">The caravan master looks you over once, nods, and spits for luck. Greyfen waits.</p>'}
       <div class="es-label">Starting equipment</div>
-      <p class="muted">${equipment.join(', ')} · ${cls.startingGoldGp + backgroundById(this.backgroundId).goldGp} gold</p>
+      <ul class="equip-review">${equipment.map((e) => `<li>${e}</li>`).join('')}<li class="gold-text">${cls.startingGoldGp + backgroundById(this.backgroundId).goldGp} gold</li></ul>
       <div class="es-label">Difficulty</div>
       <p class="muted">${this.difficulty[0]!.toUpperCase()}${this.difficulty.slice(1)}${this.seed ? ` · seed "${this.seed}"` : ''}</p>`;
   }
@@ -455,13 +467,13 @@ export class CharCreationScreen {
       <div class="cc-prev-name">${b.name}</div>
       <div class="muted" style="text-align:center">${speciesById(this.speciesId).name} ${cls.name} · ${backgroundById(this.backgroundId).name}</div>
       <div class="stat-grid" style="margin-top:10px">
-        <div class="stat-box"><div>HP</div><b>${hp}</b></div>
-        <div class="stat-box" data-tt="<div class='tt-line'>Unarmored AC — starting armor will raise this once equipped in-game.</div>"><div>AC</div><b>${ac.total}+</b></div>
-        <div class="stat-box"><div>Speed</div><b>${speciesById(this.speciesId).speedFt + (speciesById(this.speciesId).lineages?.find((l) => l.id === this.lineageId)?.speedBonus ?? 0)} ft</b></div>
-        ${primary ? `<div class="stat-box"><div>Spell DC</div><b>${8 + 2 + abilityMod(final[primary])}</b></div>` : ''}
-        ${slots ? `<div class="stat-box"><div>Slots</div><b>${Object.entries(slots).map(([l, s]) => `${s.max}×L${l}`).join(' ')}</b></div>` : ''}
+        <div class="stat-box" data-tt="<div class='tt-title'>Hit Points</div><div class='tt-line'>Your health at level ${b.level}. Constitution and your class Hit Die set this.</div>"><div>HP</div><b>${hp}</b></div>
+        <div class="stat-box" data-tt="<div class='tt-title'>Armor Class</div><div class='tt-line'>Unarmored AC — starting armor will raise this once equipped in-game.</div>"><div>AC</div><b>${ac.total}+</b></div>
+        <div class="stat-box" data-tt="<div class='tt-title'>Speed</div><div class='tt-line'>Feet of movement per combat round.</div>"><div>Speed</div><b>${speciesById(this.speciesId).speedFt + (speciesById(this.speciesId).lineages?.find((l) => l.id === this.lineageId)?.speedBonus ?? 0)} ft</b></div>
+        ${primary ? `<div class="stat-box" data-tt="<div class='tt-title'>Spell Save DC</div><div class='tt-line'>8 + Proficiency + your ${ABILITY_NAMES[primary]} modifier. The number your spells' targets must beat on their saving throws.</div>"><div>Spell DC</div><b>${8 + 2 + abilityMod(final[primary])}</b></div>` : ''}
+        ${slots ? `<div class="stat-box" data-tt="<div class='tt-title'>Spell Slots</div><div class='tt-line'>How many spells of each level you can cast before resting.</div>"><div>Slots</div><b>${Object.entries(slots).map(([l, s]) => `${s.max}×L${l}`).join(' ')}</b></div>` : ''}
       </div>
-      <div class="ability-row small">${ABILITIES.map((a) => `<div class="ability-card"><div class="ac-name">${a.toUpperCase()}</div><div class="ac-score">${final[a]}</div><div class="ac-mod">${fmtMod(abilityMod(final[a]))}</div></div>`).join('')}</div>`;
+      <div class="ability-row small">${ABILITIES.map((a) => `<div class="ability-card" data-tt="${ttEscape(`<div class='tt-title'>${ABILITY_NAMES[a]}</div><div class='tt-line'>Score ${final[a]}, modifier ${fmtMod(abilityMod(final[a]))}.</div>`)}"><div class="ac-name">${a.toUpperCase()}</div><div class="ac-score">${final[a]}</div><div class="ac-mod">${fmtMod(abilityMod(final[a]))}</div></div>`).join('')}</div>`;
   }
 
   private validate(): string[] {
@@ -581,7 +593,7 @@ export class CharCreationScreen {
       this.rerenderBody();
       return;
     }
-    if (t.dataset.token) { this.tokenIcon = t.dataset.token; this.rerenderBody(); return; }
+    if (t.dataset.token) { this.tokenIcon = t.dataset.token; this.tokenChosen = true; this.rerenderBody(); return; }
     if (t.dataset.color) { this.tokenColor = t.dataset.color; this.rerenderBody(); return; }
     if (t.dataset.ccArray) {
       const cls = classById(this.classId);

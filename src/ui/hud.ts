@@ -33,6 +33,12 @@ export class Hud {
     this.renderQuickActions();
   }
 
+  /** cheap refresh of just the party rail (HP/conditions) — safe to call often, e.g. on combat damage */
+  refreshVitals(): void {
+    if (!this.root || !this.app.controller.gs) return;
+    this.renderPartyRail();
+  }
+
   private renderTopbar(): void {
     const c = this.app.controller;
     const gs = c.gs;
@@ -68,11 +74,11 @@ export class Hud {
       return `
         <div class="party-card ${selected ? 'selected' : ''} ${cr.hp <= 0 ? 'downed' : ''}" data-char="${id}">
           ${pending}
-          ${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor)}
           <div class="pc-name">${b.name}</div>
-          <div class="pc-bar hp"><div style="width:${hpFrac * 100}%"></div><span>${cr.hp}/${cr.stats.maxHp}${cr.tempHp ? ` +${cr.tempHp}` : ''}</span></div>
+          <div class="pc-portrait">${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor)}</div>
           ${renderSlotPips(cr)}
           <div class="pc-conds">${conds}</div>
+          <div class="pc-bar hp"><div style="width:${hpFrac * 100}%"></div><span>${cr.hp}/${cr.stats.maxHp}${cr.tempHp ? ` +${cr.tempHp}` : ''}</span></div>
         </div>`;
     }).join('');
   }

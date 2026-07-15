@@ -20,9 +20,13 @@ export class DialogueUi {
   }
 
   close(): void {
+    const hadRoot = !!this.root;
     this.root?.remove();
     this.root = null;
     this.pendingPartyChoice = null;
+    // Swallow the click that dismissed the dialogue so it doesn't fall through
+    // to the map and move the party.
+    if (hadRoot) this.app.markOverlayClosed();
   }
 
   render(): void {
@@ -48,7 +52,7 @@ export class DialogueUi {
       const comp = safeCompanion(ij.companionId);
       return `<div class="interjection">
         <div class="ij-portrait">${comp ? portraitImg(comp.tokenIcon, comp.tokenColor, 'small') : ''}</div>
-        <div class="ij-text"><span class="ij-name">${ij.name}</span> — ${ij.text}</div>
+        <div class="ij-text"><span class="ij-name">${ij.name}</span> — ${italicizeAction(ij.text)}</div>
       </div>`;
     }).join('');
     const options = view.options.map((o, i) => `
@@ -64,7 +68,7 @@ export class DialogueUi {
           ${portraitIcon ? `<div class="dlg-portrait">${portraitImg(portraitIcon, speakerBuild?.appearance.tokenColor ?? '#b08d3f')}<div class="dlg-speaker">${view.speaker || ''}</div></div>` : `<div class="dlg-portrait narrator"><div class="dlg-speaker"></div></div>`}
           <div class="dlg-content">
             ${checkNote}
-            <div class="dlg-text ${view.speaker ? '' : 'flavor'}">${view.text.replace(/\n/g, '<br/>')}</div>
+            <div class="dlg-text ${view.speaker ? '' : 'flavor'}">${formatSpeech(view.text, !!view.speaker)}</div>
             ${interjections}
           </div>
         </div>
@@ -134,6 +138,25 @@ function fmtParts(roll: { parts: { label: string; value: number }[] }): string {
   return total !== 0 ? ` ${total >= 0 ? '+' : ''}${total}` : '';
 }
 
+/** `*asides*` become italic; newlines become breaks. Narration nodes (no speaker) are already italic. */
+function formatSpeech(text: string, _hasSpeaker: boolean): string {
+  return text.replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/\n/g, '<br/>');
+}
+
+/**
+ * Companion interjections are written as stage-direction with quoted speech,
+ * e.g. `She folds her arms. "Told you." She spits.` Everything outside the
+ * double-quotes is action, so we italicize it and leave the spoken words upright.
+ */
+function italicizeAction(text: string): string {
+  const out = text.split(/("[^"]*")/g).map((seg) => {
+    if (!seg) return '';
+    if (seg.startsWith('"') && seg.endsWith('"')) return seg; // spoken words stay upright
+    return `<em>${seg}</em>`;
+  }).join('');
+  return out.replace(/\n/g, '<br/>');
+}
+
 function safeCompanion(id: string) {
   try { return companionById(id); } catch { return null; }
 }
@@ -146,7 +169,7 @@ const NPC_PORTRAIT_GUESS: Record<string, string> = {
   'Nim': 'character', 'Vessa Marrow': 'hag', 'Ilvane': 'witch-flight', 'Ilvane the Unbinder': 'witch-flight',
   'Quartermaster Sorrel': 'cultist', 'Warden-Captain Hollis': 'wight', 'Vigil-Seven': 'animated-armor',
   'Militiaman Derk': 'helmet', 'Joram Harrow': 'ghost', 'The Custodian': 'moon', 'Umbrell': 'moon',
-  'Corvin': 'trade', 'Yara Stitch': 'anvil', 'Ferryman Ulf': 'boat', 'Sera Voss': 'bandit',
+  'Corvin': 'trade', 'Yara Stitch': 'anvil', 'Ferryman Ulf': 'character', 'Sera Voss': 'bandit',
 };
 
 function guessPortraitIcon(speaker: string): string {

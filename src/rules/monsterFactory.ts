@@ -6,6 +6,33 @@ import type { Creature, Side } from './types';
 
 let counter = 0;
 
+/**
+ * Some monster tokens name the creature ("giant-rat", "owlbear") but have no
+ * matching silhouette in the icon manifest, so they rendered as empty rings.
+ * Map those to the closest icon that IS bundled and preloaded.
+ */
+const MONSTER_TOKEN_ICON: Record<string, string> = {
+  'giant-rat': 'rat',
+  'bandit-captain': 'bandit',
+  'cult-fanatic': 'cultist',
+  ettercap: 'giant-spider',
+  ghoul: 'zombie',
+  'goblin-boss': 'goblin',
+  'green-hag': 'hag',
+  hobgoblin: 'orc',
+  'insect-swarm': 'swarm',
+  'needle-blight': 'blight',
+  owlbear: 'bear',
+  scout: 'ranger',
+  shadow: 'ghost',
+  'smoke-mephit': 'mephit',
+  specter: 'ghost',
+};
+
+export function resolveTokenIcon(token: string): string {
+  return MONSTER_TOKEN_ICON[token] ?? token;
+}
+
 export interface SpawnOptions {
   id?: string;
   name?: string;
@@ -66,7 +93,7 @@ export function spawnMonster(
     effects: [],
     pos: { ...pos },
     resources,
-    token: def.token,
+    token: resolveTokenIcon(def.token),
     aiArchetype: opts.aiArchetype ?? def.aiArchetype,
     morale: opts.morale ?? def.morale ?? 70,
     isBoss: opts.isBoss,
