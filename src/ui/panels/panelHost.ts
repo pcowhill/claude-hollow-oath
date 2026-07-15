@@ -100,12 +100,16 @@ export class PanelHost {
   }
 
   closeAll(): void {
+    const hadOverlay = !!this.el || !!this.lootEl;
     if (this.el) this.app.playSfx('ui-page-turn');
     this.el?.remove();
     this.el = null;
     this.active = null;
     this.lootEl?.remove();
     this.lootEl = null;
+    // Swallow the click that closed this overlay so it doesn't fall through
+    // to the map and move the party to the tile under the cursor.
+    if (hadOverlay) this.app.markOverlayClosed();
   }
 
   // -------- loot modal (lightweight, separate from registry)
@@ -134,7 +138,7 @@ export class PanelHost {
         </div>
       </div>`;
     this.app.overlayRoot.appendChild(el);
-    const closeLoot = (): void => { el.remove(); if (this.lootEl === el) this.lootEl = null; };
+    const closeLoot = (): void => { el.remove(); if (this.lootEl === el) this.lootEl = null; this.app.markOverlayClosed(); };
     el.addEventListener('click', (e) => {
       const t = e.target as HTMLElement;
       if (t.closest('[data-take]')) {

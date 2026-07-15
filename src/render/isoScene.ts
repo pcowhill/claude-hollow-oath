@@ -56,7 +56,7 @@ export class IsoScene extends Phaser.Scene {
   private objSprites = new Map<string, Phaser.GameObjects.Image>();
   private doorSprites = new Map<string, Phaser.GameObjects.Image>();
   /** every scenery sprite paired with its grid cell, for per-cell fog dimming */
-  private fogTargets: { img: Phaser.GameObjects.Image; x: number; y: number }[] = [];
+  private fogTargets: { img: Phaser.GameObjects.Image; x: number; y: number; secretId?: string }[] = [];
   private tokenContainers = new Map<string, Phaser.GameObjects.Container>();
   private fogGfx!: Phaser.GameObjects.Graphics;
   private overlayGfx!: Phaser.GameObjects.Graphics;
@@ -258,7 +258,7 @@ export class IsoScene extends Phaser.Scene {
         this.game.events.emit('container-click', c.id);
       });
       this.objSprites.set(`cont-${c.id}`, img);
-      this.fogTargets.push({ img, x: c.pos.x, y: c.pos.y });
+      this.fogTargets.push({ img, x: c.pos.x, y: c.pos.y, secretId: c.hiddenBySecretId });
       if (c.hiddenBySecretId && !this.mapState.discoveredSecrets.includes(c.hiddenBySecretId)) img.setVisible(false);
     }
     // interactables
@@ -272,7 +272,7 @@ export class IsoScene extends Phaser.Scene {
         this.game.events.emit('interactable-click', it.id);
       });
       this.objSprites.set(`int-${it.id}`, img);
-      this.fogTargets.push({ img, x: it.pos.x, y: it.pos.y });
+      this.fogTargets.push({ img, x: it.pos.x, y: it.pos.y, secretId: it.hiddenBySecretId });
       if (it.hiddenBySecretId && !this.mapState.discoveredSecrets.includes(it.hiddenBySecretId)) img.setVisible(false);
     }
     // decor
@@ -380,23 +380,26 @@ export class IsoScene extends Phaser.Scene {
         this.fogGfx.fillPath();
       }
     }
-    // Objects (walls, trees, cover, containers, interactables, decor) are dimmed
-    // by tint according to their own cell: full colour when seen, grey when
-    // remembered, near-black when never seen. This keeps visible scenery bright
-    // and on top of the fogged floor around it.
-    for (const { img, x, y } of this.fogTargets) {
-      const k = `${x},${y}`;
-      if (visible.has(k)) img.clearTint();
-      else if (explored.has(k)) img.setTint(0x6a6f75);
-      else img.setTint(amb === 'bright' ? 0x30343a : 0x191d22);
+    // Objects (walls, trees, cover, containers, interactables, decor) render only
+    // once their tile has been seen: hidden on never-seen (black) tiles, greyed on
+    // remembered (out-of-vision) tiles, full colour in active vision — always on
+    // top of the fogged floor around them.
+    for (const ft of this.fogTargets) {
+      const k = `${ft.x},${ft.y}`;
+      const secretHidden = ft.secretId ? !this.mapState.discoveredSecrets.includes(ft.secretId) : false;
+      if (secretHidden || !explored.has(k)) { ft.img.setVisible(false); continue; }
+      ft.img.setVisible(true);
+      if (visible.has(k)) ft.img.clearTint();
+      else ft.img.setTint(0x6a6f75);
     }
     for (const d of this.mapDef.doors) {
       const img = this.doorSprites.get(d.id);
       if (!img) continue;
       const k = `${d.pos.x},${d.pos.y}`;
+      if (!explored.has(k)) { img.setVisible(false); continue; }
+      img.setVisible(true);
       if (visible.has(k)) img.clearTint();
-      else if (explored.has(k)) img.setTint(0x6a6f75);
-      else img.setTint(amb === 'bright' ? 0x30343a : 0x191d22);
+      else img.setTint(0x6a6f75);
     }
     // token visibility
     for (const [, cont] of this.tokenContainers) {
@@ -448,19 +451,19 @@ export class IsoScene extends Phaser.Scene {
           stroke: '#000000', strokeThickness: 3,
         }).setOrigin(0.5, 0.5).setName('label').setVisible(false);
         cont.add([sel, shadow, tok, hpBg, hp, label]);
-        cont.setSize(48 * scale, 60 * scale);
-        // circular hit area matching the token disc so a click anywhere on the
-        // ring interacts, not just the upper half.
-        cont.setInteractive(new Phaser.Geom.Circle(0, -14 * scale, 27 * scale), Phaser.Geom.Circle.Contains);
-        cont.on('pointerdown', (ptr: Phaser.Input.Pointer) => {
+        // Make the token disc itself interactive (not the container): an Image's
+        // hit area is origin-aware and tracks the sprite exactly, so a click
+        // anywhere on the rendered circle registers — no up-and-left offset.
+        tok.setInteractive({ useHandCursor: true });
+        tok.on('pointerdown', (ptr: Phaser.Input.Pointer) => {
           this.game.events.emit('token-click', rc.id, ptr.rightButtonDown());
         });
-        cont.on('pointerover', () => {
-          (cont!.getByName('label') as Phaser.GameObjects.Text).setVisible(true);
+        tok.on('pointerover', () => {
+          label.setVisible(true);
           this.game.events.emit('token-hover', rc.id, true);
         });
-        cont.on('pointerout', () => {
-          (cont!.getByName('label') as Phaser.GameObjects.Text).setVisible(false);
+        tok.on('pointerout', () => {
+          label.setVisible(false);
           this.game.events.emit('token-hover', rc.id, false);
         });
         this.tokenContainers.set(rc.id, cont);
@@ -677,7 +680,12 @@ export class IsoScene extends Phaser.Scene {
       }
     });
     this.input.on('pointerup', (ptr: Phaser.Input.Pointer, over: unknown[]) => {
+      const wasDragging = this.dragging;
       this.dragging = false;
+      // Ignore releases whose press began on a DOM overlay (menu/dialogue button):
+      // closing a panel must not fall through into a map move.
+      if (ptr.downElement && ptr.downElement !== this.game.canvas) return;
+      if (wasDragging) return;
       if (ptr.button === 2) {
         const world = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
         const cell = this.toGrid(world.x, world.y);
@@ -731,7 +739,9 @@ export class IsoScene extends Phaser.Scene {
     const k = this.keys;
     if (!k) return;
     let dx = 0, dy = 0;
-    if (k.A?.isDown || k.LEFT?.isDown) dx -= speed;
+    // 'A' is reserved for "select all party" — pan left with the arrow key,
+    // screen edges, or middle-mouse drag instead.
+    if (k.LEFT?.isDown) dx -= speed;
     if (k.D?.isDown || k.RIGHT?.isDown) dx += speed;
     if (k.W?.isDown || k.UP?.isDown) dy -= speed;
     if (k.S?.isDown || k.DOWN?.isDown) dy += speed;

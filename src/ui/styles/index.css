@@ -795,9 +795,12 @@ label { color: var(--text-dim); }
 .warn-line { color: var(--danger); font-size: 14px; margin: 3px 0; }
 
 /* character sheet */
-.sheet-layout { display: grid; grid-template-columns: 250px 1fr 1fr; gap: 18px; max-height: 64vh; }
-.sheet-left, .sheet-mid, .sheet-right { overflow-y: auto; }
-.sheet-ident { text-align: center; margin-bottom: 10px; }
+.sheet-layout { display: grid; grid-template-columns: 320px 1fr 1fr; gap: 18px; max-height: 64vh; }
+.sheet-left, .sheet-mid, .sheet-right { overflow-y: auto; overflow-x: hidden; min-width: 0; }
+.sheet-ident-row { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+.sheet-ident-row .portrait { flex: 0 0 auto; }
+.sheet-ident { text-align: left; }
+.sheet-ident > div { line-height: 1.4; }
 .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
 .feature-list { display: flex; flex-direction: column; gap: 6px; }
 .feature-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 7px 10px; border: 1px solid #33291a; background: rgba(14,18,20,0.5); line-height: 1.4; }
@@ -835,6 +838,8 @@ label { color: var(--text-dim); }
 .save-row b { font-family: var(--font-display); }
 .sr-main { flex: 1; }
 .sr-actions { display: flex; gap: 8px; }
+/* the character sheet's saving-throw row wraps its six abilities instead of overflowing */
+.sheet-left .saves-row { flex-wrap: wrap; gap: 6px 14px; padding: 8px 10px; }
 
 /* settings */
 .set-row {

@@ -45,6 +45,11 @@ export class GameApp implements UiHost {
   devPanel: DevPanel;
   private notifyStack!: HTMLElement;
   private moveQueue: Promise<void> = Promise.resolve();
+  /** map clicks before this timestamp are swallowed (set when an overlay closes) */
+  suppressMapClickUntil = 0;
+
+  /** call when a menu/dialogue/loot overlay closes, so the closing click can't leak into a map move */
+  markOverlayClosed(): void { this.suppressMapClickUntil = Date.now() + 250; }
   playTimer = 0;
 
   constructor(public game: Phaser.Game) {
@@ -245,6 +250,8 @@ export class GameApp implements UiHost {
     }
     this.scene.upsertCreatures(list);
     this.scene.setSelected(c.selected);
+    // keep the left party rail's HP/conditions in sync (combat damage, healing, rests)
+    this.hud.refreshVitals();
   }
 
   updateFog(): void {
@@ -399,6 +406,8 @@ export class GameApp implements UiHost {
   private bindSceneEvents(): void {
     this.game.events.on('cell-click', (cell: Pt, shift: boolean) => {
       if (this.screen !== 'game') return;
+      // a click that just closed a menu/dialogue/loot window must not also move the party
+      if (Date.now() < this.suppressMapClickUntil) return;
       const c = this.controller;
       if (c.mode === 'exploration') {
         void c.moveParty(cell);

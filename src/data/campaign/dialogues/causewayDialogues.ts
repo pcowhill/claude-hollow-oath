@@ -8,7 +8,7 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Captain Derry Voss',
-        text: 'A woman in a salvaged breastplate strolls out along the dock boards, thumbs in her belt, four crossbows unhurried behind her. Her smile has done this many, many times.\n\nWelcome to the south crossing, travelers! Maintenance of these fine boards runs thirty gold a party — payable to the Voss Preservation Trust, which is me. The marsh route\'s free, of course. The marsh route\'s ALWAYS free. Ask the last folk who took it, if you can find where they floated off to.',
+        text: '*A woman in a salvaged breastplate strolls out along the dock boards, thumbs in her belt, four crossbows unhurried behind her. Her smile has done this many, many times.*\n\nWelcome to the south crossing, travelers! Maintenance of these fine boards runs thirty gold a party — payable to the Voss Preservation Trust, which is me. The marsh route\'s free, of course. The marsh route\'s ALWAYS free. Ask the last folk who took it, if you can find where they floated off to.',
         options: [
           {
             text: 'Spring the trap — this is Thirdday\'s shipment, and the Wardens are watching the tide.',
@@ -58,22 +58,22 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
       },
       paid: {
         speaker: 'Captain Derry Voss',
-        text: 'Coin vanishes into the breastplate with the speed of long practice.\n\nA PLEASURE doing infrastructure with you. Boards are yours, dock\'s yours, no refunds if the marsh eats you northbound.\n\nShe waves you through with a flourish that is almost, almost a salute.',
+        text: '*Coin vanishes into the breastplate with the speed of long practice.*\n\nA PLEASURE doing infrastructure with you. Boards are yours, dock\'s yours, no refunds if the marsh eats you northbound.\n\n*She waves you through with a flourish that is almost, almost a salute.*',
         options: [{ text: 'Pass through.', next: '#end', effects: [{ kind: 'set-flag', key: 'toll-resolved', value: true }, { kind: 'faction', factionId: 'compact', delta: 1 }] }],
       },
       'compact-pass': {
         speaker: 'Captain Derry Voss',
-        text: 'She squints, produces a genuine written list from her vambrace, and runs a thumb down it.\n\nHuh. You ARE on it. Odo\'s hand, Gran\'s mark.\n\nThe smile becomes fractionally more real.\n\nCompact freight passes free, friends of the Compact likewise. Mind the third board from the end, it\'s a liar.',
+        text: '*She squints, produces a genuine written list from her vambrace, and runs a thumb down it.*\n\nHuh. You ARE on it. Odo\'s hand, Gran\'s mark.\n\n*The smile becomes fractionally more real.*\n\nCompact freight passes free, friends of the Compact likewise. Mind the third board from the end, it\'s a liar.',
         options: [{ text: 'Pass as friends of the fen.', next: '#end', effects: [{ kind: 'set-flag', key: 'toll-resolved', value: true }] }],
       },
       cowed: {
         speaker: 'Captain Derry Voss',
-        text: 'Voss does the count — crossbows, scars, the particular calm of people who have finished worse fights than this one — and arrives at an answer she doesn\'t love.\n\nYou know what? Maintenance is WAIVED this quarter. Civic gesture. The Trust thanks you for your custom.\n\nThe crossbows find other things to aim at, with dignity.',
+        text: '*Voss does the count — crossbows, scars, the particular calm of people who have finished worse fights than this one — and arrives at an answer she doesn\'t love.*\n\nYou know what? Maintenance is WAIVED this quarter. Civic gesture. The Trust thanks you for your custom.\n\n*The crossbows find other things to aim at, with dignity.*',
         options: [{ text: 'Pass, unbothered.', next: '#end', effects: [{ kind: 'set-flag', key: 'toll-resolved', value: true }] }],
       },
       'not-cowed': {
         speaker: 'Captain Derry Voss',
-        text: 'The smile stays exactly where it is.\n\nMm. Bold. Locally famous, even. Thing is, I\'ve got four crossbows and a tide table, and you\'ve got a SPEECH.\n\nShe spreads her hands, amiable as ever.\n\nThirty gold, the marsh, or the third option nobody enjoys. Dealer\'s choice.',
+        text: '*The smile stays exactly where it is.*\n\nMm. Bold. Locally famous, even. Thing is, I\'ve got four crossbows and a tide table, and you\'ve got a SPEECH.\n\n*She spreads her hands, amiable as ever.*\n\nThirty gold, the marsh, or the third option nobody enjoys. Dealer\'s choice.',
         options: [
           { text: 'Pay the 30 gold.', tag: '[30 gp]', conditions: [{ kind: 'gold', gte: 30 }], next: 'paid', effects: [{ kind: 'gold', delta: -30 }] },
           { text: 'The third option.', next: 'fight' },
@@ -82,7 +82,7 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
       },
       taxed: {
         speaker: 'Captain Derry Voss',
-        text: 'She hears the shape of it before you finish: the route survives, the freight gets FILTERED, and every crossing pays a copper to the town it used to rob. Voss chews her cheek, glances at the reed-line as if consulting the marsh itself, and shrugs.\n\nBetter margins than a warrant, worse than honest crime. Done. Tell Brack the Trust has entered a — she savors the words — REGULATORY PARTNERSHIP.\n\nNobody\'s proud. Everybody\'s paid.',
+        text: '*She hears the shape of it before you finish: the route survives, the freight gets FILTERED, and every crossing pays a copper to the town it used to rob. Voss chews her cheek, glances at the reed-line as if consulting the marsh itself, and shrugs.*\n\nBetter margins than a warrant, worse than honest crime. Done. Tell Brack the Trust has entered a — *she savors the words* — REGULATORY PARTNERSHIP.\n\nNobody\'s proud. Everybody\'s paid.',
         options: [
           {
             text: 'Shake on it, and wash your hand later.', next: '#end',
@@ -119,7 +119,7 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Corporal Hesk',
-        text: 'Four soldiers around a mean little fire, warden-grey cloaks with the badges unpicked. They are eating candle-wax — cult tallow candles, shaved into a pot like cheese, and the smell finally explains their faces. The one with corporal\'s scars stands, hand nowhere near his sword, which costs him something.\n\nBefore you say it: yes, deserters. We walked the far wardstone rounds — the REAL ones, the ones the ledgers say don\'t need walking. Ask me what we saw out there. Ask me why we stopped going.\n\nHis jaw works.\n\nNobody paid us to hold a line the captains won\'t admit exists. So we stole the freight of the people BREAKING it. Seemed fair. It\'s not going well.',
+        text: '*Four soldiers around a mean little fire, warden-grey cloaks with the badges unpicked. They are eating candle-wax — cult tallow candles, shaved into a pot like cheese, and the smell finally explains their faces. The one with corporal\'s scars stands, hand nowhere near his sword, which costs him something.*\n\nBefore you say it: yes, deserters. We walked the far wardstone rounds — the REAL ones, the ones the ledgers say don\'t need walking. Ask me what we saw out there. Ask me why we stopped going.\n\n*His jaw works.*\n\nNobody paid us to hold a line the captains won\'t admit exists. So we stole the freight of the people BREAKING it. Seemed fair. It\'s not going well.',
         interjections: [
           {
             companionId: 'korrin',
@@ -136,7 +136,7 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
       },
       testimony: {
         speaker: 'Corporal Hesk',
-        text: 'The far stones are DEAD, stranger. Not broken — drained. You put your hand on one and it pulls, like a drowning man grabbing. Kell there left three fingernails on the ninth stone. And the water past the last picket...\n\nHe stops. The one called Kell says, without looking up: "The water remembers you. It tries your mother\'s voice first."\n\nHesk feeds the fire a shaving of candle.\n\nWe reported it. Twice. Sergeant Fell logged it as WEATHER.',
+        text: 'The far stones are DEAD, stranger. Not broken — drained. You put your hand on one and it pulls, like a drowning man grabbing. Kell there left three fingernails on the ninth stone. And the water past the last picket...\n\n*He stops. The one called Kell says, without looking up: "The water remembers you. It tries your mother\'s voice first."*\n\n*Hesk feeds the fire a shaving of candle.*\n\nWe reported it. Twice. Sergeant Fell logged it as WEATHER.',
         options: [
           {
             text: '"Your report matters. It\'s evidence now."', next: 'start',
@@ -149,7 +149,7 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
       },
       fed: {
         speaker: 'Corporal Hesk',
-        text: 'They don\'t snatch. That\'s the detail you\'ll remember later — four starving soldiers, and they portion it out in watch-rotation order, wax-shavers\' discipline holding where the badge\'s didn\'t.\n\nHesk looks at you over the fire, and the debt lands on him visibly, heavier than the food.\n\nWe\'re not wardens anymore. But we still know how to hold a line, if anyone ever offers us one worth holding. If it comes to boats and rope some black night — send word to this fire. We\'ll come.',
+        text: '*They don\'t snatch. That\'s the detail you\'ll remember later — four starving soldiers, and they portion it out in watch-rotation order, wax-shavers\' discipline holding where the badge\'s didn\'t.*\n\n*Hesk looks at you over the fire, and the debt lands on him visibly, heavier than the food.*\n\nWe\'re not wardens anymore. But we still know how to hold a line, if anyone ever offers us one worth holding. If it comes to boats and rope some black night — send word to this fire. We\'ll come.',
         options: [
           {
             text: '"I\'ll hold you to that, Corporal."', next: '#end',
@@ -166,7 +166,7 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
       },
       'turn-in': {
         speaker: 'Corporal Hesk',
-        text: 'Hesk nods slowly, like a man hearing a sentence he\'d already passed on himself.\n\nDo what you must. We won\'t be here when they come — but we won\'t make you a liar either. We\'ll be GONE, not hidden.\n\nBy morning the fire is cold and the camp is empty, and the Warden muster-board in Greyfen carries four new names under a word nobody enjoys reading.',
+        text: '*Hesk nods slowly, like a man hearing a sentence he\'d already passed on himself.*\n\nDo what you must. We won\'t be here when they come — but we won\'t make you a liar either. We\'ll be GONE, not hidden.\n\n*By morning the fire is cold and the camp is empty, and the Warden muster-board in Greyfen carries four new names under a word nobody enjoys reading.*',
         options: [
           {
             text: 'Report them to Kask.', next: '#end',
@@ -183,7 +183,7 @@ export const CAUSEWAY_DIALOGUES: Record<string, DialogueDef> = {
       },
       allied: {
         speaker: 'Corporal Hesk',
-        text: 'The camp is leaner and straighter than you left it — bedrolls squared, the wax put away, a proper watch posted. Hesk touches two fingers to his brow, half salute, half thanks.\n\nStill fed, still here, still yours to call. Send to this fire when the night comes.',
+        text: '*The camp is leaner and straighter than you left it — bedrolls squared, the wax put away, a proper watch posted. Hesk touches two fingers to his brow, half salute, half thanks.*\n\nStill fed, still here, still yours to call. Send to this fire when the night comes.',
         options: [{ text: '"Hold fast, Corporal."', next: '#end' }],
       },
     },

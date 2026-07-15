@@ -141,14 +141,14 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       },
       'what-fail': {
         speaker: 'Vessa Marrow',
-        text: 'She catches you looking and beams, patting her flour-dusted apron.\n\nYes, dear, Auntie knows — so RUSTIC. We can\'t all keep shop in a town with pavement.',
+        text: '*She catches you looking and beams, patting her flour-dusted apron.*\n\nYes, dear, Auntie knows — so RUSTIC. We can\'t all keep shop in a town with pavement.',
         options: [{ text: 'Hm.', next: 'start' }],
       },
 
       // ------------------------------------------------ the Oath-Lantern's trail
       lantern: {
         speaker: 'Vessa Marrow',
-        text: 'Ohh, the LANTERN. Yes. Sixty years back I bought a lovely evening from a dying fisher who\'d seen something strange as a girl — a dead captain walking DOWN into the drowned temple, calm as church, with a light in his hand that didn\'t flicker.\n\nShe taps a high jar, where a silver curl turns like a fish.\n\nIt\'s a dear one, that. I\'ll part with a viewing for a hundred and fifty in gold — or, for a memory of your own. Nothing cruel! The road that brought you here, say. You\'d still know you came. You\'d just... lose the walking of it.',
+        text: 'Ohh, the LANTERN. Yes. Sixty years back I bought a lovely evening from a dying fisher who\'d seen something strange as a girl — a dead captain walking DOWN into the drowned temple, calm as church, with a light in his hand that didn\'t flicker.\n\n*She taps a high jar, where a silver curl turns like a fish.*\n\nIt\'s a dear one, that. I\'ll part with a viewing for a hundred and fifty in gold — or, for a memory of your own. Nothing cruel! The road that brought you here, say. You\'d still know you came. You\'d just... lose the walking of it.',
         options: [
           {
             text: 'Pay 150 gold.', tag: '[150 gp]',
@@ -198,7 +198,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       // ------------------------------------------------ Pip's jar
       'pip-jar': {
         speaker: 'Vessa Marrow',
-        text: 'Ah. THAT shelf.\n\nShe rises, wipes her hands, and lifts down a single jar set apart from all the rest — labeled in tidy charcoal: THORNHOLLOW. The curl inside presses against the glass.\n\nBought fair, witnessed by the marsh, paid in full — one debt cleared for one bad night. I don\'t cheat, little light-fingers. You KNOW I don\'t cheat. But the ward\'s gone hungry and it\'s pulling at my stitching, isn\'t it? Draining you through the scar of what you sold.\n\nShe sets the jar on the workbench between you.\n\nSo. Auntie will deal honestly, as ever. Make me an offer.',
+        text: 'Ah. THAT shelf.\n\n*She rises, wipes her hands, and lifts down a single jar set apart from all the rest — labeled in tidy charcoal: THORNHOLLOW. The curl inside presses against the glass.*\n\nBought fair, witnessed by the marsh, paid in full — one debt cleared for one bad night. I don\'t cheat, little light-fingers. You KNOW I don\'t cheat. But the ward\'s gone hungry and it\'s pulling at my stitching, isn\'t it? Draining you through the scar of what you sold.\n\n*She sets the jar on the workbench between you.*\n\nSo. Auntie will deal honestly, as ever. Make me an offer.',
         options: [
           { text: '"Name your price. Honestly."', next: 'bargain' },
           { text: 'Buy it outright — 100 gold.', tag: '[100 gp]', conditions: [{ kind: 'gold', gte: 100 }], next: 'jar-bought', effects: [{ kind: 'gold', delta: -100 }] },
@@ -213,7 +213,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       },
       bargain: {
         speaker: 'Vessa Marrow',
-        text: 'Honest, is it. Good. Then my price is this, and it is not small:\n\nOne true thing, said aloud, here, witnessed by the marsh — the thing inside that jar. Say WHAT you sold me, Pip Thornhollow, and WHY, with your own dry mouth, before your people. Do that, and the jar goes home with you, and the account closes forever.\n\nShe folds her flour-dusted hands.\n\nMemory freely shared can\'t be traded again, dear. It\'s the one lock even Auntie can\'t pick.',
+        text: 'Honest, is it. Good. Then my price is this, and it is not small:\n\nOne true thing, said aloud, here, witnessed by the marsh — the thing inside that jar. Say WHAT you sold me, Pip Thornhollow, and WHY, with your own dry mouth, before your people. Do that, and the jar goes home with you, and the account closes forever.\n\n*She folds her flour-dusted hands.*\n\nMemory freely shared can\'t be traded again, dear. It\'s the one lock even Auntie can\'t pick.',
         interjections: [
           {
             companionId: 'pip',
@@ -231,7 +231,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       },
       'jar-won': {
         speaker: 'Vessa Marrow',
-        text: 'The jars along every wall chime once, all together, like a court adjourning. Vessa slides the THORNHOLLOW jar across the workbench, and for just a moment the flour-and-apron kindliness parts on something ancient and almost respectful.\n\nPaid in full. Auntie keeps a fair house.\n\nShe pours the tea, and this time it is only tea.',
+        text: '*The jars along every wall chime once, all together, like a court adjourning. Vessa slides the THORNHOLLOW jar across the workbench, and for just a moment the flour-and-apron kindliness parts on something ancient and almost respectful.*\n\nPaid in full. Auntie keeps a fair house.\n\n*She pours the tea, and this time it is only tea.*',
         options: [
           {
             text: 'Take the jar.', next: '#end',
@@ -249,7 +249,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       },
       'jar-bought': {
         speaker: 'Vessa Marrow',
-        text: 'Gold, then. Cleaner than truth, and worth less.\n\nShe counts it unhurried, and slides the jar across.\n\nA word of trade-craft, free: what\'s bought with coin can be sold again someday. What\'s bought with truth stays bought. You chose the reversible door, dears. It\'s not wrong. It\'s just smaller.',
+        text: 'Gold, then. Cleaner than truth, and worth less.\n\n*She counts it unhurried, and slides the jar across.*\n\nA word of trade-craft, free: what\'s bought with coin can be sold again someday. What\'s bought with truth stays bought. You chose the reversible door, dears. It\'s not wrong. It\'s just smaller.',
         options: [
           {
             text: 'Take the jar.', next: '#end',
@@ -286,7 +286,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       },
       'jar-caught': {
         speaker: 'Vessa Marrow',
-        text: 'Her hand closes on the reaching wrist — gently. The gentleness of a bear trap being POLITE.\n\nTsk. In AUNTIE\'S house.\n\nThe warmth drains out of the room like bathwater. The jars have all gone silent.\n\nThe price is now two hundred, for the insult. Or we can discuss the other kind of bargain — the old kind, from before I kept shop.',
+        text: '*Her hand closes on the reaching wrist — gently. The gentleness of a bear trap being POLITE.*\n\nTsk. In AUNTIE\'S house.\n\n*The warmth drains out of the room like bathwater. The jars have all gone silent.*\n\nThe price is now two hundred, for the insult. Or we can discuss the other kind of bargain — the old kind, from before I kept shop.',
         options: [
           { text: 'Pay the 200.', tag: '[200 gp]', conditions: [{ kind: 'gold', gte: 200 }], next: 'jar-bought', effects: [{ kind: 'gold', delta: -200 }, { kind: 'set-flag', key: 'vessa-insulted', value: true }] },
           { text: '"The old kind, then." Draw steel.', next: 'attack-now' },
@@ -297,7 +297,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       // ------------------------------------------------ selling the jar back
       'sell-jar-offer': {
         speaker: 'Vessa Marrow',
-        text: 'Her eyes go to the jar-shaped weight in your pack, and something old and patient leans forward behind the apron.\n\nAuntie buys back at a premium, always. For the Thornhollow jar: two hundred in gold — and this.\n\nShe sets a plain iron ring on the workbench. It hums against the wood.\n\nWard against things that pry into minds. Dwarf-work, older than me, which is saying a thing. That\'s my whole offer, dears, and it\'s a kind one.',
+        text: '*Her eyes go to the jar-shaped weight in your pack, and something old and patient leans forward behind the apron.*\n\nAuntie buys back at a premium, always. For the Thornhollow jar: two hundred in gold — and this.\n\n*She sets a plain iron ring on the workbench. It hums against the wood.*\n\nWard against things that pry into minds. Dwarf-work, older than me, which is saying a thing. That\'s my whole offer, dears, and it\'s a kind one.',
         interjections: [
           { companionId: 'pip', text: 'Pip doesn\'t argue. That\'s the terrible part. They just look at the jar, and the party, and do the arithmetic of what the company needs, out loud, in silence.' },
         ],
@@ -333,7 +333,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       // ------------------------------------------------ violence
       'attack-warn': {
         speaker: 'Vessa Marrow',
-        text: 'The kettle stops. The jars stop. Vessa does not move, but the hut is suddenly much smaller and much older, and the flour on her apron smells faintly of bone.\n\nThink, dears. Auntie has kept shop on this spot for sixty years, in a fen that eats the impolite. Whatever you imagine you\'re facing — imagine harder.\n\nBut do decide. The tea\'s getting cold.',
+        text: '*The kettle stops. The jars stop. Vessa does not move, but the hut is suddenly much smaller and much older, and the flour on her apron smells faintly of bone.*\n\nThink, dears. Auntie has kept shop on this spot for sixty years, in a fen that eats the impolite. Whatever you imagine you\'re facing — imagine harder.\n\nBut do decide. The tea\'s getting cold.',
         options: [
           { text: 'Press the attack.', next: 'attack-now' },
           { text: 'Stand down.', next: 'start' },
@@ -362,7 +362,7 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Overseer Marsk',
-        text: 'The sentry\'s horn gets halfway to his lips before a scarred woman in a chandler\'s leathers waves it down. She looks you over from behind the palisade with the flat arithmetic of someone who has counted many strangers and buried some.\n\nFar enough. This is a work camp of the honest tallow trade, travelers, and the wood\'s unsafe — wolves east, webs south. State your business or walk on.',
+        text: '*The sentry\'s horn gets halfway to his lips before a scarred woman in a chandler\'s leathers waves it down. She looks you over from behind the palisade with the flat arithmetic of someone who has counted many strangers and buried some.*\n\nFar enough. This is a work camp of the honest tallow trade, travelers, and the wood\'s unsafe — wolves east, webs south. State your business or walk on.',
         options: [
           {
             text: 'Give the route password Odo sold you.', tag: '[The Tallow Route]',
@@ -411,12 +411,12 @@ export const GLOAMWOOD_DIALOGUES: Record<string, DialogueDef> = {
       },
       'sorrel-pass': {
         speaker: 'Overseer Marsk',
-        text: 'The name lands like a dropped tool. Marsk glances at the sentry, then back, and something in the flat arithmetic shifts a decimal.\n\nSorrel talks to nobody outside the count. If she talked to YOU...\n\nShe chews it over, then jerks her head at the gate.\n\nWalk through. Touch nothing, hire nobody, and tell the quartermaster her sums are late.',
+        text: '*The name lands like a dropped tool. Marsk glances at the sentry, then back, and something in the flat arithmetic shifts a decimal.*\n\nSorrel talks to nobody outside the count. If she talked to YOU...\n\n*She chews it over, then jerks her head at the gate.*\n\nWalk through. Touch nothing, hire nobody, and tell the quartermaster her sums are late.',
         options: [{ text: 'Walk through the camp.', next: 'infiltrate' }],
       },
       'seen-through': {
         speaker: 'Overseer Marsk',
-        text: 'Marsk listens with her head tilted, like a woman checking a coin by ear — and hears the lead in it.\n\nBuyers know the freight-word. Buyers don\'t ride armed like a warden posse. And buyers, travelers, do not have HER walking behind them —\n\nShe points, with real regret, at the least deceptive member of your company.\n\nHorn. Gate. Sorry for your walk.',
+        text: '*Marsk listens with her head tilted, like a woman checking a coin by ear — and hears the lead in it.*\n\nBuyers know the freight-word. Buyers don\'t ride armed like a warden posse. And buyers, travelers, do not have HER walking behind them —\n\n*She points, with real regret, at the least deceptive member of your company.*\n\nHorn. Gate. Sorry for your walk.',
         options: [
           { text: 'The hard way, then.', next: 'fight' },
           { text: 'Fall back before the horn sounds.', next: '#end' },

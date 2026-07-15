@@ -25,8 +25,9 @@ function terrain(): string[] {
   b.rect(22, 5, 14, 1, '#');
   b.rect(12, 5, 1, 2, '#');
   b.rect(35, 5, 1, 2, '#');
-  // gate gap at 19-21 (door placed there)
-  b.set(19, 5, '.'); b.set(20, 5, '.'); b.set(21, 5, '.');
+  // gate: only the door tile (20,5) is passable — walls flank it at 19 and 21
+  // so the palisade can't be walked around while the door is shut.
+  b.set(20, 5, '.');
   // road continues north of gate briefly
   b.rect(19, 1, 3, 4, '.');
   // wrecked cart chokepoint on the road

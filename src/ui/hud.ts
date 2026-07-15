@@ -33,6 +33,12 @@ export class Hud {
     this.renderQuickActions();
   }
 
+  /** cheap refresh of just the party rail (HP/conditions) — safe to call often, e.g. on combat damage */
+  refreshVitals(): void {
+    if (!this.root || !this.app.controller.gs) return;
+    this.renderPartyRail();
+  }
+
   private renderTopbar(): void {
     const c = this.app.controller;
     const gs = c.gs;

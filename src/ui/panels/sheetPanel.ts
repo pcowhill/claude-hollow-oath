@@ -150,11 +150,13 @@ export const sheetPanel: PanelDef = {
       ${b.pendingLevel ? `<div class="levelup-banner"><span>${icon('upgrade')} A new level awaits.</span><button class="btn primary" data-levelup="1">Level Up to ${(app.gs.flags['pending-level-target'] as number) ?? b.level + 1}</button><button class="btn ghost small" data-tt="<div class='tt-line'>You can level up any time from this sheet.</div>">Postpone</button></div>` : ''}
       <div class="sheet-layout">
         <div class="sheet-left">
-          ${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor, 'large')}
-          <div class="sheet-ident">
-            <div>${species.name}${lineage ? ` (${lineage.name})` : ''}</div>
-            <div>${cls.name}${b.subclassId ? ` — ${cls.subclass.name}` : ''} ${b.level}</div>
-            <div class="muted">${bg.name}</div>
+          <div class="sheet-ident-row">
+            ${portraitImg(b.appearance.tokenIcon, b.appearance.tokenColor, 'large')}
+            <div class="sheet-ident">
+              <div>${species.name}${lineage ? ` (${lineage.name})` : ''}</div>
+              <div>${cls.name}${b.subclassId ? ` — ${cls.subclass.name}` : ''} ${b.level}</div>
+              <div class="muted">${bg.name}</div>
+            </div>
           </div>
           <div class="stat-grid">
             <div class="stat-box" data-tt="${ttEscape(`<div class='tt-title'>Armor Class</div>${computeAc(b, equip, (id) => app.controller.itemInstance(id)).parts.map((p) => `<div class='tt-line'>${p.value >= 0 ? '+' : ''}${p.value} ${p.label}</div>`).join('')}`)}"><div>${icon('shield')} AC</div><b>${ac.total}</b></div>

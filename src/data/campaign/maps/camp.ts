@@ -25,7 +25,8 @@ export const CAMP: MapDef = {
   height: 20,
   ambientLight: 'dim',
   biome: 'camp',
-  music: 'camp',
+  // 'camp' (Darkling) read as too intense for a firelit rest; use the calm ambient theme
+  music: 'title',
   terrain: terrain(),
   doors: [],
   containers: [

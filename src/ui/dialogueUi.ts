@@ -20,9 +20,13 @@ export class DialogueUi {
   }
 
   close(): void {
+    const hadRoot = !!this.root;
     this.root?.remove();
     this.root = null;
     this.pendingPartyChoice = null;
+    // Swallow the click that dismissed the dialogue so it doesn't fall through
+    // to the map and move the party.
+    if (hadRoot) this.app.markOverlayClosed();
   }
 
   render(): void {

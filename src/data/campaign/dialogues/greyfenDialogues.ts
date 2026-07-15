@@ -35,7 +35,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'A grey-cloaked woman with a quartermaster\'s eyes looks up from a map pinned with too many red markers.\n\nOutsiders. Good. My people are stretched across nine miles of wardstones and one graveyard that\'s developed opinions. I\'ll be plain: I\'m hiring swords and sense, and I don\'t much care which of those you lead with.',
+        text: '*A grey-cloaked woman with a quartermaster\'s eyes looks up from a map pinned with too many red markers.*\n\nOutsiders. Good. My people are stretched across nine miles of wardstones and one graveyard that\'s developed opinions. I\'ll be plain: I\'m hiring swords and sense, and I don\'t much care which of those you lead with.',
         interjections: [
           { companionId: 'korrin', text: 'Korrin stands at parade rest, jaw set. Kask\'s eyes pass over her once and do not come back. "Captain," Korrin says, to no reply.' },
         ],
@@ -48,7 +48,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       graves: {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'Nineteen headstones defaced since midsummer. Every unnamed grave has since... reopened. My wardens rebury, the Mission re-blesses, and a week later we do it all again. I need someone to find who\'s doing the chiseling — someone the town doesn\'t already know by cloak.\n\nShe taps the graveyard on the map.\n\nEvidence first. Accusations are cheap this season.',
+        text: 'Nineteen headstones defaced since midsummer. Every unnamed grave has since... reopened. My wardens rebury, the Mission re-blesses, and a week later we do it all again. I need someone to find who\'s doing the chiseling — someone the town doesn\'t already know by cloak.\n\n*She taps the graveyard on the map.*\n\nEvidence first. Accusations are cheap this season.',
         options: [
           { text: '"We\'ll take the work."', next: 'hired' },
           { text: '"Why would anyone erase names from graves?"', next: 'why-names' },
@@ -56,7 +56,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'why-names': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'A half-breath of hesitation. If you weren\'t watching for it, you\'d have missed it.\n\nVandals. Grave-robbers scaring off witnesses. Does the reason matter? Find the hands that hold the chisel.',
+        text: '*A half-breath of hesitation. If you weren\'t watching for it, you\'d have missed it.*\n\nVandals. Grave-robbers scaring off witnesses. Does the reason matter? Find the hands that hold the chisel.',
         options: [
           { text: '(Insight) "You hesitated, Captain."', check: { skill: 'insight', dc: 14, who: 'party-choice' }, onSuccess: 'hesitate-caught', onFail: 'hesitate-missed' },
           { text: '"As you say. We\'ll take the work."', next: 'hired' },
@@ -64,14 +64,14 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'hesitate-caught': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'Her jaw tightens — annoyance at you, or at herself.\n\nCaptains inherit the town\'s history along with its keys, and some of that history is need-to-know. Right now you need to know this: the names matter. Guard them. That is the whole of your brief.',
+        text: '*Her jaw tightens — annoyance at you, or at herself.*\n\nCaptains inherit the town\'s history along with its keys, and some of that history is need-to-know. Right now you need to know this: the names matter. Guard them. That is the whole of your brief.',
         options: [
           { text: '"Understood. For now."', next: 'hired', effects: [{ kind: 'add-clue', clueId: 'kask-knows' }] },
         ],
       },
       'hesitate-missed': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'She meets your gaze flatly, all cold procedure again.\n\nFind the hands. The rest is mine to carry.',
+        text: '*She meets your gaze flatly, all cold procedure again.*\n\nFind the hands. The rest is mine to carry.',
         options: [{ text: '"We\'ll take the work."', next: 'hired' }],
       },
       pay: {
@@ -84,7 +84,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'pay-up': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'The look she gives you could season soup.\n\nFifty. And you\'ll earn every copper of the insult.',
+        text: '*The look she gives you could season soup.*\n\nFifty. And you\'ll earn every copper of the insult.',
         options: [{ text: '"Fifty, then."', next: 'hired', effects: [{ kind: 'set-flag', key: 'kask-pay-raised', value: true }] }],
       },
       'pay-down': {
@@ -94,7 +94,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'korrin-jab': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'For the first time, the Captain looks directly at Korrin. Something old and tired moves behind her eyes.\n\nSergeant Vale was dismissed for insubordination, documented and witnessed. I don\'t reopen closed files.\n\nA beat.\n\nI am glad you\'re not dead, Vale. That opinion is also documented.',
+        text: '*For the first time, the Captain looks directly at Korrin. Something old and tired moves behind her eyes.*\n\nSergeant Vale was dismissed for insubordination, documented and witnessed. I don\'t reopen closed files.\n\n*A beat.*\n\nI am glad you\'re not dead, Vale. That opinion is also documented.',
         interjections: [
           { companionId: 'korrin', text: '"Touching. The far stones, Captain. When were they last walked — actually walked?" Kask does not answer.' },
         ],
@@ -122,7 +122,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       hired: {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'Then you\'re hired. Start at the graveyard — the gravedigger Rusk has catalogued every desecration like scripture. Talk to the widow Harrow; her husband\'s stone was the latest. And if you\'ve the stomach for cold nights, the desecrators work in the dark. A stakeout might catch chisels in hands.\n\nShe signs a chit without sitting down.\n\nEvidence. Then we act. In that order, outsider.',
+        text: 'Then you\'re hired. Start at the graveyard — the gravedigger Rusk has catalogued every desecration like scripture. Talk to the widow Harrow; her husband\'s stone was the latest. And if you\'ve the stomach for cold nights, the desecrators work in the dark. A stakeout might catch chisels in hands.\n\n*She signs a chit without sitting down.*\n\nEvidence. Then we act. In that order, outsider.',
         options: [
           { text: '"We\'ll arrange a stakeout tonight."', next: '#end', effects: [
             { kind: 'set-flag', key: 'kask-hired', value: true },
@@ -154,29 +154,29 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'evidence-1': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'You show her the wax droplet and describe the chisel-work. She holds the grey bead to the lamp for a long moment, and for exactly that moment she looks neither cold nor procedural. She looks afraid.\n\nSilver ash. That\'s... old practice. Older than this town likes to remember.\n\nThe mask reassembles itself.\n\nKeep pulling the thread. And keep this between us and the stones.',
+        text: '*You show her the wax droplet and describe the chisel-work. She holds the grey bead to the lamp for a long moment, and for exactly that moment she looks neither cold nor procedural. She looks afraid.*\n\nSilver ash. That\'s... old practice. Older than this town likes to remember.\n\n*The mask reassembles itself.*\n\nKeep pulling the thread. And keep this between us and the stones.',
         options: [{ text: '"What old practice, Captain?"', next: 'old-practice' }],
       },
       'old-practice': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'Funerary candles. The founders burned them at the first swearing — every schoolchild\'s history. What the schoolbooks omit is why the recipe was banned.\n\nShe rolls the map shut, conversation visibly ending.\n\nBring me who, outsider. Leave why to those who inherited it.',
+        text: 'Funerary candles. The founders burned them at the first swearing — every schoolchild\'s history. What the schoolbooks omit is why the recipe was banned.\n\n*She rolls the map shut, conversation visibly ending.*\n\nBring me who, outsider. Leave why to those who inherited it.',
         options: [{ text: 'Leave it — for now.', next: '#end', effects: [{ kind: 'add-clue', clueId: 'kask-knows' }] }],
       },
       'evidence-ilvane': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'You say the initial and the Captain goes very still — the stillness of someone hearing a name they have spent twelve years not saying.\n\nWhere did you find these letters.\n\nIt is not a question. You tell her anyway. She reads all of them, twice, and when she finishes, her voice is low and level and terribly careful.\n\nHer name is Ilvane. She was an archivist. She found something she should not have, and I... handled it badly. If she\'s come back to finish what she found — then this is no longer a vandalism case, and you should be better paid.\n\nShe counts out twenty gold, not meeting your eyes.',
+        text: '*You say the initial and the Captain goes very still — the stillness of someone hearing a name they have spent twelve years not saying.*\n\nWhere did you find these letters.\n\n*It is not a question. You tell her anyway. She reads all of them, twice, and when she finishes, her voice is low and level and terribly careful.*\n\nHer name is Ilvane. She was an archivist. She found something she should not have, and I... handled it badly. If she\'s come back to finish what she found — then this is no longer a vandalism case, and you should be better paid.\n\n*She counts out twenty gold, not meeting your eyes.*',
         options: [
           { text: '"What did she find?"', next: 'what-found', effects: [{ kind: 'gold', delta: 20 }, { kind: 'add-clue', clueId: 'ilvane-exile' }] },
         ],
       },
       'what-found': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'The truth, outsider. She found the truth, and the truth here is load-bearing.\n\nShe turns to the window, to the wardstone lights strung across the dark fen like a rosary.\n\nGo to the temple, if you can find your way in. Read what she read, if you must. Then come tell me, honestly, that you\'d have handled her any better.',
+        text: 'The truth, outsider. She found the truth, and the truth here is load-bearing.\n\n*She turns to the window, to the wardstone lights strung across the dark fen like a rosary.*\n\nGo to the temple, if you can find your way in. Read what she read, if you must. Then come tell me, honestly, that you\'d have handled her any better.',
         options: [{ text: 'Leave her to the window.', next: '#end', effects: [{ kind: 'quest', questId: 'main-hollow-oath', op: 'show-objective', objectiveId: 'find-temple-entrance' }] }],
       },
       confront: {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'You lay the true patrol ledger on her map, open to the weeks of matching ink. Kask looks at it for a long time. She does not touch it.\n\nSergeant Fell\'s hand. He falsified the far rounds for a year and I signed the summaries without walking them myself. That is the fact. Vale hung for the shape of it.\n\nShe finally looks up, and there is nothing behind her eyes but the truth, which is worse than anger.\n\nWhat do you intend to do with this?',
+        text: '*You lay the true patrol ledger on her map, open to the weeks of matching ink. Kask looks at it for a long time. She does not touch it.*\n\nSergeant Fell\'s hand. He falsified the far rounds for a year and I signed the summaries without walking them myself. That is the fact. Vale hung for the shape of it.\n\n*She finally looks up, and there is nothing behind her eyes but the truth, which is worse than anger.*\n\nWhat do you intend to do with this?',
         interjections: [
           { companionId: 'korrin', text: 'Korrin\'s voice comes out sanded flat. "You knew. Later than I said it, but you knew, and you left it." Kask does not deny it.' },
         ],
@@ -192,7 +192,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       depends: {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'Then know this: whatever you decide, I\'ll wear it. I\'ve carried worse for this town than embarrassment.\n\nA thin, humorless line of a smile.\n\nThat was almost the Warden\'s oath, once. "Carry it." We\'ve forgotten better oaths than that, lately.',
+        text: 'Then know this: whatever you decide, I\'ll wear it. I\'ve carried worse for this town than embarrassment.\n\n*A thin, humorless line of a smile.*\n\nThat was almost the Warden\'s oath, once. "Carry it." We\'ve forgotten better oaths than that, lately.',
         options: [{ text: 'Leave.', next: '#end' }],
       },
     },
@@ -206,7 +206,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Sergeant Brann Fell',
-        text: 'A broad warden with a genial face and busy hands — currently re-buckling a strap that didn\'t need it.\n\nHelp you? If it\'s about the graves, the Captain handles hiring. If it\'s about anything else, it\'s probably also the graves. Grim season.',
+        text: '*A broad warden with a genial face and busy hands — currently re-buckling a strap that didn\'t need it.*\n\nHelp you? If it\'s about the graves, the Captain handles hiring. If it\'s about anything else, it\'s probably also the graves. Grim season.',
         options: [
           { text: '"Tell me about the wardstone patrols."', next: 'patrols' },
           { text: '"You served with Korrin Vale?"', next: 'korrin-q' },
@@ -215,7 +215,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       patrols: {
         speaker: 'Sergeant Brann Fell',
-        text: 'Walked weekly, logged nightly, boring as porridge — which is how you want your wardstones.\n\nThe strap gets re-buckled a third time.\n\nWhy do you ask?',
+        text: 'Walked weekly, logged nightly, boring as porridge — which is how you want your wardstones.\n\n*The strap gets re-buckled a third time.*\n\nWhy do you ask?',
         options: [
           { text: '(Insight) "Because your hands are lying worse than your mouth."', check: { skill: 'insight', dc: 14, who: 'party-choice' }, onSuccess: 'hands', onFail: 'hands-fail' },
           { text: '"No reason. Thorough, that\'s all."', next: '#end' },
@@ -223,7 +223,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       hands: {
         speaker: 'Sergeant Brann Fell',
-        text: 'His hands go still. The genial face stays genial the way a mask stays anything.\n\nCareful, stranger. Some porridge is best left unstirred.\n\nHe walks off — briskly, for a man with nothing to hide, in the exact direction of the records room.',
+        text: '*His hands go still. The genial face stays genial the way a mask stays anything.*\n\nCareful, stranger. Some porridge is best left unstirred.\n\n*He walks off — briskly, for a man with nothing to hide, in the exact direction of the records room.*',
         options: [{ text: 'Note where he goes.', next: '#end', effects: [{ kind: 'set-flag', key: 'brann-suspicious', value: true }] }],
       },
       'hands-fail': {
@@ -233,7 +233,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'korrin-q': {
         speaker: 'Sergeant Brann Fell',
-        text: 'Nine years, shoulder to shoulder. Best sergeant this muster ever had, right up until she decided the rot mattered more than the roof.\n\nHe catches himself — a man stepping back from a ledge.\n\nUntil she made her accusations, I mean. Sad business. Give her my best, if you see her.',
+        text: 'Nine years, shoulder to shoulder. Best sergeant this muster ever had, right up until she decided the rot mattered more than the roof.\n\n*He catches himself — a man stepping back from a ledge.*\n\nUntil she made her accusations, I mean. Sad business. Give her my best, if you see her.',
         interjections: [
           { companionId: 'korrin', text: 'Korrin, from the doorway: "The rot, Brann? Interesting word. I said \'errors\'." Fell\'s face does something complicated and settles on misery.' },
         ],
@@ -241,7 +241,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       caught: {
         speaker: 'Sergeant Brann Fell',
-        text: 'He sees the ledger under your arm and ages ten years standing up.\n\nSo. You want the why, I suppose. The why is: the far stones are a night\'s march through bog that eats boots, we were six wardens down, and nothing had come out of that fen in ninety years. So I inked the rounds and slept, and the whole muster slept, and it was fine — it was FINE — right up until it wasn\'t.\n\nHe sits down heavily on an ammunition crate.\n\nVale caught it in a month. Imagine being that good, and the reward being what she got.',
+        text: '*He sees the ledger under your arm and ages ten years standing up.*\n\nSo. You want the why, I suppose. The why is: the far stones are a night\'s march through bog that eats boots, we were six wardens down, and nothing had come out of that fen in ninety years. So I inked the rounds and slept, and the whole muster slept, and it was fine — it was FINE — right up until it wasn\'t.\n\n*He sits down heavily on an ammunition crate.*\n\nVale caught it in a month. Imagine being that good, and the reward being what she got.',
         options: [
           { text: '"Testify. To Kask, in writing."', next: 'testify' },
           { text: '(Intimidation) "You\'ll wear this alone if you don\'t help us."', check: { skill: 'intimidation', dc: 12, who: 'speaker' }, onSuccess: 'testify', onFail: 'no-testify' },
@@ -250,12 +250,12 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       testify: {
         speaker: 'Sergeant Brann Fell',
-        text: 'He nods slowly, like a man agreeing to surgery.\n\nAye. Aye, I\'ll put my name to it. It\'s the only thing I\'ve not falsified in a year — may as well be attached to something true.\n\nA broken little laugh.\n\nTell Vale... no. I\'ll tell her myself. That\'s rather the point, isn\'t it.',
+        text: '*He nods slowly, like a man agreeing to surgery.*\n\nAye. Aye, I\'ll put my name to it. It\'s the only thing I\'ve not falsified in a year — may as well be attached to something true.\n\n*A broken little laugh.*\n\nTell Vale... no. I\'ll tell her myself. That\'s rather the point, isn\'t it.',
         options: [{ text: 'Leave him to write.', next: '#end', effects: [{ kind: 'set-flag', key: 'brann-testified', value: true }, { kind: 'approval', companionId: 'korrin', delta: 3, reason: 'making Fell face it' }] }],
       },
       'no-testify': {
         speaker: 'Sergeant Brann Fell',
-        text: 'The genial mask comes back up, waxen now.\n\nI\'ve worn worse than this, stranger. You do what you must with your book. I\'ll do what I always do.\n\nHe walks away. His hands, you notice, have finally stopped moving.',
+        text: '*The genial mask comes back up, waxen now.*\n\nI\'ve worn worse than this, stranger. You do what you must with your book. I\'ll do what I always do.\n\n*He walks away. His hands, you notice, have finally stopped moving.*',
         options: [{ text: 'Let him go.', next: '#end' }],
       },
     },
@@ -269,7 +269,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Mother Ashwin Reed',
-        text: 'The Mission smells of beeswax and bread. A big woman with flour on her sleeves and a stole over one shoulder sets down a mixing bowl to greet you — priest and quartermaster of grief in one.\n\nTravelers. Sit, there\'s tea. You\'ve the look of people the Captain has already hired, so I\'ll skip to what she won\'t say: the dead of this town aren\'t rising out of malice. They\'re rising because we are failing them. The rites don\'t hold.',
+        text: '*The Mission smells of beeswax and bread. A big woman with flour on her sleeves and a stole over one shoulder sets down a mixing bowl to greet you — priest and quartermaster of grief in one.*\n\nTravelers. Sit, there\'s tea. You\'ve the look of people the Captain has already hired, so I\'ll skip to what she won\'t say: the dead of this town aren\'t rising out of malice. They\'re rising because we are failing them. The rites don\'t hold.',
         interjections: [
           { companionId: 'ondine', text: '"Mother." Ondine\'s greeting carries a weight you can\'t quite parse — affection with a stone folded inside it.' },
         ],
@@ -281,7 +281,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       rites: {
         speaker: 'Mother Ashwin Reed',
-        text: 'Because burial here was never only prayer, whatever my order pretends. This town made an arrangement, long ago — the dead are given INTO something\'s keeping. Lately, the keeping fails. Either the keeper is weakening...\n\nShe wipes her hands, suddenly briskly angry.\n\n...or somebody is picking the lock. Names gone from stones. Our vesper bell stolen — the one note that still quiets the poor things. Ask me, someone is dismantling the arrangement bolt by bolt.',
+        text: 'Because burial here was never only prayer, whatever my order pretends. This town made an arrangement, long ago — the dead are given INTO something\'s keeping. Lately, the keeping fails. Either the keeper is weakening...\n\n*She wipes her hands, suddenly briskly angry.*\n\n...or somebody is picking the lock. Names gone from stones. Our vesper bell stolen — the one note that still quiets the poor things. Ask me, someone is dismantling the arrangement bolt by bolt.',
         options: [
           { text: '"Tell me about the bell."', next: 'bell' },
           { text: '"What arrangement? With what?"', next: 'arrangement' },
@@ -289,7 +289,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       arrangement: {
         speaker: 'Mother Ashwin Reed',
-        text: 'The founders called it the Covenant and wrote down as little as founders always do. The Mission inherited the rites; the Wardens inherited the rest, and guard it like a wound.\n\nShe leans in, flour and iron.\n\nHere is my heresy, freely given: whatever keeps our dead has kept them for two hundred years without a single day of thanks. If it is failing, perhaps it is TIRED. And perhaps the answer isn\'t a stronger lock. It\'s a fairer bargain.',
+        text: 'The founders called it the Covenant and wrote down as little as founders always do. The Mission inherited the rites; the Wardens inherited the rest, and guard it like a wound.\n\n*She leans in, flour and iron.*\n\nHere is my heresy, freely given: whatever keeps our dead has kept them for two hundred years without a single day of thanks. If it is failing, perhaps it is TIRED. And perhaps the answer isn\'t a stronger lock. It\'s a fairer bargain.',
         options: [{ text: '"Noted, Mother."', next: 'need', effects: [{ kind: 'faction', factionId: 'dawnkeepers', delta: 2 }] }],
       },
       bell: {
@@ -304,7 +304,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       need: {
         speaker: 'Mother Ashwin Reed',
-        text: 'Two kindnesses, if you\'re taking commissions. Senna Harrow, by the graveyard — her husband was buried three times and stays buried zero. She needs more than prayer; she may need what you carry.\n\nShe hands you a grave-candle, corpse-wax and silver ash.\n\nAnd if your road crosses our bell, bring it home. The Mission pays in healing, blessing, and the kind of gratitude that outlives us both.',
+        text: 'Two kindnesses, if you\'re taking commissions. Senna Harrow, by the graveyard — her husband was buried three times and stays buried zero. She needs more than prayer; she may need what you carry.\n\n*She hands you a grave-candle, corpse-wax and silver ash.*\n\nAnd if your road crosses our bell, bring it home. The Mission pays in healing, blessing, and the kind of gratitude that outlives us both.',
         options: [
           { text: '"We\'ll see to Senna."', next: '#end', effects: [
             { kind: 'quest', questId: 'side-widows-husband', op: 'start' },
@@ -322,12 +322,12 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'rite-detail-fail': {
         speaker: 'Mother Ashwin Reed',
-        text: 'She explains censing order and committal formulae until your ears fog. The gist survives translation: the rites are done correctly, and they fail anyway.',
+        text: '*She explains censing order and committal formulae until your ears fog. The gist survives translation: the rites are done correctly, and they fail anyway.*',
         options: [{ text: '"What do you need from us?"', next: 'need' }],
       },
       'flame-known': {
         speaker: 'Mother Ashwin Reed',
-        text: 'She knows before you speak — perhaps from Ondine\'s face, perhaps from yours.\n\nThe Flame. You\'ve found out what it\'s plumbed into.\n\nShe sits down, slowly, among the bread and the beeswax.\n\nForty years I have preached beneath that light. Go on, then. Say it plainly. I find I want it plain.',
+        text: '*She knows before you speak — perhaps from Ondine\'s face, perhaps from yours.*\n\nThe Flame. You\'ve found out what it\'s plumbed into.\n\n*She sits down, slowly, among the bread and the beeswax.*\n\nForty years I have preached beneath that light. Go on, then. Say it plainly. I find I want it plain.',
         interjections: [
           { companionId: 'ondine', text: 'Ondine kneels by her chair, taking her floured hand. "Plainly, then, Mother: the founders lit it off the ward-line as a gauge. Our miracle is a borrowed lamp." The silence afterward is a fourth funeral bell.' },
         ],
@@ -338,12 +338,12 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'reed-reads': {
         speaker: 'Mother Ashwin Reed',
-        text: 'She reads every page. Twice. Then she folds the schematics, sets them by the bread, and laughs — one short, shocking, genuine laugh.\n\nBorrowed light is still light. But we will not preach a gauge as a god, not one more evening.\n\nShe stands, decisions visibly assembling.\n\nThere will be shouting. There may be schism. But the Dawnkeepers will hold their next vigil by honest candles, and we will see what we look like by them.',
+        text: '*She reads every page. Twice. Then she folds the schematics, sets them by the bread, and laughs — one short, shocking, genuine laugh.*\n\nBorrowed light is still light. But we will not preach a gauge as a god, not one more evening.\n\n*She stands, decisions visibly assembling.*\n\nThere will be shouting. There may be schism. But the Dawnkeepers will hold their next vigil by honest candles, and we will see what we look like by them.',
         options: [{ text: 'Leave her to the reckoning.', next: '#end', effects: [{ kind: 'faction', factionId: 'dawnkeepers', delta: 4 }, { kind: 'journal', title: 'The Borrowed Flame', body: 'Mother Reed took the truth of the Undying Flame the way she takes everything: head-on. The Mission will face its own miracle honestly.' }] }],
       },
       'reed-soft': {
         speaker: 'Mother Ashwin Reed',
-        text: 'Under study.\n\nShe looks at you for a long, level moment — a woman who has heard forty years of last words and knows the taste of a curated one.\n\nWell. Scholars must study. Come back when the mystery ripens, won\'t you.\n\nThe tea, when she pours it, is exactly as warm as before. Somehow that makes it worse.',
+        text: 'Under study.\n\n*She looks at you for a long, level moment — a woman who has heard forty years of last words and knows the taste of a curated one.*\n\nWell. Scholars must study. Come back when the mystery ripens, won\'t you.\n\n*The tea, when she pours it, is exactly as warm as before. Somehow that makes it worse.*',
         options: [{ text: 'Leave.', next: '#end' }],
       },
     },
@@ -354,7 +354,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Brother Calder',
-        text: 'A young priest with ink-stained cuffs and eyes that burn a degree too hot arranges the alms-table like a battle line.\n\nPilgrims? No — sellswords. Well, the Dawn takes all comers. Salves, blessings, honest prices. And if you find the ones unmaking our graves... \n\nHe smooths his voice back down with visible effort.\n\n...bring them to justice. Whatever that word still means here.',
+        text: '*A young priest with ink-stained cuffs and eyes that burn a degree too hot arranges the alms-table like a battle line.*\n\nPilgrims? No — sellswords. Well, the Dawn takes all comers. Salves, blessings, honest prices. And if you find the ones unmaking our graves... \n\n*He smooths his voice back down with visible effort.*\n\n...bring them to justice. Whatever that word still means here.',
         options: [
           { text: '"What would YOU do with them, Brother?"', next: 'what-do' },
           { text: 'Browse the alms-table.', next: '#end', effects: [{ kind: 'open-shop', shopId: 'mission-alms' }] },
@@ -363,7 +363,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'what-do': {
         speaker: 'Brother Calder',
-        text: 'For a heartbeat, something unguarded: envy, maybe, or recognition.\n\nI\'d ask them WHY. Everyone assumes monsters. But suppose you truly believed the dead were enslaved by our rites — wouldn\'t unmaking the chains be... mercy?\n\nHe catches Mother Reed\'s eye across the room and becomes exceedingly busy with the salves.\n\nHypothetically. Sermon-craft. Do you want the discount blessing or not?',
+        text: '*For a heartbeat, something unguarded: envy, maybe, or recognition.*\n\nI\'d ask them WHY. Everyone assumes monsters. But suppose you truly believed the dead were enslaved by our rites — wouldn\'t unmaking the chains be... mercy?\n\n*He catches Mother Reed\'s eye across the room and becomes exceedingly busy with the salves.*\n\nHypothetically. Sermon-craft. Do you want the discount blessing or not?',
         options: [
           { text: '(Insight) That wasn\'t hypothetical.', check: { skill: 'insight', dc: 13, who: 'party-choice' }, onSuccess: 'calder-read', onFail: 'calder-missed' },
           { text: '"The discount blessing, sure."', next: '#end', effects: [{ kind: 'open-shop', shopId: 'mission-alms' }] },
@@ -387,7 +387,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Hetta Malm',
-        text: 'The Drowned Lantern\'s keeper polishes a tankard that gave up being dirty years ago.\n\nBeds are two silver, stew\'s free with the bed, gossip\'s free with the stew. You have the look of people who came for the third thing.',
+        text: '*The Drowned Lantern\'s keeper polishes a tankard that gave up being dirty years ago.*\n\nBeds are two silver, stew\'s free with the bed, gossip\'s free with the stew. You have the look of people who came for the third thing.',
         options: [
           { text: '"What\'s the town saying about the graves?"', next: 'gossip' },
           { text: '"Anything odd on the roads?"', next: 'roads' },
@@ -396,7 +396,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       gossip: {
         speaker: 'Hetta Malm',
-        text: 'Depends which table you sit at. Warden table says vandals. Mission table says judgment. Pier table...\n\nShe leans in, tankard forgotten.\n\n...pier table says the CANDLES. Grey tallow, silver flecks. Someone\'s been buying corpse-tallow through the docks all season, in crates stamped eel-oil. My cousin loads freight. Eel-oil doesn\'t smell like a church, dear.',
+        text: 'Depends which table you sit at. Warden table says vandals. Mission table says judgment. Pier table...\n\n*She leans in, tankard forgotten.*\n\n...pier table says the CANDLES. Grey tallow, silver flecks. Someone\'s been buying corpse-tallow through the docks all season, in crates stamped eel-oil. My cousin loads freight. Eel-oil doesn\'t smell like a church, dear.',
         options: [
           { text: '"Which warehouse?"', next: 'warehouse', effects: [{ kind: 'add-clue', clueId: 'tallow-smell' }, { kind: 'quest', questId: 'side-tallow-trade', op: 'start' }] },
         ],
@@ -413,7 +413,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       stew: {
         speaker: 'Hetta Malm',
-        text: 'Eel and barley, better than it has a right to be. She watches you eat with the satisfaction of a woman winning a war nobody else can see.\n\nThat\'s marsh eel, that is. Fen takes; fen gives. Worth remembering, the way this season\'s going.',
+        text: '*Eel and barley, better than it has a right to be. She watches you eat with the satisfaction of a woman winning a war nobody else can see.*\n\nThat\'s marsh eel, that is. Fen takes; fen gives. Worth remembering, the way this season\'s going.',
         options: [{ text: 'Finish the bowl.', next: '#end', effects: [{ kind: 'heal-party', amount: 4 }] }],
       },
     },
@@ -424,7 +424,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Odo Brack',
-        text: 'The back room smells of tar, coin, and river. A neat, heavy man with rings on working fingers deals himself a hand of cards he doesn\'t look at.\n\nStrangers with warden-chits in their pockets, in my parlor. Sit. Everything here is legal, insured, or interesting — sometimes all three. Which do you need?',
+        text: '*The back room smells of tar, coin, and river. A neat, heavy man with rings on working fingers deals himself a hand of cards he doesn\'t look at.*\n\nStrangers with warden-chits in their pockets, in my parlor. Sit. Everything here is legal, insured, or interesting — sometimes all three. Which do you need?',
         interjections: [
           { companionId: 'pip', text: '"Odo." Pip\'s grin is nostalgic and wary in equal measure. "Still charging interest on favors?" — "Compound," says Odo, fondly.' },
         ],
@@ -436,7 +436,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'compact-view': {
         speaker: 'Odo Brack',
-        text: 'The Compact makes what it always makes: a living, carefully. The fen\'s gone strange, the deep channels are emptying of everything with sense, and freight nobody should want moves at prices nobody should pay.\n\nHe finally looks at his cards, sighs, folds.\n\nMy folk didn\'t break your graves. But somebody\'s paying route-fees in memory-glass, and that coin only comes from one aunt\'s purse.',
+        text: 'The Compact makes what it always makes: a living, carefully. The fen\'s gone strange, the deep channels are emptying of everything with sense, and freight nobody should want moves at prices nobody should pay.\n\n*He finally looks at his cards, sighs, folds.*\n\nMy folk didn\'t break your graves. But somebody\'s paying route-fees in memory-glass, and that coin only comes from one aunt\'s purse.',
         options: [
           { text: '"Memory-glass?"', next: 'memory-glass' },
           { text: '"Whose routes carry that freight?"', next: 'tallow' },
@@ -444,12 +444,12 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'memory-glass': {
         speaker: 'Odo Brack',
-        text: 'Vessa Marrow\'s trade. The Kindly Aunt, out past the Gloamwood. She buys what you\'d rather not keep — fair terms, witnessed — and bottles it. Some fools sell their worst day; some sell other people\'s best ones, which is where the Compact and I have a POLICY disagreement.\n\nHe taps the table, done with the subject.\n\nDon\'t bargain with her tired, hungry, or in love. That\'s free.',
+        text: 'Vessa Marrow\'s trade. The Kindly Aunt, out past the Gloamwood. She buys what you\'d rather not keep — fair terms, witnessed — and bottles it. Some fools sell their worst day; some sell other people\'s best ones, which is where the Compact and I have a POLICY disagreement.\n\n*He taps the table, done with the subject.*\n\nDon\'t bargain with her tired, hungry, or in love. That\'s free.',
         options: [{ text: '"Noted."', next: 'tallow', effects: [{ kind: 'add-clue', clueId: 'vessa-trade' }] }],
       },
       tallow: {
         speaker: 'Odo Brack',
-        text: 'So you found the candle crates. Good nose.\n\nHe considers you for a slow hand of solitaire.\n\nHere\'s my position: that freight moves on MY routes, paid in advance by hooded customers I never much liked. I don\'t break contracts. But contracts have... interpretations. What are you offering, and what are you asking?',
+        text: 'So you found the candle crates. Good nose.\n\n*He considers you for a slow hand of solitaire.*\n\nHere\'s my position: that freight moves on MY routes, paid in advance by hooded customers I never much liked. I don\'t break contracts. But contracts have... interpretations. What are you offering, and what are you asking?',
         options: [
           { text: '"A sting. Help us catch the buyers; the Wardens stay off your docks."', check: { skill: 'persuasion', dc: 13, who: 'speaker' }, onSuccess: 'sting-yes', onFail: 'sting-no' },
           { text: '"Nothing. We burn the route tonight."', next: 'burn-route' },
@@ -459,7 +459,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'sting-yes': {
         speaker: 'Odo Brack',
-        text: 'A sting. With the Compact\'s hands publicly clean and the Wardens publicly grateful.\n\nHe smiles, and for a moment you see why the river runs through this man\'s ledgers.\n\nDone. Next shipment is Thirdday, low tide, the Causeway smuggler\'s dock. My people will be conveniently elsewhere. Do try to arrest the customers and not the scenery.',
+        text: 'A sting. With the Compact\'s hands publicly clean and the Wardens publicly grateful.\n\n*He smiles, and for a moment you see why the river runs through this man\'s ledgers.*\n\nDone. Next shipment is Thirdday, low tide, the Causeway smuggler\'s dock. My people will be conveniently elsewhere. Do try to arrest the customers and not the scenery.',
         options: [{ text: '"Thirdday. Done."', next: '#end', effects: [
           { kind: 'set-flag', key: 'tallow-sting', value: true },
           { kind: 'quest', questId: 'side-tallow-trade', op: 'objective-done', objectiveId: 'find-source' },
@@ -471,7 +471,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'sting-no': {
         speaker: 'Odo Brack',
-        text: 'Tempting. But you\'re asking me to spend trust I banked over twenty years on strangers I met over one card game.\n\nHe deals again, gently final.\n\nCome back with more weight, or take the honest option: buy the route like anyone else.',
+        text: 'Tempting. But you\'re asking me to spend trust I banked over twenty years on strangers I met over one card game.\n\n*He deals again, gently final.*\n\nCome back with more weight, or take the honest option: buy the route like anyone else.',
         options: [
           { text: '"Then sell us the route."', next: 'infiltrate' },
           { text: 'Leave.', next: '#end' },
@@ -479,7 +479,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'sting-cowed': {
         speaker: 'Odo Brack',
-        text: 'The rings stop moving on the table. When he speaks again the friendliness is gone, and what remains is riverbed-cold and just as practical.\n\nSting it is. Thirdday, low tide, smuggler\'s dock. And when this is over, we won\'t know each other — that\'s the interest on threats, in my parlor.',
+        text: '*The rings stop moving on the table. When he speaks again the friendliness is gone, and what remains is riverbed-cold and just as practical.*\n\nSting it is. Thirdday, low tide, smuggler\'s dock. And when this is over, we won\'t know each other — that\'s the interest on threats, in my parlor.',
         options: [{ text: 'Take the win.', next: '#end', effects: [
           { kind: 'set-flag', key: 'tallow-sting', value: true },
           { kind: 'quest', questId: 'side-tallow-trade', op: 'objective-done', objectiveId: 'find-source' },
@@ -489,12 +489,12 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'intimidate-backfire': {
         speaker: 'Odo Brack',
-        text: 'He laughs — genuinely, delightedly, the laugh of a man who has been threatened by professionals.\n\nOh, WARRANTS. Friend, I hold paper on half the people who\'d sign one.\n\nHe sweeps up his cards.\n\nShelf\'s open if you want to trade like adults. Door\'s behind you either way.',
+        text: '*He laughs — genuinely, delightedly, the laugh of a man who has been threatened by professionals.*\n\nOh, WARRANTS. Friend, I hold paper on half the people who\'d sign one.\n\n*He sweeps up his cards.*\n\nShelf\'s open if you want to trade like adults. Door\'s behind you either way.',
         options: [{ text: 'Withdraw with what dignity remains.', next: '#end', effects: [{ kind: 'faction', factionId: 'compact', delta: -2 }] }],
       },
       'burn-route': {
         speaker: 'Odo Brack',
-        text: 'His face closes like a ledger.\n\nThen we\'re done talking, and you should know the Causeway crossing has a toll gang with strong opinions about warden-friends.\n\nHe turns over the top card of the deck without looking: spades.\n\nMind the tide.',
+        text: '*His face closes like a ledger.*\n\nThen we\'re done talking, and you should know the Causeway crossing has a toll gang with strong opinions about warden-friends.\n\n*He turns over the top card of the deck without looking: spades.*\n\nMind the tide.',
         options: [{ text: 'Leave.', next: '#end', effects: [
           { kind: 'set-flag', key: 'tallow-burn', value: true },
           { kind: 'quest', questId: 'side-tallow-trade', op: 'objective-done', objectiveId: 'find-source' },
@@ -504,7 +504,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       infiltrate: {
         speaker: 'Odo Brack',
-        text: 'Now THAT is a transaction.\n\nHe writes three words and a tide-time on a cigarette paper and slides it across for thirty gold.\n\nPassword changes Thirdday. The customers wear hoods and pay well, and if you happen to be wearing hoods and paying well, who am I to sort ghosts by their tailors?',
+        text: 'Now THAT is a transaction.\n\n*He writes three words and a tide-time on a cigarette paper and slides it across for thirty gold.*\n\nPassword changes Thirdday. The customers wear hoods and pay well, and if you happen to be wearing hoods and paying well, who am I to sort ghosts by their tailors?',
         options: [
           { text: 'Pay 30 gold for the route.', conditions: [{ kind: 'gold', value: 30 }], next: '#end', effects: [
             { kind: 'gold', delta: -30 },
@@ -524,7 +524,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Gran Tally',
-        text: 'An old woman mends a net with fingers like driftwood, feet bare on the cold boards. She doesn\'t look up, but she was tracking you three piers back.\n\nTown folk sick at the leather-works, fen gone sideways, and now armed strangers on my pier. Sit. Mind the net.',
+        text: '*An old woman mends a net with fingers like driftwood, feet bare on the cold boards. She doesn\'t look up, but she was tracking you three piers back.*\n\nTown folk sick at the leather-works, fen gone sideways, and now armed strangers on my pier. Sit. Mind the net.',
         options: [
           { text: '"Sick at the leather-works?"', next: 'sick' },
           { text: '"What do you mean, the fen\'s gone sideways?"', next: 'sideways' },
@@ -532,14 +532,14 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       sick: {
         speaker: 'Gran Tally',
-        text: 'Fen-rot. Three tanners grey and sweating, and Yara beside herself. Town physic shrugs; the old cure\'s been forgot — which is a thing that happens easily, lately.\n\nShe ties off a knot with sudden violence.\n\nI remember it. Marshbane: bogmyrtle where the water runs clean, grave-moss off TENDED stones, brewed bitter. My gran\'s gran pulled half the town through the wet-lung year with it.',
+        text: 'Fen-rot. Three tanners grey and sweating, and Yara beside herself. Town physic shrugs; the old cure\'s been forgot — which is a thing that happens easily, lately.\n\n*She ties off a knot with sudden violence.*\n\nI remember it. Marshbane: bogmyrtle where the water runs clean, grave-moss off TENDED stones, brewed bitter. My gran\'s gran pulled half the town through the wet-lung year with it.',
         options: [
           { text: '"Teach us the recipe."', next: 'recipe' },
         ],
       },
       recipe: {
         speaker: 'Gran Tally',
-        text: 'She recites it twice and makes you say it back like a catechism.\n\nMind the moss. It grows on graves that are LOVED — that\'s not poetry, that\'s the ingredient. Strip it careless and you thin what little tending those stones have left. Do it right: tend first, take after. The fen respects manners.',
+        text: '*She recites it twice and makes you say it back like a catechism.*\n\nMind the moss. It grows on graves that are LOVED — that\'s not poetry, that\'s the ingredient. Strip it careless and you thin what little tending those stones have left. Do it right: tend first, take after. The fen respects manners.',
         options: [
           { text: '"Tend first, take after. We have it."', next: '#end', effects: [
             { kind: 'quest', questId: 'side-marshbane', op: 'start' },
@@ -553,7 +553,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       sideways: {
         speaker: 'Gran Tally',
-        text: 'Eels running scared up-channel. Herons gone entirely. And the deep fen... child, I\'ve fished these waters sixty years, and for the first time the water feels like it\'s LOOKING BACK.\n\nShe finally raises her eyes to yours, and they are not old at all.\n\nWhatever sleeps under the middle marsh is turning over. Everything with legs or fins is getting out of the bed. You go poking at the temple — and you will, your sort always does — remember the animals had the right idea.',
+        text: 'Eels running scared up-channel. Herons gone entirely. And the deep fen... child, I\'ve fished these waters sixty years, and for the first time the water feels like it\'s LOOKING BACK.\n\n*She finally raises her eyes to yours, and they are not old at all.*\n\nWhatever sleeps under the middle marsh is turning over. Everything with legs or fins is getting out of the bed. You go poking at the temple — and you will, your sort always does — remember the animals had the right idea.',
         options: [{ text: '"We\'ll remember."', next: '#end', effects: [{ kind: 'add-clue', clueId: 'wolf-migration' }] }],
       },
     },
@@ -564,7 +564,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Ferryman Ulf',
-        text: 'A vast, gentle man coils rope beside a flat-bottomed ferry. He smiles at you like you might be someone he knows. It slowly becomes clear he isn\'t sure.\n\nMorning. Or — evening? Causeway run\'s two coppers. I know the channels like the back of my...\n\nHe looks at his hand a moment too long.\n\n...like the channels. Two coppers.',
+        text: '*A vast, gentle man coils rope beside a flat-bottomed ferry. He smiles at you like you might be someone he knows. It slowly becomes clear he isn\'t sure.*\n\nMorning. Or — evening? Causeway run\'s two coppers. I know the channels like the back of my...\n\n*He looks at his hand a moment too long.*\n\n...like the channels. Two coppers.',
         options: [
           { text: '"Take us to the Causeway."', next: 'go' },
           { text: '"How long have the memories been slipping, Ulf?"', next: 'memory' },
@@ -573,14 +573,14 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       memory: {
         speaker: 'Ferryman Ulf',
-        text: 'Since midsummer, they tell me. I wouldn\'t know — that\'s rather the trouble, isn\'t it.\n\nThe smile stays; something behind it flickers like a lamp in wind.\n\nI remember the channels. I remember my mother\'s boat-song. I\'ve decided those are the last two things I\'ll give it, whatever it is. A man should get to choose the order.',
+        text: 'Since midsummer, they tell me. I wouldn\'t know — that\'s rather the trouble, isn\'t it.\n\n*The smile stays; something behind it flickers like a lamp in wind.*\n\nI remember the channels. I remember my mother\'s boat-song. I\'ve decided those are the last two things I\'ll give it, whatever it is. A man should get to choose the order.',
         options: [
           { text: '"We\'re going to stop it, Ulf."', next: 'promise' },
         ],
       },
       promise: {
         speaker: 'Ferryman Ulf',
-        text: 'That\'s kind. People keep promising me things and writing them on my slate so I\'ll trust them tomorrow.\n\nHe shows you the slate: a dozen hands, a dozen promises. There is room left at the bottom.\n\nWant to sign?',
+        text: 'That\'s kind. People keep promising me things and writing them on my slate so I\'ll trust them tomorrow.\n\n*He shows you the slate: a dozen hands, a dozen promises. There is room left at the bottom.*\n\nWant to sign?',
         options: [
           { text: 'Sign the slate.', next: '#end', effects: [{ kind: 'set-flag', key: 'signed-ulf-slate', value: true }, { kind: 'approval', companionId: 'pip', delta: 2, reason: 'signing Ulf\'s slate' }, { kind: 'approval', companionId: 'ondine', delta: 2, reason: 'signing Ulf\'s slate' }, { kind: 'journal', title: 'Ulf\'s Slate', body: 'We signed the ferryman\'s slate of promises: we will stop the forgetting. He\'ll trust us tomorrow because of it.' }] },
           { text: '"Promises on slates wash off. We\'ll just do it."', next: '#end' },
@@ -588,7 +588,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       go: {
         speaker: 'Ferryman Ulf',
-        text: 'He hums his mother\'s boat-song as he poles you out — flawlessly, every verse. The channels part for him like old friends.',
+        text: '*He hums his mother\'s boat-song as he poles you out — flawlessly, every verse. The channels part for him like old friends.*',
         options: [{ text: 'Ride the ferry.', next: '#end', effects: [{ kind: 'transition', map: 'causeway', entry: 'dock' }] }],
       },
     },
@@ -599,7 +599,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Corvin',
-        text: 'A tidy merchant with a stall like a ship\'s hold — everything lashed, labeled, and priced twice.\n\nProvisions, gear, remedies! Also opinions, free with purchase. The road east is wolves, the water south is worse, and everyone still owing me money keeps FORGETTING, which I am beginning to take personally.',
+        text: '*A tidy merchant with a stall like a ship\'s hold — everything lashed, labeled, and priced twice.*\n\nProvisions, gear, remedies! Also opinions, free with purchase. The road east is wolves, the water south is worse, and everyone still owing me money keeps FORGETTING, which I am beginning to take personally.',
         options: [
           { text: 'Browse the goods.', next: '#end', effects: [{ kind: 'open-shop', shopId: 'corvin-goods' }] },
           { text: '"What are folk buying, lately?"', next: 'buying' },
@@ -607,7 +607,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       buying: {
         speaker: 'Corvin',
-        text: 'Rope, lamp-oil, and iron nails — the shopping list of a town that\'s stopped trusting its dead to stay put. Oh, and string. Everyone ties string on their fingers now. Remembrance string.\n\nHe wiggles his own stringed finger, rueful.\n\nMine\'s for my wife\'s name-day. I think. It had better be.',
+        text: 'Rope, lamp-oil, and iron nails — the shopping list of a town that\'s stopped trusting its dead to stay put. Oh, and string. Everyone ties string on their fingers now. Remembrance string.\n\n*He wiggles his own stringed finger, rueful.*\n\nMine\'s for my wife\'s name-day. I think. It had better be.',
         options: [{ text: 'Browse the goods.', next: '#end', effects: [{ kind: 'open-shop', shopId: 'corvin-goods' }] }],
       },
     },
@@ -618,7 +618,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Yara Stitch',
-        text: 'The leather-works smells of oak-bark and worry. A wiry woman with scarred forearms looks up from a half-tooled cuirass; behind her, three cots, three grey faces, three sets of ragged breathing.\n\nCustomers. Good — coin\'s scarce with my best hands down. Fen-rot, physic says, then shrugs like shrugging\'s a treatment.',
+        text: '*The leather-works smells of oak-bark and worry. A wiry woman with scarred forearms looks up from a half-tooled cuirass; behind her, three cots, three grey faces, three sets of ragged breathing.*\n\nCustomers. Good — coin\'s scarce with my best hands down. Fen-rot, physic says, then shrugs like shrugging\'s a treatment.',
         options: [
           { text: '"Gran Tally taught us a cure. We\'re gathering it."', conditions: [{ kind: 'quest-status', key: 'side-marshbane', value: 'active' }], next: 'cure-known' },
           { text: 'Browse arms and armor.', next: '#end', effects: [{ kind: 'open-shop', shopId: 'yara-armory' }] },
@@ -626,7 +626,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'cure-known': {
         speaker: 'Yara Stitch',
-        text: 'Something unclenches in her shoulders — the first good news this shop has had in a month.\n\nThen the forge-fire\'s yours whenever you\'ve the makings, and my prices bend for cure-bringers. Bogmyrtle and grave-moss, was it? My gran said the same. Everyone\'s grans knew. That\'s the bitter joke of this season — the fen\'s stealing exactly the things that used to save us from it.',
+        text: '*Something unclenches in her shoulders — the first good news this shop has had in a month.*\n\nThen the forge-fire\'s yours whenever you\'ve the makings, and my prices bend for cure-bringers. Bogmyrtle and grave-moss, was it? My gran said the same. Everyone\'s grans knew. That\'s the bitter joke of this season — the fen\'s stealing exactly the things that used to save us from it.',
         options: [{ text: '"We\'ll be quick."', next: '#end' }],
       },
     },
@@ -640,7 +640,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Senna Harrow',
-        text: 'She sits on her step in the graveyard\'s shadow, wrapped in a man\'s coat, watching the gate the way lighthouse-keepers watch water.\n\nYou\'re the ones the Captain hired. Good. Then I\'ll say to you what nobody official will hear: my Joram is still out there. Third burying and he STILL walks — to this door, some nights. He knocks. Politely. He was always polite.\n\nHer voice doesn\'t crack. It\'s had too much practice.\n\nI haven\'t opened it. Tell me that\'s right. Or tell me it isn\'t. Somebody TELL me something.',
+        text: '*She sits on her step in the graveyard\'s shadow, wrapped in a man\'s coat, watching the gate the way lighthouse-keepers watch water.*\n\nYou\'re the ones the Captain hired. Good. Then I\'ll say to you what nobody official will hear: my Joram is still out there. Third burying and he STILL walks — to this door, some nights. He knocks. Politely. He was always polite.\n\n*Her voice doesn\'t crack. It\'s had too much practice.*\n\nI haven\'t opened it. Tell me that\'s right. Or tell me it isn\'t. Somebody TELL me something.',
         options: [
           { text: '"You were right not to open it. But he\'s not gone — and we can help him rest."', next: 'help', effects: [{ kind: 'approval', companionId: 'ondine', delta: 2, reason: 'gentleness with Senna' }] },
           { text: '"What does he do when you don\'t answer?"', next: 'what-does' },
@@ -649,21 +649,21 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'what-does': {
         speaker: 'Senna Harrow',
-        text: 'Waits. An hour, sometimes two. Then walks back to the yard, and — this is the part I can\'t say at the Mission — he stops at the third stone from the wall and touches where his name used to be. Like a man patting his pockets for keys.\n\nShe finally looks at you.\n\nThey took his NAME, whoever they are. I think he\'s trying to come home because home is the only name he has left.',
+        text: 'Waits. An hour, sometimes two. Then walks back to the yard, and — this is the part I can\'t say at the Mission — he stops at the third stone from the wall and touches where his name used to be. Like a man patting his pockets for keys.\n\n*She finally looks at you.*\n\nThey took his NAME, whoever they are. I think he\'s trying to come home because home is the only name he has left.',
         options: [
           { text: '"Then we\'ll give him back the other one. Tonight, at his grave."', next: 'help', effects: [{ kind: 'add-clue', clueId: 'harrow-testimony' }] },
         ],
       },
       anchor: {
         speaker: 'Senna Harrow',
-        text: 'The stone. Yes. They chiseled his name off it a week after the burying, and the walking started two nights later.\n\nShe stands, decision arriving like weather.\n\nThe mason wants silver I don\'t have to re-cut it. If you can settle my Joram — name, rite, WHATEVER it takes — the Mission\'s candle is on the mantel and my thanks are worth little but you\'ll have them forever.',
+        text: 'The stone. Yes. They chiseled his name off it a week after the burying, and the walking started two nights later.\n\n*She stands, decision arriving like weather.*\n\nThe mason wants silver I don\'t have to re-cut it. If you can settle my Joram — name, rite, WHATEVER it takes — the Mission\'s candle is on the mantel and my thanks are worth little but you\'ll have them forever.',
         options: [
           { text: '"Tonight, at his grave."', next: 'help' },
         ],
       },
       help: {
         speaker: 'Senna Harrow',
-        text: 'Tonight, then. He rises with the late mist — you\'ll want to be at the yard by full dark.\n\nAt the door she pauses, her back to you.\n\nIf it comes to putting him down like a THING... be quick, and don\'t tell me the details. But if there\'s any of my Joram left in there — he liked plain speaking and hated fuss. Talk to him like that, and he\'ll meet you halfway. He always did.',
+        text: 'Tonight, then. He rises with the late mist — you\'ll want to be at the yard by full dark.\n\n*At the door she pauses, her back to you.*\n\nIf it comes to putting him down like a THING... be quick, and don\'t tell me the details. But if there\'s any of my Joram left in there — he liked plain speaking and hated fuss. Talk to him like that, and he\'ll meet you halfway. He always did.',
         options: [{ text: '"Plain speaking. We\'ll remember."', next: '#end', effects: [
           { kind: 'quest', questId: 'side-widows-husband', op: 'objective-done', objectiveId: 'talk-senna' },
           { kind: 'quest', questId: 'side-widows-husband', op: 'show-objective', objectiveId: 'visit-grave' },
@@ -672,7 +672,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'after-rest': {
         speaker: 'Senna Harrow',
-        text: 'The coat is folded over her arm now instead of around her shoulders — a small thing that says everything.\n\nThe knocking\'s stopped. Whatever you did out there... the house is just a house again. Quiet. I\'d forgotten quiet could be kind.\n\nShe presses a worn silver ring into your hand and will not take refusal.\n\nHis. He\'d want it working for the living. Go on.',
+        text: '*The coat is folded over her arm now instead of around her shoulders — a small thing that says everything.*\n\nThe knocking\'s stopped. Whatever you did out there... the house is just a house again. Quiet. I\'d forgotten quiet could be kind.\n\n*She presses a worn silver ring into your hand and will not take refusal.*\n\nHis. He\'d want it working for the living. Go on.',
         options: [{ text: 'Accept the ring.', next: '#end', once: true, effects: [{ kind: 'gold', delta: 15 }, { kind: 'approval', companionId: 'ondine', delta: 2, reason: 'seeing it through for Senna' }] }],
       },
     },
@@ -683,7 +683,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Tobin Rusk',
-        text: 'The gravedigger leans on his spade among the town graves, surveying the defaced stones like a general reading a bad map.\n\nCome to see the damage proper? Nineteen stones unnamed. I\'ve took to writing the names in my book, private-like, so SOMEBODY remembers.\n\nHe shows you: a battered ledger, names in a careful uneducated hand.\n\nThe dead don\'t read, mind. It\'s the stones that matter, some way I don\'t pretend to cipher.',
+        text: '*The gravedigger leans on his spade among the town graves, surveying the defaced stones like a general reading a bad map.*\n\nCome to see the damage proper? Nineteen stones unnamed. I\'ve took to writing the names in my book, private-like, so SOMEBODY remembers.\n\n*He shows you: a battered ledger, names in a careful uneducated hand.*\n\nThe dead don\'t read, mind. It\'s the stones that matter, some way I don\'t pretend to cipher.',
         options: [
           { text: '"Show me the freshest work."', next: 'fresh' },
           { text: '"Your book may matter more than you know. Keep it safe."', next: 'book' },
@@ -691,7 +691,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       fresh: {
         speaker: 'Tobin Rusk',
-        text: 'He walks you to the row by the east wall. The gouges are days old; on the third stone, the chisel slipped and bit deep, and whoever held it stopped to smooth the scar apologetically.\n\nSee that? They\'re SORRY. Sorriest vandals I ever heard tell of. And here—\n\nHis boot indicates bootprints, heavy with northern clay, leading to the wall and over.\n\n—they come and go by the Gloamwood side. Every time.',
+        text: '*He walks you to the row by the east wall. The gouges are days old; on the third stone, the chisel slipped and bit deep, and whoever held it stopped to smooth the scar apologetically.*\n\nSee that? They\'re SORRY. Sorriest vandals I ever heard tell of. And here—\n\n*His boot indicates bootprints, heavy with northern clay, leading to the wall and over.*\n\n—they come and go by the Gloamwood side. Every time.',
         options: [
           { text: 'Take rubbings and note the prints.', next: '#end', effects: [
             { kind: 'add-clue', clueId: 'chisel-marks' },
@@ -702,7 +702,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       book: {
         speaker: 'Tobin Rusk',
-        text: 'He clutches it a little tighter, absurdly moved.\n\nForty years folk called me a morbid old crow for my lists. Comes a season the lists are the last wall standing. Aye — I\'ll keep it safe. And a copy under the floor, since you put it that way.',
+        text: '*He clutches it a little tighter, absurdly moved.*\n\nForty years folk called me a morbid old crow for my lists. Comes a season the lists are the last wall standing. Aye — I\'ll keep it safe. And a copy under the floor, since you put it that way.',
         options: [{ text: '"Good man."', next: '#end', effects: [{ kind: 'set-flag', key: 'tobin-book-safe', value: true }, { kind: 'approval', companionId: 'elowen', delta: 2, reason: 'protecting the record' }] }],
       },
     },
@@ -713,7 +713,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Nim',
-        text: 'A small fierce person of perhaps eight regards you from the rickety ladder, upside down, with the gravity of a magistrate.\n\nYou\'re the sword-people. I know things, you know. NOBODY asks me. I saw the bell man AND I know the secret way and everyone just says "go home, Nim," like home isn\'t BORING.',
+        text: '*A small fierce person of perhaps eight regards you from the rickety ladder, upside down, with the gravity of a magistrate.*\n\nYou\'re the sword-people. I know things, you know. NOBODY asks me. I saw the bell man AND I know the secret way and everyone just says "go home, Nim," like home isn\'t BORING.',
         options: [
           { text: '"We\'re asking. Tell us about the bell man."', next: 'bell-man' },
           { text: '"A secret way where?"', next: 'secret-way' },
@@ -721,7 +721,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'bell-man': {
         speaker: 'Nim',
-        text: 'She rights herself, delighted to testify.\n\nThin as a heron. Carried the bell wrapped in a blanket like a BABY, down the pier stairs at low tide, and a boat with no lamp took him south. He was CRYING. Bell-stealers shouldn\'t get to cry, that\'s what I think.\n\nShe holds out a grubby palm.\n\nThat\'s worth a copper. Or a story about somewhere that isn\'t here.',
+        text: '*She rights herself, delighted to testify.*\n\nThin as a heron. Carried the bell wrapped in a blanket like a BABY, down the pier stairs at low tide, and a boat with no lamp took him south. He was CRYING. Bell-stealers shouldn\'t get to cry, that\'s what I think.\n\n*She holds out a grubby palm.*\n\nThat\'s worth a copper. Or a story about somewhere that isn\'t here.',
         options: [
           { text: 'Pay a copper and thank her like a proper witness.', next: '#end', effects: [
             { kind: 'add-clue', clueId: 'bell-theft-witness' },
@@ -733,12 +733,12 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       story: {
         speaker: 'Nim',
-        text: 'She listens with her whole body, hoarding every word — a child in a forgetting town, stockpiling other people\'s memories like firewood.\n\nGood story. You can have the secret way too, for that.',
+        text: '*She listens with her whole body, hoarding every word — a child in a forgetting town, stockpiling other people\'s memories like firewood.*\n\nGood story. You can have the secret way too, for that.',
         options: [{ text: '"Go on."', next: 'secret-way' }],
       },
       'secret-way': {
         speaker: 'Nim',
-        text: 'She checks theatrically for eavesdroppers.\n\nUnder the old temple hill, off the Gloamwood path, there\'s a fox-hole that ISN\'T. Stones inside, and cold air that smells like church. I fit all the way to a door with a bell-mark on it. Grown-ups mostly won\'t fit. Small grown-ups might.\n\nShe looks Pip over with professional assessment, if Pip is present, and nods once.',
+        text: '*She checks theatrically for eavesdroppers.*\n\nUnder the old temple hill, off the Gloamwood path, there\'s a fox-hole that ISN\'T. Stones inside, and cold air that smells like church. I fit all the way to a door with a bell-mark on it. Grown-ups mostly won\'t fit. Small grown-ups might.\n\n*She looks Pip over with professional assessment, if Pip is present, and nods once.*',
         options: [
           { text: '"You may have just saved us a war, Nim."', next: '#end', effects: [
             { kind: 'set-flag', key: 'nims-path', value: true },
@@ -754,7 +754,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
     nodes: {
       start: {
         speaker: 'Aldous Pell',
-        text: 'The shop ticks like a heart ward. An elderly clockmaker stands at his bench before a beautiful, half-assembled clock, holding a gear and looking at it with polite bafflement.\n\nGood day. Forgive me — I seem to be building this clock. It\'s fine work, whoever started it. I do hope he left notes.\n\nHe is not joking. His workbench is covered in notes. They are all in his handwriting.',
+        text: '*The shop ticks like a heart ward. An elderly clockmaker stands at his bench before a beautiful, half-assembled clock, holding a gear and looking at it with polite bafflement.*\n\nGood day. Forgive me — I seem to be building this clock. It\'s fine work, whoever started it. I do hope he left notes.\n\n*He is not joking. His workbench is covered in notes. They are all in his handwriting.*',
         options: [
           { text: '"You started it, Aldous. You\'re nearly done."', next: 'nearly-done' },
           { text: '(Investigation) Study the notes and the work.', check: { skill: 'investigation', dc: 12, who: 'party-choice' }, onSuccess: 'notes-good', onFail: 'notes-fail' },
@@ -762,7 +762,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'nearly-done': {
         speaker: 'Aldous Pell',
-        text: 'Am I? Yes — the hands are cut, see, and the chime train\'s laid out lovely. It only wants setting: the striking hour. I know it mattered. Seven? Nine? It was the whole POINT of the clock, the hour, and it\'s gone out of me like water out of cupped hands.\n\nHe sets the gear down with terrible care.\n\nAsk about, would you? Somebody in this town must remember what mattered to me. That used to be how towns worked.',
+        text: 'Am I? Yes — the hands are cut, see, and the chime train\'s laid out lovely. It only wants setting: the striking hour. I know it mattered. Seven? Nine? It was the whole POINT of the clock, the hour, and it\'s gone out of me like water out of cupped hands.\n\n*He sets the gear down with terrible care.*\n\nAsk about, would you? Somebody in this town must remember what mattered to me. That used to be how towns worked.',
         options: [{ text: '"We\'ll ask."', next: '#end', effects: [
           { kind: 'set-flag', key: 'aldous-quest', value: true },
           { kind: 'journal', title: 'The Clockmaker\'s Hour', body: 'Aldous can finish his masterwork if he knew the striking hour he chose — the hour that mattered. Someone in Greyfen must remember: perhaps Hetta, Tobin, or Mother Reed. (Set the clock at his bench when we know.)' },
@@ -796,7 +796,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       candle: {
         speaker: 'Joram Harrow',
-        text: 'The candle takes with a sound like an indrawn breath, and the smeared face resolves — tired, kind, embarrassed to be caught like this.\n\nOh, he says, in a voice like wind in a bottle. There I am. I\'d lost where I kept myself.\n\nHe looks at the blank stone, and understands it completely.\n\nThey took my name in the dark. Hooded folk. A woman spoke the orders — gentle-like, as if it grieved her. I can show you the FEEL of her voice, if you\'ve the candle-time. Or you can send me down. Senna needs the sleep more than I need the justice.',
+        text: '*The candle takes with a sound like an indrawn breath, and the smeared face resolves — tired, kind, embarrassed to be caught like this.*\n\nOh, he says, in a voice like wind in a bottle. There I am. I\'d lost where I kept myself.\n\n*He looks at the blank stone, and understands it completely.*\n\nThey took my name in the dark. Hooded folk. A woman spoke the orders — gentle-like, as if it grieved her. I can show you the FEEL of her voice, if you\'ve the candle-time. Or you can send me down. Senna needs the sleep more than I need the justice.',
         options: [
           { text: '"Testify first. Then rest — we\'ll carry it from there."', next: 'witness-choice' },
           { text: '"Rest now, Joram. We\'ll manage the justice."', next: 'rest', effects: [{ kind: 'quest', questId: 'side-widows-husband', op: 'resolve', resolution: 'rested' }] },
@@ -804,7 +804,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'witness-choice': {
         speaker: 'Joram Harrow',
-        text: 'He gives his testimony the way he must have tanned hides: thoroughly, without drama. Hooded figures, tallow-light, a woman\'s cultured voice apologizing while the chisel worked. When he finishes, the candle is half gone.\n\nThere\'s enough wax left for one thing more: my rest, or my WATCH. I could linger by the yard — see their faces proper next time. Costs me though. Costs Senna, more like. Choose, friend. You\'ve the whole of me either way.',
+        text: '*He gives his testimony the way he must have tanned hides: thoroughly, without drama. Hooded figures, tallow-light, a woman\'s cultured voice apologizing while the chisel worked. When he finishes, the candle is half gone.*\n\nThere\'s enough wax left for one thing more: my rest, or my WATCH. I could linger by the yard — see their faces proper next time. Costs me though. Costs Senna, more like. Choose, friend. You\'ve the whole of me either way.',
         options: [
           { text: '"Rest. Your watch is over; ours is starting."', next: 'rest', effects: [{ kind: 'add-clue', clueId: 'harrow-testimony' }, { kind: 'quest', questId: 'side-widows-husband', op: 'resolve', resolution: 'rested' }, { kind: 'approval', companionId: 'ondine', delta: 3, reason: 'choosing his peace' }] },
           { text: '"Linger. One more week — help us catch them."', next: 'linger', effects: [{ kind: 'add-clue', clueId: 'harrow-testimony' }, { kind: 'quest', questId: 'side-widows-husband', op: 'resolve', resolution: 'witness' }, { kind: 'approval', companionId: 'korrin', delta: 2, reason: 'a witness who volunteered' }, { kind: 'approval', companionId: 'ondine', delta: -2, reason: 'spending a dead man\'s peace' }] },
@@ -848,7 +848,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       plain: {
         speaker: 'Joram Harrow',
-        text: 'The shape stops. The blur of a face turns toward you with the painful attention of a deaf man reading lips.\n\nSenna, it says at last — the one word coming out whole and human. Then, apologetic even now: I keep going to the door. I know I oughtn\'t. Houses hold their shape better than yards, and I\'ve no name to hold MINE.\n\nHe gestures at the blank stone — exhibit A, your honor.',
+        text: '*The shape stops. The blur of a face turns toward you with the painful attention of a deaf man reading lips.*\n\nSenna, it says at last — the one word coming out whole and human. Then, apologetic even now: I keep going to the door. I know I oughtn\'t. Houses hold their shape better than yards, and I\'ve no name to hold MINE.\n\n*He gestures at the blank stone — exhibit A, your honor.*',
         options: [
           { text: '[Grave-candle] "Then borrow the candle\'s light and tell us who took it."', conditions: [{ kind: 'has-item', key: 'grave-candle' }], next: 'candle', effects: [{ kind: 'take-item', itemId: 'grave-candle' }] },
           { text: '"We\'ll have the name re-cut. Can you rest on a promise?"', next: 'promise-rest' },
@@ -857,7 +857,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'promise-rest': {
         speaker: 'Joram Harrow',
-        text: 'A promise. His non-face manages something rueful. Folk keep signing those lately.\n\nAye. Aye, I\'ll try resting on credit — Senna vouches for you, that\'s collateral enough for a tanner.\n\nHe settles into the earth by degrees, leaving last of all the impression of two fingers tipped to an absent hat.',
+        text: 'A promise. *His non-face manages something rueful.* Folk keep signing those lately.\n\nAye. Aye, I\'ll try resting on credit — Senna vouches for you, that\'s collateral enough for a tanner.\n\n*He settles into the earth by degrees, leaving last of all the impression of two fingers tipped to an absent hat.*',
         options: [{ text: 'Get the mason paid — 10 gold for the re-cutting.', conditions: [{ kind: 'gold', value: 10 }], next: '#end', effects: [
           { kind: 'gold', delta: -10 },
           { kind: 'quest', questId: 'side-widows-husband', op: 'objective-done', objectiveId: 'visit-grave' },
@@ -887,7 +887,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       talk: {
         speaker: 'Hooded Ritualist',
-        text: 'The kneeling one rises — a weathered woman with a quartermaster\'s bearing under the hood. The sickle-bearers look to her; she stays their hands with two fingers.\n\nWardens hire quicker blades every season. Listen, then, since you\'ve manners: we free the dead. Every name we lift is a link struck from a chain two hundred years old. You\'ve seen the walking ones — they are not our doing, they are the chain SLIPPING. We mean to strike it entire.',
+        text: '*The kneeling one rises — a weathered woman with a quartermaster\'s bearing under the hood. The sickle-bearers look to her; she stays their hands with two fingers.*\n\nWardens hire quicker blades every season. Listen, then, since you\'ve manners: we free the dead. Every name we lift is a link struck from a chain two hundred years old. You\'ve seen the walking ones — they are not our doing, they are the chain SLIPPING. We mean to strike it entire.',
         options: [
           { text: '"Freeing them? The forgetting is eating your own town alive."', next: 'forgetting' },
           { text: '(Insight) She believes every word — and doubts something anyway.', check: { skill: 'insight', dc: 13, who: 'party-choice' }, onSuccess: 'doubt', onFail: 'doubt-fail' },
@@ -896,7 +896,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       forgetting: {
         speaker: 'Hooded Ritualist',
-        text: 'A flinch — small, real, immediately mastered.\n\nThe Unbinder says the forgetting is the ward\'s death-rattle. That it ends when the last link parts.\n\nA silence. Grave-mist moves between you.\n\nI quarter her supplies. I count her candles. And I know a rattle from a FEEDING, stranger. But you don\'t abandon a surgery halfway because the patient screams.',
+        text: '*A flinch — small, real, immediately mastered.*\n\nThe Unbinder says the forgetting is the ward\'s death-rattle. That it ends when the last link parts.\n\n*A silence. Grave-mist moves between you.*\n\nI quarter her supplies. I count her candles. And I know a rattle from a FEEDING, stranger. But you don\'t abandon a surgery halfway because the patient screams.',
         options: [
           { text: '"Walk away tonight. Take your doubt to your Unbinder — and remember we let you."', next: 'release' },
           { text: '"Then you\'re under arrest. All of you. Quietly."', next: 'arrest' },
@@ -914,7 +914,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       release: {
         speaker: 'Hooded Ritualist',
-        text: 'She studies you for a long moment, then — carefully, so the sickle-bearers see it — sets a bundle of letters on the headstone.\n\nThe Unbinder\'s words, for your evidence. You\'ll come against us in the temple sooner or later; better you come knowing WHY.\n\nAt the wall she pauses, hood turned half back.\n\nSorrel. Quartermaster. If it ever comes to terms — I\'m the one who counts what things cost.',
+        text: '*She studies you for a long moment, then — carefully, so the sickle-bearers see it — sets a bundle of letters on the headstone.*\n\nThe Unbinder\'s words, for your evidence. You\'ll come against us in the temple sooner or later; better you come knowing WHY.\n\n*At the wall she pauses, hood turned half back.*\n\nSorrel. Quartermaster. If it ever comes to terms — I\'m the one who counts what things cost.',
         options: [{ text: 'Let them melt into the dark.', next: '#end', effects: [
           { kind: 'add-clue', clueId: 'ilvane-letters' },
           { kind: 'give-item', itemId: 'ravenna-letters' },
@@ -954,7 +954,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'warden-way': {
         speaker: 'Warden-Captain Maera Kask',
-        text: 'Kask nods once, and it is like a portcullis dropping — relief disguised as procedure.\n\nCurfew at dusk. Guard rotations doubled. It will cost this town its evenings and me its love, and it will WORK.\n\nMother Reed says nothing, which from her is a speech. Odo tips an imaginary hat and is gone before the first patrol forms up.',
+        text: '*Kask nods once, and it is like a portcullis dropping — relief disguised as procedure.*\n\nCurfew at dusk. Guard rotations doubled. It will cost this town its evenings and me its love, and it will WORK.\n\n*Mother Reed says nothing, which from her is a speech. Odo tips an imaginary hat and is gone before the first patrol forms up.*',
         interjections: [
           { companionId: 'korrin', text: '"It\'ll hold," Korrin says quietly. "It held me for twelve years." It is not entirely an endorsement.' },
           { companionId: 'pip', text: 'Pip watches the wardens measure the yard. "Curfews are for people with beds," they murmur. "Pier folk just got less safe, not more."' },
@@ -973,7 +973,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'mission-way': {
         speaker: 'Mother Ashwin Reed',
-        text: 'Reed\'s face opens like a window.\n\nA Vespers of Names. Yes. Every stone re-cut, every name SUNG, the whole town witness — let the chisels come against four hundred people who remember out loud.\n\nAnd so it happens: mason\'s silver from the Mission\'s roof fund, names called row by row, Tobin\'s battered ledger the order of service. Kask posts guards anyway, quietly. Even she sings the last verse.',
+        text: '*Reed\'s face opens like a window.*\n\nA Vespers of Names. Yes. Every stone re-cut, every name SUNG, the whole town witness — let the chisels come against four hundred people who remember out loud.\n\n*And so it happens: mason\'s silver from the Mission\'s roof fund, names called row by row, Tobin\'s battered ledger the order of service. Kask posts guards anyway, quietly. Even she sings the last verse.*',
         interjections: [
           { companionId: 'ondine', text: 'Ondine sings the descant, and for one evening carries no ledger of doubts at all.' },
           { companionId: 'elowen', text: '"Communal mnemonic reinforcement," Elowen notes thickly, wiping his eyes. "Extremely well documented. Shut up, Drear."' },
@@ -992,7 +992,7 @@ export const GREYFEN_DIALOGUES: Record<string, DialogueDef> = {
       },
       'compact-way': {
         speaker: 'Odo Brack',
-        text: 'Odo unpeels from the gate, suddenly a man of civic virtue.\n\nThe pier sees every boat, every boot, every hooded fool who thinks low tide is privacy. For a modest retainer — call it insurance — nothing will touch these stones unwatched again.\n\nIt works. It works UNSETTLINGLY well. Within a week, three would-be desecrators are delivered to the muster hall trussed like festival geese, and nobody asks the pier how.',
+        text: '*Odo unpeels from the gate, suddenly a man of civic virtue.*\n\nThe pier sees every boat, every boot, every hooded fool who thinks low tide is privacy. For a modest retainer — call it insurance — nothing will touch these stones unwatched again.\n\n*It works. It works UNSETTLINGLY well. Within a week, three would-be desecrators are delivered to the muster hall trussed like festival geese, and nobody asks the pier how.*',
         interjections: [
           { companionId: 'korrin', text: '"We\'ve deputized the smugglers," Korrin says. "I\'ve had worse commanding officers," she adds, which is the most alarming part.' },
         ],
